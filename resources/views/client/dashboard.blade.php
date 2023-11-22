@@ -76,10 +76,13 @@
                                 </a>
                             </li>
                         </ul>
-                        <button class="flex justify-start items-center rounded-xl space-x-3 py-4 px-4">
-                            <img class="w-[25px] z-10" src="/img/logout-icon.png" alt="logo" />
-                            <p class="font-normal z-10 text-sm">Logout</p>
-                        </button>
+                        <form action="/logout" method="POST">
+                            @csrf
+                            <button type="submit" class="flex justify-start items-center rounded-xl space-x-3 py-4 px-4">
+                                <img class="w-[25px] z-10" src="/img/logout-icon.png" alt="logo" />
+                                <p class="font-normal z-10 text-sm">Logout</p>
+                            </button>
+                        </form>
                     </div>
             </aside>
         </div>
@@ -93,10 +96,10 @@
                     <div class="flex items-center space-x-4">
                         <div
                             class="py-1 pl-4 pr-2 border-2 space-x-4 border-[#ED1C24] rounded-full flex items-center justify-between">
-                            <p class="text-sm font-semibold">John Doe</p>
+                            <p class="text-sm font-semibold">{{ Auth::user()->username }}</p>
                             <div class="grid place-items-center w-8 aspect-square bg-gray-600 rounded-full">
                                 <p class="m-0 font-base text-white">
-                                    J
+                                    {{ Auth::user()->username[0] }}
                                 </p>
                             </div>
                         </div>
