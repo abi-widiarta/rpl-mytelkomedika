@@ -10,19 +10,14 @@ class LoginController extends Controller
     public function authenticate(Request $request)
     {
         $credentials = $request->validate([
-            'username' => 'required|max:15',
+            'username' => 'required|min:3|max:15',
             'password' => 'required|max:15',
         ]);
 
-        
-        
         if (Auth::attempt($credentials)) {
-            
             $request->session()->regenerate();  
-
             return redirect('/dashboard');
         }
-
 
         return back()->withErrors([
             'login_error' => 'The provided credentials do not match our records.',

@@ -67,6 +67,12 @@
                     </small>
                     @enderror
 
+                    @error('username')
+                    <small class="block mb-6 text-[#ED1C24]  border-[#ED1C24] leading-5 bg-[#ED1C24]/5 px-3 py-3 rounded-lg">
+                            {{ $message }}
+                    </small>
+                    @enderror
+
                     <div class="mb-6">
                         <label for="username" class="block mb-2 text-sm font-medium text-gray-900">Username</label>
                         <input type="text" id="username" name="username"

@@ -167,29 +167,30 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @for ($i = 1; $i <= 8; $i++)
+                            @foreach ($patients as $patient)
                                 <tr class="text-sm">
                                     <td class="border-2 border-[#E9E9E9] py-3 px-4">
-                                        {{ $i }}
+                                        1
                                     </td>
                                     <td class="border-2 border-[#E9E9E9] py-3 px-4">
-                                        1301213197
+                                        {{ $patient->nim }}
                                     </td>
                                     <td class="border-2 border-[#E9E9E9] py-3 px-4">
-                                        John Doe
+                                        {{ $patient->name }}
                                     </td>
                                     <td class="border-2 border-[#E9E9E9] py-3 px-4">
-                                        johndoe@student.telkomuniversity.ac.id
+                                        {{ $patient->email }}
                                     </td>
                                     <td class="border-2 border-[#E9E9E9] py-3 px-4 text-center">
-                                        L
+                                        {{ $patient->jenis_kelamin }}
                                     </td>
                                     <td class="border-2 border-[#E9E9E9] py-3 px-4">
-                                        Yogyakarta, 20-01-2003
+                                        {{ $patient->tanggal_lahir }}
                                     </td>
                                     <td class="border-2 border-[#E9E9E9]">
                                         <div class="flex items-center justify-center space-x-2">
                                             <a
+                                                href="/admin/data-pasien/{{ $patient->username }}/edit"
                                                 class="w-8 grid place-items-center rounded-md aspect-square bg-gray-400 hover:bg-gray-500">
                                                 <img src="/img/edit-icon.png" alt="edit-icon" />
                                             </a>
@@ -200,7 +201,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                            @endfor
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

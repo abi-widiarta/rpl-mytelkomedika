@@ -1,8 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\PatientController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +37,8 @@ Route::get('/contact', function () {
 Route::get('/register', function () {
     return view('client.register');
 });
+
+Route::post('/register/profiling', [RegisterController::class, 'storeComplete']);
 
 Route::post('/register', [RegisterController::class, 'store']);
 
@@ -69,3 +73,43 @@ Route::get('/riwayat-pemeriksaan', function () {
 Route::get('/dashboard', function () {
     return view('client.dashboard');
 });
+
+
+
+// ROUTE ADMIN
+
+// Route::get('/admin-dashboard', function() {
+//     // dd(Auth::user());
+//     return Inertia::render('Admin/Dashboard/Dashboard',["role" => "admin"]);
+// });
+
+Route::get('/admin/data-pasien',[PatientController::class, 'index']); 
+
+Route::get('/admin/data-pasien/create',[PatientController::class, 'create']); 
+
+Route::post('/admin/data-pasien/store',[PatientController::class, 'store']); 
+
+Route::post('/admin/delete-pasien', [PatientController::class, 'destroy']);
+
+Route::get('/admin/data-pasien/{username}/edit', [PatientController::class, 'edit']);
+
+Route::post('/admin/data-pasien/{id}/update', [PatientController::class, 'update']);
+
+Route::get('/admin/data-dokter',[DoctorController::class, 'index']);
+
+Route::get('/admin/data-dokter/create',[DoctorController::class, 'create']);
+
+Route::post('/admin/data-dokter/store',[DoctorController::class, 'store']);
+
+Route::get('/admin/data-dokter/{id}/edit',[DoctorController::class, 'edit']);
+
+Route::post('/admin/data-dokter/{id}/update', [DoctorController::class, 'update']);
+
+Route::post('/admin/delete-dokter', [DoctorController::class, 'destroy']);
+
+Route::get('/admin/-jadwal-dokter', [JadwalDokterController::class, 'index']);
+
+Route::get('/admin/-jadwal-dokter/{id}/edit', [JadwalDokterController::class, 'edit']);
+
+Route::post('/admin/-jadwal-dokter/{id}/update', [JadwalDokterController::class, 'update']);
+

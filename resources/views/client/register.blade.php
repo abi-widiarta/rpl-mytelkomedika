@@ -50,12 +50,27 @@
                 <img class="w-[95%]" src="/img/login-img.png" alt="hero" />
             </div>
             <div class=" w-[45%] flex justify-center items-center">
-                <form action="/register" method="POST" class="w-72">
+                <form action="/register" method="POST" class="w-[75%]">
                     @csrf
-                    <h1 class="text-[#ED1C24] text-3xl font-semibold text-center mb-10">
+                    <h1 class="text-[#ED1C24] text-3xl font-semibold text-center mb-8">
                         Register
                     </h1>
-                    
+
+                    <div class="flex justify-center">
+                        <div class="flex gap-16 relative justify-center mb-4 text-xs z-10 border-bottom-2 border-red-700">
+                            <span class="absolute top-[50%] -translate-y-[50%] -z-10 w-full h-[2px] bg-gray-200">
+                            </span>
+
+                            <div class="w-8 flex justify-center items-center text-white aspect-square bg-gradient-to-br from-[#ff4349] via-[#ff4f55] to-[#ffb6b9] rounded-full">
+                                <p>1</p>
+                            </div>
+                            
+    
+                            <div class="w-8 flex justify-center items-center  aspect-square border-2 bg-gray-50 rounded-full">
+                                <p>2</p>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="mb-{{ $errors->has('nim') ? '2' : '6' }}">
                         <label for="nim" class="block mb-2 text-sm font-medium text-gray-900">Nim</label>
@@ -123,9 +138,10 @@
                             <a href="/login" class="text-[#ED1C24]">Login here!</a>
                         </p>
                     </div>
+
                     <button type="submit"
-                        class="text-white rounded-full bg-[#ED1C24] font-medium shadow-lg transition duration-200 hover:shadow-[#ED1C24]/50 shadow-[#ED1C24]/30 text-sm w-full sm:w-auto px-6 py-2.5 text-center active:opacity-50 active:translate-y-2 active:shadow-sm">
-                        Register
+                        class="text-white rounded-full  bg-[#ED1C24] font-medium shadow-lg transition duration-200 hover:shadow-[#ED1C24]/50 shadow-[#ED1C24]/30 text-sm w-full sm:w-auto px-6 py-2.5 text-center active:opacity-50 active:translate-y-2 active:shadow-sm xl:w-full">
+                        Continue
                     </button>
                 </form>
             </div>

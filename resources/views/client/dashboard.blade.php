@@ -96,10 +96,10 @@
                     <div class="flex items-center space-x-4">
                         <div
                             class="py-1 pl-4 pr-2 border-2 space-x-4 border-[#ED1C24] rounded-full flex items-center justify-between">
-                            <p class="text-sm font-semibold">{{ Auth::user()->username }}</p>
+                            <p class="text-sm font-semibold">{{ Auth::user()->name }}</p>
                             <div class="grid place-items-center w-8 aspect-square bg-gray-600 rounded-full">
                                 <p class="m-0 font-base text-white">
-                                    {{ Auth::user()->username[0] }}
+                                    {{ Auth::user()->name[0] }}
                                 </p>
                             </div>
                         </div>
@@ -109,7 +109,7 @@
                 <div
                     class="px-6 pt-6 pb-8 w-full bg-gradient-to-r from-[#ED1C24]/90 via-[#ED1C24]/90 to-[#ED1C24]/20 text-white rounded-xl">
                     <h1 class="text-xl font-semibold mb-2">
-                        Selamat Datang! John Doe
+                        Selamat Datang! {{ Auth::user()->name }}
                     </h1>
                     <p class="text-xs">
                         Anda memiliki 3 reservasi pemeriksaan hari ini

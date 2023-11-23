@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Patient;
+use Illuminate\Http\Request;
 use App\Http\Requests\StorePatientRequest;
 use App\Http\Requests\UpdatePatientRequest;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class PatientController extends Controller
 {
@@ -13,54 +15,42 @@ class PatientController extends Controller
      */
     public function index()
     {
-        //
+        return view("admin.dataPasien",["patients" => Patient::all()]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+    public function store(Request $request) {
+        $validatedData = $request->validate([
+            'name' => 'required|max:100',
+            'gender' => 'required',
+            'email' => 'required|unique:users|email:rfc,dns',
+            'birthdate' => 'required'
+        ]);
+
+        $validatedData['google_id'] = null;
+
+        User::create($validatedData);
+
+        return redirect('/admin-data-pasien');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StorePatientRequest $request)
-    {
-        //
+    public function destroy(Request $request) {
+        Patient::where('id', $request->id)->delete();
+        return redirect('/admin-data-pasien');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Patient $patient)
-    {
-        //
+    public function edit($username) {
+        try {
+            $patient = Patient::where('username',$username)->firstOrFail();
+        } catch (ModelNotFoundException $exception) {
+            return view("client.notFound",["exception" => $exception]);
+        }
+
+        return $patient;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Patient $patient)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdatePatientRequest $request, Patient $patient)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Patient $patient)
-    {
-        //
+    public function update(Request $request, string $id) {
+        Patient::find($id)
+            ->update(['name' => $request->name,'gender' => $request->gender, 'birthdate' => $request->birthdate]);
+        return redirect('/admin-data-pasien');
     }
 }

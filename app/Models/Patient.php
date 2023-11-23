@@ -22,4 +22,9 @@ class Patient extends Authenticatable
             'jenis_kelamin',
             'tanggal_lahir'
     ];
+
+    public function getRouteKeyName()
+    {
+        return 'username';
+    }
 }
