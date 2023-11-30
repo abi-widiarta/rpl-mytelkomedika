@@ -17,6 +17,8 @@ use App\Http\Controllers\PatientController;
 |
 */
 
+// GUEST
+
 Route::get('/', function () {
     return view('landingPage');
 });
@@ -42,22 +44,8 @@ Route::post('/register/profiling', [RegisterController::class, 'storeComplete'])
 
 Route::post('/register', [RegisterController::class, 'store']);
 
-Route::get('/data-pasien', function () {
-    return view('admin.dataPasien');
-});
 
-Route::get('/data-dokter', function () {
-    return view('admin.dataDokter');
-});
-
-Route::get('/jadwal-dokter', function () {
-    return view('admin.jadwalDokter');
-});
-
-Route::get('/antrian-pemeriksaan', function () {
-    return view('admin.antrianPemeriksaan');
-});
-
+// PASIEN
 Route::get('/lakukan-reservasi', function () {
     return view('client.lakukanReservasi');
 });
@@ -74,19 +62,13 @@ Route::get('/dashboard', function () {
     return view('client.dashboard');
 });
 
+
+
+// ADMIN
+
 Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
 });
-
-
-
-
-// ROUTE ADMIN
-
-// Route::get('/admin-dashboard', function() {
-//     // dd(Auth::user());
-//     return Inertia::render('Admin/Dashboard/Dashboard',["role" => "admin"]);
-// });
 
 Route::get('/admin/data-pasien',[PatientController::class, 'index']); 
 
@@ -100,7 +82,9 @@ Route::get('/admin/data-pasien/{username}/edit', [PatientController::class, 'edi
 
 Route::post('/admin/data-pasien/{id}/update', [PatientController::class, 'update']);
 
-Route::get('/admin/data-dokter',[DoctorController::class, 'index']);
+Route::get('/admin/data-dokter',function() {
+    return view('admin.dataDokter');
+});
 
 Route::get('/admin/data-dokter/create',[DoctorController::class, 'create']);
 
@@ -112,9 +96,22 @@ Route::post('/admin/data-dokter/{id}/update', [DoctorController::class, 'update'
 
 Route::post('/admin/delete-dokter', [DoctorController::class, 'destroy']);
 
-Route::get('/admin/-jadwal-dokter', [JadwalDokterController::class, 'index']);
+Route::get('/admin/jadwal-dokter', function () {
+    return view('admin.jadwalDokter');
+});
 
-Route::get('/admin/-jadwal-dokter/{id}/edit', [JadwalDokterController::class, 'edit']);
+Route::get('/admin/antrian-pemeriksaan', function () {
+    return view('admin.antrianPemeriksaan');
+});
 
-Route::post('/admin/-jadwal-dokter/{id}/update', [JadwalDokterController::class, 'update']);
+Route::get('/admin/pembayaran', function () {
+    return view('admin.pembayaran');
+});
+
+
+// Route::get('/admin/-jadwal-dokter', [JadwalDokterController::class, 'index']);
+
+// Route::get('/admin/-jadwal-dokter/{id}/edit', [JadwalDokterController::class, 'edit']);
+
+// Route::post('/admin/-jadwal-dokter/{id}/update', [JadwalDokterController::class, 'update']);
 
