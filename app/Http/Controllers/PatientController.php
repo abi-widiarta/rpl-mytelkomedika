@@ -33,6 +33,10 @@ class PatientController extends Controller
         return redirect('/admin-data-pasien');
     }
 
+    public function create() {
+        return view('admin.dataPasienTambah');
+    }
+
     public function destroy(Request $request) {
         Patient::where('id', $request->id)->delete();
         return redirect('/admin-data-pasien');
