@@ -27,8 +27,8 @@
 
 <body>
 
-    <nav class="bg-white/80 backdrop-blur-lg fixed w-full z-20 top-0 left-0 px-5 shadow-lg shadow-gray-100/50">
-        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+    <nav class="fixed top-0 left-0 z-20 w-full px-5 shadow-lg bg-white/80 backdrop-blur-lg shadow-gray-100/50">
+        <div class="flex flex-wrap items-center justify-between max-w-screen-xl p-4 mx-auto">
             <a href="/" class="flex items-center">
                 <span
                     class="self-center text-xl md:text-2xl font-semibold whitespace-nowrap text-[#ED1C24]">MyTelkomedika</span>
@@ -47,7 +47,7 @@
             </div>
             <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
                 <ul
-                    class="font-medium bg-gray-50 md:bg-transparent flex flex-col justify-center py-4 md:p-0 rounded-lg md:flex-row md:space-x-12 md:align-middle md:items-center">
+                    class="flex flex-col justify-center py-4 font-medium rounded-lg bg-gray-50 md:bg-transparent md:p-0 md:flex-row md:space-x-12 md:align-middle md:items-center">
                     <li class="relative">
                         <a href="/"
                             class="block py-2 transition duration-250 pl-3 pr-4 font-medium text-gray-900 md:hover:bg-transparent rounded md:bg-transparent md:p-0 md:hover:text-[#ED1C24] hover:bg-gray-100 md:border-0"
@@ -72,9 +72,9 @@
 
     <main class="mt-20">
         <section class="bg-white sm:px-5">
-            <div class="flex flex-col md:flex-row py-8 px-4 mx-auto max-w-screen-xl lg:py-16">
+            <div class="flex flex-col max-w-screen-xl px-4 py-8 mx-auto md:flex-row lg:py-16">
                 <div
-                    class="rounded-lg order-2 md:order-1 mb-8 flex-1 text-center flex flex-col items-center md:items-start md:text-start">
+                    class="flex flex-col items-center flex-1 order-2 mb-8 text-center rounded-lg md:order-1 md:items-start md:text-start">
                     <p class="text-[#ED1C24] text-base font-medium inline-flex items-center py-0.5 rounded-md mb-2">
                         Welcome to MyTelkomedika
                     </p>
@@ -82,7 +82,7 @@
                         class="text-gray-900 sm:text-4xl sm:max-w-md lg:max-w-md md:max-w-[16rem] text-3xl md:text-4xl md:leading-snug lg:text-6xl font-semibold lg:leading-tight mb-4">
                         One Stop Health Care For Telyutizen
                     </h1>
-                    <p class="text-sm max-w-sm md:text-base font-normal text-gray-500 mb-6">
+                    <p class="max-w-sm mb-6 text-sm font-normal text-gray-500 md:text-base">
                         Kamu meriang, ga enak badan? Tenang aja, ada Telkomedika
                         yang selalu siap mengobatimu!
                     </p>
@@ -103,18 +103,18 @@
         </section>
 
         <section class="bg-white">
-            <div class="mx-auto max-w-screen-xl px-8 md:px-4">
+            <div class="max-w-screen-xl px-8 mx-auto md:px-4">
                 <div
                     class="bg-gradient-to-r shadow-lg shadow-[#ED1C24]/40 from-[#ED1C24] to-[#ED1C24]/60 rounded-tl-[60px] rounded-br-[60px] text-white px-6 sm:px-12 py-14 lg:p-16">
                     <ul
-                        class="flex flex-col md:space-y-0 space-y-10 md:flex-row md:flex-wrap md:gap-y-10 md:justify-center md:gap-x-20 justify-between">
+                        class="flex flex-col justify-between space-y-10 md:space-y-0 md:flex-row md:flex-wrap md:gap-y-10 md:justify-center md:gap-x-20">
                         <li class="flex items-center space-x-4">
                             <div
-                                class="flex items-center justify-center rounded-xl aspect-square p-4 border-2 border-white bg-white/20">
+                                class="flex items-center justify-center p-4 border-2 border-white rounded-xl aspect-square bg-white/20">
                                 <img class="w-12" src="/img/features-1.webp" alt="features-1" />
                             </div>
                             <div class="tracking-wide">
-                                <p class="sm:text-xl md:text-xl font-semibold mb-1">
+                                <p class="mb-1 font-semibold sm:text-xl md:text-xl">
                                     Pelayanan Gratis
                                 </p>
                                 <p class="sm:text-base md:text-sm text-xs md:max-w-[11rem]">
@@ -124,11 +124,11 @@
                         </li>
                         <li class="flex items-center space-x-4">
                             <div
-                                class="flex items-center justify-center rounded-xl aspect-square p-4 border-2 border-white bg-white/20">
+                                class="flex items-center justify-center p-4 border-2 border-white rounded-xl aspect-square bg-white/20">
                                 <img class="w-12" src="/img/features-2.webp" alt="features-1" />
                             </div>
                             <div class="tracking-wide">
-                                <p class="sm:text-xl md:text-xl font-semibold mb-1">
+                                <p class="mb-1 font-semibold sm:text-xl md:text-xl">
                                     Dokter Terpercaya
                                 </p>
                                 <p class="sm:text-base md:text-sm text-xs md:max-w-[11rem]">
@@ -139,11 +139,11 @@
                         </li>
                         <li class="flex items-center space-x-4">
                             <div
-                                class="flex items-center justify-center rounded-xl aspect-square p-4 border-2 border-white bg-white/20">
+                                class="flex items-center justify-center p-4 border-2 border-white rounded-xl aspect-square bg-white/20">
                                 <img class="w-12" src="/img/features-3.webp" alt="features-1" />
                             </div>
                             <div class="tracking-wide">
-                                <p class="sm:text-xl md:text-xl font-semibold mb-1">
+                                <p class="mb-1 font-semibold sm:text-xl md:text-xl">
                                     24 Jam
                                 </p>
                                 <p class="sm:text-base md:text-sm text-xs md:max-w-[11rem]">
@@ -159,8 +159,8 @@
         <img class="w-full" src="/img/wave-1.png" alt="" />
 
         <section class="bg-[#F3FBFF] md:-mt-10 pt-10 pb-48">
-            <div class="px-4 mx-auto max-w-screen-xl text-center">
-                <div class="title mb-16 md:mb-40">
+            <div class="max-w-screen-xl px-4 mx-auto text-center">
+                <div class="mb-16 title md:mb-40">
                     <h1 class="mb-2 md:mb-4 text-2xl md:text-4xl font-bold tracking-tight leading-none text-[#ED1C24]">
                         Layanan Kami
                     </h1>
@@ -168,13 +168,13 @@
                 </div>
 
                 <div
-                    class="services-card flex flex-col md:space-y-0 md:gap-y-10 space-y-14 md:flex-row md:flex-wrap items-center md:justify-around">
+                    class="flex flex-col items-center services-card md:space-y-0 md:gap-y-10 space-y-14 md:flex-row md:flex-wrap md:justify-around">
                     <div class="max-w-[16rem] h-min bg-white border border-gray-200 rounded-xl shadow">
-                        <img class="rounded-t-lg w-full" src="/img/service-1.webp" alt="" />
+                        <img class="w-full rounded-t-lg" src="/img/service-1.webp" alt="" />
                         <div>
                             <div
                                 class="bg-gradient-to-r relative z-10 -mt-4 py-5 px-5 rounded-xl from-[#ED1C24] to-[#F07A80]">
-                                <h5 class="text-xl md:text-2xl tracking-normal text-white font-semibold">
+                                <h5 class="text-xl font-semibold tracking-normal text-white md:text-2xl">
                                     Poli Mata
                                 </h5>
                             </div>
@@ -183,11 +183,11 @@
 
                     <div
                         class="max-w-[16rem] lg:-translate-y-20 h-min bg-white border border-gray-200 rounded-xl shadow">
-                        <img class="rounded-t-lg w-full" src="/img/service-2.webp" alt="" />
+                        <img class="w-full rounded-t-lg" src="/img/service-2.webp" alt="" />
                         <div>
                             <div
                                 class="bg-gradient-to-r relative z-10 -mt-4 py-5 px-5 rounded-xl from-[#ED1C24] to-[#F07A80]">
-                                <h5 class="text-xl md:text-2xl tracking-normal text-white font-semibold">
+                                <h5 class="text-xl font-semibold tracking-normal text-white md:text-2xl">
                                     Poli Umum
                                 </h5>
                             </div>
@@ -195,11 +195,11 @@
                     </div>
 
                     <div class="max-w-[16rem] h-min bg-white border border-gray-200 rounded-xl shadow">
-                        <img class="rounded-t-lg w-full" src="/img/service-3.webp" alt="" />
+                        <img class="w-full rounded-t-lg" src="/img/service-3.webp" alt="" />
                         <div>
                             <div
                                 class="bg-gradient-to-r relative z-10 -mt-4 py-5 px-5 rounded-xl from-[#ED1C24] to-[#F07A80]">
-                                <h5 class="text-xl md:text-2xl tracking-normal text-white font-semibold">
+                                <h5 class="text-xl font-semibold tracking-normal text-white md:text-2xl">
                                     Poli Gigi
                                 </h5>
                             </div>
@@ -210,27 +210,27 @@
         </section>
 
         <footer class="bg-[#263238]">
-            <div class="mx-auto w-full max-w-screen-xl">
-                <div class="md:flex md:justify-between py-16">
-                    <div class="mb-6 md:mb-0 flex justify-center items-center p-16 text-white">
+            <div class="w-full max-w-screen-xl mx-auto">
+                <div class="py-16 md:flex md:justify-between">
+                    <div class="flex items-center justify-center p-16 mb-6 text-white md:mb-0">
                         <a class="flex items-center">
                             <span class="self-center text-4xl font-medium whitespace-nowrap">MyTelkomedika</span>
                         </a>
                     </div>
                     <div class="flex justify-center">
-                        <div class="flex flex-wrap gap-x-10 gap-y-10 px-16">
+                        <div class="flex flex-wrap px-16 gap-x-10 gap-y-10">
                             <div>
-                                <h2 class="mb-2 text-xl text-white font-semibold tracking-wider">
+                                <h2 class="mb-2 text-xl font-semibold tracking-wider text-white">
                                     Address
                                 </h2>
-                                <p class="text-gray-300 max-w-xs">
+                                <p class="max-w-xs text-gray-300">
                                     Jl. Telekomunikasi Terusan Buah Batu,
                                     Bandung - 40257, Indonesia
                                 </p>
                             </div>
                             <div class="flex flex-col space-y-10">
                                 <div>
-                                    <h2 class="mb-2 text-xl text-white font-semibold tracking-wider">
+                                    <h2 class="mb-2 text-xl font-semibold tracking-wider text-white">
                                         Contact Us
                                     </h2>
                                     <div class="flex items-center space-x-4">
@@ -247,7 +247,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <h2 class="mb-2 text-xl text-white font-semibold tracking-wider">
+                                    <h2 class="mb-2 text-xl font-semibold tracking-wider text-white">
                                         Follow Us
                                     </h2>
                                     <div class="flex items-center space-x-4">
