@@ -19,47 +19,52 @@ use App\Http\Controllers\PatientController;
 
 // GUEST
 
-Route::get('/', function () {
-    return view('landingPage');
+Route::middleware('guest')->group(function () { 
+    Route::get('/', function () {
+        return view('landingPage');
+    });
+    
+    Route::get('/login', function () {
+        return view('client.login');
+    })->name('login');
+    
+    Route::post('/login', [LoginController::class, 'authenticate']);
+    
+    Route::get('/contact', function () {
+        return "contact page";
+    });
+    
+    Route::get('/register', function () {
+        return view('client.register');
+    });
+    
+    Route::post('/register/profiling', [RegisterController::class, 'storeComplete']);
+    
+    Route::post('/register', [RegisterController::class, 'store']);
 });
 
-Route::get('/login', function () {
-    return view('client.login');
-});
-
-Route::post('/login', [LoginController::class, 'authenticate']);
-
-Route::post('/logout', [LoginController::class, 'logout']);
-
-Route::get('/contact', function () {
-    return "contact page";
-});
-
-
-Route::get('/register', function () {
-    return view('client.register');
-});
-
-Route::post('/register/profiling', [RegisterController::class, 'storeComplete']);
-
-Route::post('/register', [RegisterController::class, 'store']);
 
 
 // PASIEN
-Route::get('/lakukan-reservasi', function () {
-    return view('client.lakukanReservasi');
-});
 
-Route::get('/reservasi-saya', function () {
-    return view('client.reservasiSaya');
-});
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('client.dashboard');
+    });
 
-Route::get('/riwayat-pemeriksaan', function () {
-    return view('client.riwayatPemeriksaan');
-});
+    Route::get('/lakukan-reservasi', function () {
+        return view('client.lakukanReservasi');
+    });
+    
+    Route::get('/reservasi-saya', function () {
+        return view('client.reservasiSaya');
+    });
+    
+    Route::get('/riwayat-pemeriksaan', function () {
+        return view('client.riwayatPemeriksaan');
+    });
 
-Route::get('/dashboard', function () {
-    return view('client.dashboard');
+    Route::post('/logout', [LoginController::class, 'logout']);
 });
 
 

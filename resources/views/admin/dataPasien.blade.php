@@ -24,7 +24,7 @@
             <div class="flex-1 w-full p-6 bg-white rounded-xl">
                 <h2 class="mb-8 text-lg font-semibold">Kelola Data Pasien</h2>
                 <div class="flex justify-between mb-6">
-                    <a href="admin-data-pasien/create"
+                    <a href="/admin/data-pasien/create"
                         class="bg-[#ED1C24] text-sm px-4 py-2 font-semibold text-white rounded-full transition duration-150 hover:opacity-70">
                         Tambah Data
                     </a>
