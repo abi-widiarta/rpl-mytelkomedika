@@ -74,6 +74,11 @@ Route::get('/dashboard', function () {
     return view('client.dashboard');
 });
 
+Route::get('/admin/dashboard', function () {
+    return view('admin.dashboard');
+});
+
+
 
 
 // ROUTE ADMIN
