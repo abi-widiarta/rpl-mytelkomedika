@@ -33,6 +33,8 @@
         {{-- main content --}}
         @yield('content')
     </main>
+
+    <script src="./script.js"></script>
 </body>
 
 </html>
