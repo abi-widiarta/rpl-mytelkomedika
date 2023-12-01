@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Patient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -19,33 +21,45 @@ class RegisterController extends Controller
             'nim'           => 'required|size:10|unique:patients',
         ]);
 
-        return view('client.registerProfiling' , 
-        [
-            "username" => $validatedData['username'],
-            "email" => $validatedData['email'],
-            "password" => $validatedData['password'],
-            "nim" => $validatedData['nim'],
-        ]);
-    }
-
-    public function storeComplete(Request $request) {
-        $request['name']  = $request['first_name'] . " " . $request['last_name'];
-
-        $validatedData = $request->validate([
-            'name'          => 'required|max:50',
-            'no_hp'         => 'required|max:13',
-            'alamat'        => 'required|max:50',
-            'jenis_kelamin' => 'required|max:1'
-        ]);
-
-        $validatedData['username'] = $request['username'];
-        $validatedData['nim'] = $request['nim'];
-        $validatedData['email'] = $request['email'];
         $validatedData['password'] = bcrypt($request['password']);
-        $validatedData['tanggal_lahir'] = $request['tanggal_lahir'];
 
-        Patient::create($validatedData);
+        $patient = Patient::create($validatedData);
 
-        return redirect('/login');
+        event(new Registered($patient));
+        
+        Auth::login($patient);
+
+        return redirect('/email/verify');
+
+        
+
+        // return view('client.registerProfiling' , 
+        // [
+        //     "username" => $validatedData['username'],
+        //     "email" => $validatedData['email'],
+        //     "password" => $validatedData['password'],
+        //     "nim" => $validatedData['nim'],
+        // ]);
     }
+
+    // public function storeComplete(Request $request) {
+    //     $request['name']  = $request['first_name'] . " " . $request['last_name'];
+
+    //     $validatedData = $request->validate([
+    //         'name'          => 'required|max:50',
+    //         'no_hp'         => 'required|max:13',
+    //         'alamat'        => 'required|max:50',
+    //         'jenis_kelamin' => 'required|max:1'
+    //     ]);
+
+    //     $validatedData['username'] = $request['username'];
+    //     $validatedData['nim'] = $request['nim'];
+    //     $validatedData['email'] = $request['email'];
+    //     $validatedData['password'] = bcrypt($request['password']);
+    //     $validatedData['tanggal_lahir'] = $request['tanggal_lahir'];
+
+    //     Patient::create($validatedData);
+
+    //     return redirect('/login');
+    // }
 }

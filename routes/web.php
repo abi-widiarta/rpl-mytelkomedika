@@ -3,8 +3,10 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\RegisterController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,35 +21,35 @@ use App\Http\Controllers\PatientController;
 
 // GUEST
 
-Route::middleware('guest')->group(function () { 
-    Route::get('/', function () {
-        return view('landingPage');
-    });
+// Route::middleware('guest')->group(function () { 
     
-    Route::get('/login', function () {
-        return view('client.login');
-    })->name('login');
-    
-    Route::post('/login', [LoginController::class, 'authenticate']);
-    
-    Route::get('/contact', function () {
-        return "contact page";
-    });
-    
-    Route::get('/register', function () {
-        return view('client.register');
-    });
-    
-    Route::post('/register/profiling', [RegisterController::class, 'storeComplete']);
-    
-    Route::post('/register', [RegisterController::class, 'store']);
+// });
+
+Route::get('/', function () {
+    return view('landingPage');
 });
 
+Route::get('/login', function () {
+    return view('client.login');
+})->name('login');
+
+Route::post('/login', [LoginController::class, 'authenticate']);
+
+Route::get('/contact', function () {
+    return "contact page";
+});
+
+Route::get('/register', function () {
+    return view('client.register');
+});
+
+Route::post('/register/profiling', [RegisterController::class, 'storeComplete']);
+
+Route::post('/register', [RegisterController::class, 'store']);
 
 
 // PASIEN
-
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return view('client.dashboard');
     });
@@ -63,14 +65,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/riwayat-pemeriksaan', function () {
         return view('client.riwayatPemeriksaan');
     });
-
+    
     Route::post('/logout', [LoginController::class, 'logout']);
 });
 
-
-
 // ADMIN
-
 Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
 });
@@ -112,6 +111,30 @@ Route::get('/admin/antrian-pemeriksaan', function () {
 Route::get('/admin/pembayaran', function () {
     return view('admin.pembayaran');
 });
+
+// Email verification
+
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    return redirect('/dashboard');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+Route::get('/profile', function () {
+    return("profile");
+})->middleware(['auth', 'verified']);
+
+
 
 
 // Route::get('/admin/-jadwal-dokter', [JadwalDokterController::class, 'index']);
