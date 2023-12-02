@@ -1,3 +1,3 @@
 <h1>
-  404 Not Found (nanti di custom)
+  Setiap perjalanan dimulai dari satu langkah
 </h1>
