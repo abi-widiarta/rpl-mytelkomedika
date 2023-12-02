@@ -25,7 +25,7 @@
 </head>
 
 <body class="font-poppins">
-    <nav class="bg-white/80 w-full z-50 backdrop-blur-lg sm:px-5 fixed top-0 left-0 shadow-lg shadow-gray-100/50">
+    <nav class="fixed top-0 left-0 z-50 w-full shadow-lg bg-white/80 backdrop-blur-lg sm:px-5 shadow-gray-100/50">
         <div class="max-w-screen-xl border h-[70px] flex flex-wrap items-center justify-between mx-auto">
             <a href="/" class="flex items-center">
                 <span class="self-center text-2xl font-semibold whitespace-nowrap text-[#ED1C24]">MyTelkomedika</span>
@@ -40,12 +40,12 @@
                         d="M1 1h15M1 7h15M1 13h15" />
                 </svg>
             </button>
-            <div class="hidden w-full md:block md:w-auto mt-3 md:mt-0" id="navbar-default"></div>
+            <div class="hidden w-full mt-3 md:block md:w-auto md:mt-0" id="navbar-default"></div>
         </div>
     </nav>
 
-    <section class="bg-white flex items-center h-screen pt-8">
-        <div class="flex flex-col md:flex-row md:items-center md:justify-center py-8 px-4 mx-auto max-w-screen-xl">
+    <section class="flex items-center h-screen pt-8 bg-white">
+        <div class="flex flex-col max-w-screen-xl px-4 py-8 mx-auto md:flex-row md:items-center md:justify-center">
             <div class="w-[55%] flex justify-start">
                 <img class="w-[95%]" src="/img/login-img.png" alt="hero" />
             </div>
@@ -57,7 +57,7 @@
                     </h1>
 
                     <div class="flex justify-center">
-                        <div class="flex gap-16 relative justify-center mb-4 text-xs z-10 border-bottom-2 border-red-700">
+                        <div class="relative z-10 flex justify-center gap-16 mb-4 text-xs border-red-700 border-bottom-2">
                             <span class="absolute top-[50%] -translate-y-[50%] -z-10 w-full h-[2px] bg-gray-200">
                             </span>
 
@@ -66,7 +66,7 @@
                             </div>
                             
     
-                            <div class="w-8 flex justify-center items-center  aspect-square border-2 bg-gray-50 rounded-full">
+                            <div class="flex items-center justify-center w-8 border-2 rounded-full aspect-square bg-gray-50">
                                 <p>2</p>
                             </div>
                         </div>
@@ -81,6 +81,9 @@
                             value="{{ old('nim') }}"
                             />
                         @error('nim') 
+                            <small class="text-xs text-red-400">{{ $message }}</small>
+                        @enderror
+                        @error('validasi_nim') 
                             <small class="text-xs text-red-400">{{ $message }}</small>
                         @enderror
                     </div>
@@ -107,6 +110,9 @@
                             value="{{ old('email') }}"
                             />
                         @error('email') 
+                            <small class="text-xs text-red-400">{{ $message }}</small>
+                        @enderror
+                        @error('format_email') 
                             <small class="text-xs text-red-400">{{ $message }}</small>
                         @enderror
                     </div>
@@ -143,6 +149,8 @@
                         class="text-white rounded-full  bg-[#ED1C24] font-medium shadow-lg transition duration-200 hover:shadow-[#ED1C24]/50 shadow-[#ED1C24]/30 text-sm w-full sm:w-auto px-6 py-2.5 text-center active:opacity-50 active:translate-y-2 active:shadow-sm xl:w-full">
                         Continue
                     </button>
+
+                    
                 </form>
             </div>
         </div>
