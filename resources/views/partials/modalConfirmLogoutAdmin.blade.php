@@ -1,8 +1,10 @@
-<div x-data="{ isOpen: false }" class="relative flex justify-center">
- 
-  <button @click="isOpen = true" class="py-3 text-white px-10 shadow-lg bg-gradient-to-r from-[#ED1C24]/90 to-[#ED1C24]/50 rounded-xl transition duration-200 hover:bg-[#ED1C24]">
-    Reservasi
+<div x-data="{ isOpen: false }" class="relative flex">
+
+  <button @click="isOpen = true" type="submit" class="flex items-center justify-start px-4 py-4 space-x-3 rounded-xl">
+    <img class="w-[25px] z-10" src="/img/logout-icon.png" alt="logo" />
+    <p class="z-10 text-sm font-normal">Logout</p>
   </button>
+
 
   <div x-show="isOpen" 
       x-transition:enter="transition duration-100 ease-out"
@@ -19,31 +21,11 @@
 
           <div id="modal-reservasi" class="relative hidden inline-block px-10 pt-5 pb-4 overflow-hidden text-left align-bottom transition-all transform bg-white rounded-lg shadow-xl modal-reservasi sm:my-8 sm:align-middle">
               <div class="flex flex-col items-center justify-center w-full h-full ">
-                  <div class="mt-2 mb-8 text-center">
-                      <h3 class="mb-3 text-xl font-semibold leading-6 text-gray-800 capitalize" id="modal-title">Reservasi</h3>
-                      <span class="block w-full h-[3px] bg-gray-600/10 mb-8 rounded-md"></span>
-                      <div class="flex space-x-8">
-                        <div>
-                          <img  class="mb-2 rounded-md" src="/img/doctor-1.png" alt="">
-                          <h2 class="text-lg font-semibold">Dr. Anika</h2>
-                          <p>Poli Mata</p>
-                        </div>
-                        <div class="h-full w-80">
-                          <form action="#" method="post">
-                            <div class="flex flex-col items-start mb-4 space-y-2">
-                              <label class="text-sm font-semibold" for="datepicker">Pilih Tanggal</label>
-                              <input autocomplete="off" class="border border-gray-300 bg-white text-gray-900 text-sm rounded-md block w-full px-2 py-2 focus:outline-[#ED1C24]/50 mr-3" name="date" type="text" id="datepicker" placeholder="dd/mm/yyyy">
-                            </div>
-                            <div class="flex flex-col items-start mb-6 space-y-2">
-                              <label class="text-sm font-semibold" for="keluhan">Keluhan Awal</label>
-                              <textarea autocomplete="off" class="resize-none w-full px-2 py-2 border border-gray-300 bg-white text-gray-900 text-sm rounded-md block p-1 focus:outline-[#ED1C24]/50 mr-3" name="keluhan" id="keluhan" rows="5"></textarea>
-                            </div>
-
-                            <div class="space-x-4 sm:flex sm:items-center">
-                              {{-- <button class="w-full px-4 py-2 mt-2 text-sm font-medium tracking-wide text-gray-700 capitalize transition-colors duration-300 transform border border-gray-200 rounded-md sm:mt-0 sm:w-auto sm:mx-2 hover:bg-gray-100 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-40">
-                                  Cancel
-                              </button> --}}
-
+                  <div class="mt-2 mb-4 text-center">
+                      <h3 class="text-[#ED1C24] mb-3 text-xl font-semibold leading-6" id="modal-title">WARNING</h3>
+                      <p class="mb-6">Are your sure want to logout?</p>
+                      <form class="flex justify-center gap-6" action="/admin/logout" method="POST">
+                        @csrf
                               <a
                                   @click="isOpen = false"
                                   class="cursor-pointer border rounded-lg text-gray-900 bg-white font-medium hover:shadow-xl shadow-lg transition duration-200 text-sm w-full sm:w-auto px-6 py-2.5 text-center active:opacity-50 active:translate-y-2 active:shadow-sm">
@@ -52,20 +34,9 @@
 
                               <button type="submit"
                                   class="text-white rounded-lg bg-[#ED1C24] font-medium shadow-lg transition duration-200 hover:shadow-[#ED1C24]/50 shadow-[#ED1C24]/30 text-sm w-full sm:w-auto px-6 py-2.5 text-center active:opacity-50 active:translate-y-2 active:shadow-sm">
-                                  Reservasi
+                                  Logout
                               </button>
-
-                              
-          
-                              {{-- <button class="w-full px-4 py-2 mt-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-[#ED1C24] rounded-md sm:w-auto sm:mt-0 hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40">
-                                  Delete
-                              </button> --}}
-                            </div>
-
-                          </form>
-
-                        </div>
-                      </div>
+                    </form>
                   </div>
 
                   

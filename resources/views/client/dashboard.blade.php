@@ -2,6 +2,10 @@
 
 @section('content')
     <section class="flex-1 px-12 py-8">
+        
+        {{-- @if(session('success'))
+            @include('partials.modalLoginSuccess')
+        @endif --}}
         <div class="h-full">
             <header class="flex items-center justify-between mb-4">
                 <div class="flex items-center justify-start space-x-4">

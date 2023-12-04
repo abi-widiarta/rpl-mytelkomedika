@@ -67,13 +67,7 @@
                       </a>
                   </li>
               </ul>
-              <form action="/admin/logout" method="POST">
-                @csrf
-                <button type="submit" class="flex items-center justify-start px-4 py-4 space-x-3 rounded-xl">
-                    <img class="w-[25px] z-10" src="/img/logout-icon.png" alt="logo" />
-                    <p class="z-10 text-sm font-normal">Logout</p>
-                </button>
-            </form>
+              @include('partials.modalConfirmLogoutAdmin')
           </div>
       </div>
   </aside>
