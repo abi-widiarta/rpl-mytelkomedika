@@ -47,7 +47,17 @@ Route::post('/register/profiling', [RegisterController::class, 'storeComplete'])
 
 Route::post('/register', [RegisterController::class, 'store']);
 
+Route::get('/admin/register', function () {
+    return view('admin.register');
+});
 
+Route::post('/admin/register', [RegisterController::class, 'storeAdmin']);
+
+Route::get('/admin/login', function () {
+    return view('admin.login');
+});
+
+Route::post('/admin/login', [LoginController::class, 'authenticateAdmin']);
 // PASIEN
 
 Route::middleware(['auth','verified'])->group(function () {
@@ -71,48 +81,54 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::post('/logout', [LoginController::class, 'logout']);
 });
 
+Route::middleware('auth:admin')->group(function () {
+    Route::get('/admin/dashboard', function () {
+        return view('admin.dashboard');
+    });
+
+    Route::post('/admin/logout', [LoginController::class, 'logoutAdmin']);
+    
+    Route::get('/admin/data-pasien',[PatientController::class, 'index']); 
+    
+    Route::get('/admin/data-pasien/create',[PatientController::class, 'create']); 
+    
+    Route::post('/admin/data-pasien/store',[PatientController::class, 'store']); 
+    
+    Route::post('/admin/delete-pasien', [PatientController::class, 'destroy']);
+    
+    Route::get('/admin/data-pasien/{username}/edit', [PatientController::class, 'edit']);
+    
+    Route::post('/admin/data-pasien/{id}/update', [PatientController::class, 'update']);
+    
+    Route::get('/admin/data-dokter',function() {
+        return view('admin.dataDokter');
+    });
+    
+    Route::get('/admin/data-dokter/create',[DoctorController::class, 'create']);
+    
+    Route::post('/admin/data-dokter/store',[DoctorController::class, 'store']);
+    
+    Route::get('/admin/data-dokter/{id}/edit',[DoctorController::class, 'edit']);
+    
+    Route::post('/admin/data-dokter/{id}/update', [DoctorController::class, 'update']);
+    
+    Route::post('/admin/delete-dokter', [DoctorController::class, 'destroy']);
+    
+    Route::get('/admin/jadwal-dokter', function () {
+        return view('admin.jadwalDokter');
+    });
+    
+    Route::get('/admin/antrian-pemeriksaan', function () {
+        return view('admin.antrianPemeriksaan');
+    });
+    
+    Route::get('/admin/pembayaran', function () {
+        return view('admin.pembayaran');
+    });
+});
+
 // ADMIN
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
-});
 
-Route::get('/admin/data-pasien',[PatientController::class, 'index']); 
-
-Route::get('/admin/data-pasien/create',[PatientController::class, 'create']); 
-
-Route::post('/admin/data-pasien/store',[PatientController::class, 'store']); 
-
-Route::post('/admin/delete-pasien', [PatientController::class, 'destroy']);
-
-Route::get('/admin/data-pasien/{username}/edit', [PatientController::class, 'edit']);
-
-Route::post('/admin/data-pasien/{id}/update', [PatientController::class, 'update']);
-
-Route::get('/admin/data-dokter',function() {
-    return view('admin.dataDokter');
-});
-
-Route::get('/admin/data-dokter/create',[DoctorController::class, 'create']);
-
-Route::post('/admin/data-dokter/store',[DoctorController::class, 'store']);
-
-Route::get('/admin/data-dokter/{id}/edit',[DoctorController::class, 'edit']);
-
-Route::post('/admin/data-dokter/{id}/update', [DoctorController::class, 'update']);
-
-Route::post('/admin/delete-dokter', [DoctorController::class, 'destroy']);
-
-Route::get('/admin/jadwal-dokter', function () {
-    return view('admin.jadwalDokter');
-});
-
-Route::get('/admin/antrian-pemeriksaan', function () {
-    return view('admin.antrianPemeriksaan');
-});
-
-Route::get('/admin/pembayaran', function () {
-    return view('admin.pembayaran');
-});
 
 // Email verification
 
