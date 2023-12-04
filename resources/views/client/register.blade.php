@@ -56,7 +56,7 @@
                         Register
                     </h1>
 
-                    <div class="flex justify-center">
+                    {{-- <div class="flex justify-center">
                         <div class="relative z-10 flex justify-center gap-16 mb-4 text-xs border-red-700 border-bottom-2">
                             <span class="absolute top-[50%] -translate-y-[50%] -z-10 w-full h-[2px] bg-gray-200">
                             </span>
@@ -70,9 +70,9 @@
                                 <p>2</p>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
-                    <div class="mb-{{ $errors->has('nim') ? '2' : '6' }}">
+                    <div class="mb-{{ $errors->has('nim') || $errors->has('validasi_nim') || $errors->has('validasi_nama') ? '2' : '6' }}">
                         <label for="nim" class="block mb-2 text-sm font-medium text-gray-900">Nim</label>
                         <input type="text"
                             name="nim"
@@ -84,6 +84,25 @@
                             <small class="text-xs text-red-400">{{ $message }}</small>
                         @enderror
                         @error('validasi_nim') 
+                            <small class="text-xs text-red-400">{{ $message }}</small>
+                        @enderror
+                        @error('validasi_nama') 
+                            <small class="text-xs text-red-400">{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    <div class="mb-{{ $errors->has('name') || $errors->has('validasi_nama') ? '2' : '6' }}">
+                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Name</label>
+                        <input type="text"
+                            name="name"
+                            class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:outline-[#ED1C24]/50"
+                            required 
+                            value="{{ old('name') }}"
+                            />
+                        @error('name') 
+                            <small class="text-xs text-red-400">{{ $message }}</small>
+                        @enderror
+                        @error('validasi_nama') 
                             <small class="text-xs text-red-400">{{ $message }}</small>
                         @enderror
                     </div>
@@ -122,10 +141,13 @@
                         <div
                             class="flex justify-between bg-white border border-gray-300 text-gray-900 text-sm rounded-lg w-full focus:outline-[#ED1C24]/50 pr-2.5">
                             <input 
+                            id="password"
                             name="password"
-                            type="password" class="p-2.5 rounded-lg focus:outline-[#ED1C24]/50 w-full"
+                            type="password" class="p-2.5 rounded-lg focus:outline-[#ED1C24]/50 w-full mr-3"
                                 required />
-                            <img src="./img/icon-eye.svg" alt="">
+                            <div onclick="togglePassword()" class="flex items-center transition-all duration-100 cursor-pointer hover:opacity-60">
+                                <img class="password-toggle-img" src="./img/icon-eye-closed.svg" alt="">
+                            </div>
                         </div>
                         @error('password') 
                             <small class="block mb-6 mt-2 text-[#ED1C24]  border-[#ED1C24] leading-5 bg-[#ED1C24]/5 pl-6 pr-3 py-2 rounded-lg">
@@ -156,6 +178,18 @@
         </div>
     </section>
 
+    <script>
+        function togglePassword() {
+        let passwordInput = document.getElementById("password");
+        let imgPasswordToggle = document.querySelector(".password-toggle-img")
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            imgPasswordToggle.src = "./img/icon-eye.svg"
+        } else {
+            passwordInput.type = "password";
+            imgPasswordToggle.src = "./img/icon-eye-closed.svg"
+        }
+        }
+    </script>
 </body>
-
 </html>

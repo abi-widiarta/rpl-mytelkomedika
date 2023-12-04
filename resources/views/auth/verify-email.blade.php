@@ -78,6 +78,7 @@
             Resend Email
           </button>
         </form>
+        <p class="text-xs text-gray-500">Verification email has been sent</p>
         @if (session('message'))
           <p class="text-xs text-gray-500">{{ session('message') }}</p>
         @endif
