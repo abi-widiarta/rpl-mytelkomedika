@@ -90,10 +90,12 @@
                                             class="grid w-8 bg-gray-400 rounded-md place-items-center aspect-square hover:bg-gray-500">
                                             <img src="/img/edit-icon.png" alt="edit-icon" />
                                         </a>
-                                        <button
+                                        @include('partials.modalConfirm')
+                                      
+                                        {{-- <button
                                             class="grid w-8 bg-red-500 rounded-md place-items-center aspect-square hover:bg-red-600">
                                             <img src="/img/delete-icon.png" alt="delete-icon" />
-                                        </button>
+                                        </button> --}}
                                     </div>
                                 </td>
                             </tr>
