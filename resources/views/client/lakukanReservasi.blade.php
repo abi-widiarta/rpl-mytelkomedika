@@ -82,10 +82,11 @@
                                     </p>
                                 </div>
                             </div>
-                            <button
+                            @include('partials.modalReservasi')
+                            {{-- <button
                                 class="py-3 text-white px-10 shadow-lg bg-gradient-to-r from-[#ED1C24]/90 to-[#ED1C24]/50 rounded-xl transition duration-200 hover:bg-[#ED1C24]">
                                 Reservasi
-                            </button>
+                            </button> --}}
                         </div>
                     </div>
                 </div>

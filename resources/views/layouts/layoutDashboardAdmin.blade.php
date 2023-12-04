@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
+    {{-- <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.19/dist/full.min.css" rel="stylesheet" type="text/css" /> --}}
     {{-- tailwind css --}}
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -31,5 +31,6 @@
 
         @yield('content')
     </main>
+    <script src="//unpkg.com/alpinejs" defer></script>
 </body>
 </html>
