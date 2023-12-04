@@ -50,46 +50,13 @@
                 <img class="w-[95%]" src="/img/login-img.png" alt="hero" />
             </div>
             <div class=" w-[45%] flex justify-center items-center">
-                <form action="/register" method="POST" class="w-[75%]">
+                <form action="/admin/register" method="POST" class="w-[75%]">
                     @csrf
-                    <h1 class="text-[#ED1C24] text-3xl font-semibold text-center mb-8">
-                        Register
-                    </h1>
-
-                    {{-- <div class="flex justify-center">
-                        <div class="relative z-10 flex justify-center gap-16 mb-4 text-xs border-red-700 border-bottom-2">
-                            <span class="absolute top-[50%] -translate-y-[50%] -z-10 w-full h-[2px] bg-gray-200">
-                            </span>
-
-                            <div class="w-8 flex justify-center items-center text-white aspect-square bg-gradient-to-br from-[#ff4349] via-[#ff4f55] to-[#ffb6b9] rounded-full">
-                                <p>1</p>
-                            </div>
-                            
-    
-                            <div class="flex items-center justify-center w-8 border-2 rounded-full aspect-square bg-gray-50">
-                                <p>2</p>
-                            </div>
-                        </div>
-                    </div> --}}
-
-                    <div class="mb-{{ $errors->has('nim') || $errors->has('validasi_nim') || $errors->has('validasi_nama') ? '2' : '6' }}">
-                        <label for="nim" class="block mb-2 text-sm font-medium text-gray-900">Nim</label>
-                        <input type="text"
-                            name="nim"
-                            class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:outline-[#ED1C24]/50"
-                            required 
-                            value="{{ old('nim') }}"
-                            />
-                        @error('nim') 
-                            <small class="text-xs text-red-400">{{ $message }}</small>
-                        @enderror
-                        @error('validasi_nim') 
-                            <small class="text-xs text-red-400">{{ $message }}</small>
-                        @enderror
-                        @error('validasi_nama') 
-                            <small class="text-xs text-red-400">{{ $message }}</small>
-                        @enderror
-                    </div>
+                    <h1 class="relative text-[#ED1C24] text-4xl font-semibold text-center mb-10">
+                      Register
+                      <span class="block right-[8.75rem] text-base text-black absolute">Admin</span>
+                  </h1>
+                  
 
                     <div class="mb-{{ $errors->has('name') || $errors->has('validasi_nama') ? '2' : '6' }}">
                         <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Name</label>
@@ -184,10 +151,10 @@
         let imgPasswordToggle = document.querySelector(".password-toggle-img")
         if (passwordInput.type === "password") {
             passwordInput.type = "text";
-            imgPasswordToggle.src = "./img/icon-eye.svg"
+            imgPasswordToggle.src = "/img/icon-eye.svg"
         } else {
             passwordInput.type = "password";
-            imgPasswordToggle.src = "./img/icon-eye-closed.svg"
+            imgPasswordToggle.src = "/img/icon-eye-closed.svg"
         }
         }
     </script>

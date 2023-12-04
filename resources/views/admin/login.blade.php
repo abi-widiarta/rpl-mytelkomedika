@@ -51,10 +51,11 @@
                 <img class="w-[95%]" src="/img/login-img.png" alt="hero" />
             </div>
             <div class=" w-[45%] flex justify-center items-center -mt-6">
-                <form action="/login" method="post" class="w-72">
+                <form action="/admin/login" method="post" class="w-72">
                     @csrf
-                    <h1 class="text-[#ED1C24] text-4xl font-semibold text-center mb-10">
+                    <h1 class="relative text-[#ED1C24] text-4xl font-semibold text-center mb-10">
                         Login
+                        <span class="block right-20 text-base text-black absolute">Admin</span>
                     </h1>
 
                     @error('login_error')
@@ -92,7 +93,7 @@
                     <div class="flex items-start mb-8">
                         <p class="text-xs">
                             Don't have account yet?
-                            <a href="/register" class="text-[#ED1C24]">Register here!</a>
+                            <a href="/admin/register" class="text-[#ED1C24]">Register here!</a>
                         </p>
                     </div>
                     <button type="submit"
