@@ -26,7 +26,7 @@
 
 <body class="font-poppins">
     <nav
-        class="bg-white/80 w-full z-50 backdrop-blur-lg border-gray-200 sm:px-5 fixed top-0 shadow-lg shadow-gray-100/50">
+        class="fixed top-0 z-50 w-full border-gray-200 shadow-lg bg-white/80 backdrop-blur-lg sm:px-5 shadow-gray-100/50">
         <div class="max-w-screen-xl h-[70px] flex flex-wrap items-center justify-between mx-auto">
             <a href="/" class="flex items-center">
                 <span class="self-center text-2xl font-semibold whitespace-nowrap text-[#ED1C24]">MyTelkomedika</span>
@@ -41,12 +41,12 @@
                         d="M1 1h15M1 7h15M1 13h15" />
                 </svg>
             </button>
-            <div class="hidden w-full md:block md:w-auto mt-3 md:mt-0" id="navbar-default"></div>
+            <div class="hidden w-full mt-3 md:block md:w-auto md:mt-0" id="navbar-default"></div>
         </div>
     </nav>
 
-    <section class="bg-white flex items-center h-screen pt-8">
-        <div class="flex flex-col md:flex-row  md:justify-center py-8 px-4 mx-auto max-w-screen-xl">
+    <section class="flex items-center h-screen pt-8 bg-white">
+        <div class="flex flex-col max-w-screen-xl px-4 py-8 mx-auto md:flex-row md:justify-center">
             <div class="w-[55%] flex justify-start">
                 <img class="w-[95%]" src="/img/login-img.png" alt="hero" />
             </div>
@@ -56,10 +56,6 @@
                     <h1 class="text-[#ED1C24] text-4xl font-semibold text-center mb-10">
                         Login
                     </h1>
-
-                    {{-- <small class="block mb-6 text-[#ED1C24]  border-[#ED1C24] leading-5 bg-[#ED1C24]/5 px-3 py-2 rounded-lg">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolores, non!
-                    </small> --}}
 
                     @error('login_error')
                     <small class="block mb-6 text-[#ED1C24]  border-[#ED1C24] leading-5 bg-[#ED1C24]/5 px-3 py-3 rounded-lg">
@@ -80,11 +76,17 @@
                             required />
                     </div>
 
-                    <div class="mb-6">
+                    <div class="mb-6 ">
                         <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Password</label>
-                        <input type="password" name="password"
-                            class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:border-[#ED1C24] focus:border-1"
-                            required />
+                        <div class="flex justify-between bg-white border border-gray-300 text-gray-900 text-sm rounded-lg w-full focus:outline-[#ED1C24]/50 pr-2.5">
+                            <input id="password" type="password" name="password"
+                                class="bg-white text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:outline-[#ED1C24]/50 mr-3"
+                                required />
+                                <div onclick="togglePassword()" class="flex items-center transition-all duration-100 cursor-pointer hover:opacity-60">
+                                    <img class="password-toggle-img" src="./img/icon-eye-closed.svg" alt="">
+                                </div>
+                        </div>
+                        
                     </div>
 
                     <div class="flex items-start mb-8">
@@ -102,6 +104,19 @@
         </div>
     </section>
 
+    <script>
+        function togglePassword() {
+          let passwordInput = document.getElementById("password");
+          let imgPasswordToggle = document.querySelector(".password-toggle-img")
+          if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            imgPasswordToggle.src = "./img/icon-eye.svg"
+          } else {
+            passwordInput.type = "password";
+            imgPasswordToggle.src = "./img/icon-eye-closed.svg"
+          }
+        }
+        </script>
 </body>
 
 </html>

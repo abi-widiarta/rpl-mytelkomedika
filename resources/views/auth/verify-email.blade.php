@@ -21,6 +21,22 @@
         body {
             font-family: 'Poppins', sans-serif;
         }
+
+        .lottie {
+          animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+        0% {
+          transform: translatey(0px);
+        }
+        50% {
+          transform: translatey(-20px);
+        }
+        100% {
+          transform: translatey(0px);
+        }
+      }
     </style>
 </head>
 
@@ -49,7 +65,7 @@
       <div class="flex -mt-8 flex-col justify-center items-center wrapper w-[32rem]">
 
         {{-- <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script> --}}
-        <lottie-player src="https://lottie.host/3fee85d2-6452-4bc5-b7da-6d70c52e144c/F8qzNjmfxz.json" background="#FFFFFF" speed="1" style="width: 300px; height: 300px" loop autoplay direction="1" mode="normal"></lottie-player>
+        <lottie-player class="lottie" src="https://lottie.host/3fee85d2-6452-4bc5-b7da-6d70c52e144c/F8qzNjmfxz.json" background="#FFFFFF" speed="1" style="width: 300px; height: 300px" loop autoplay direction="1" mode="normal"></lottie-player>
         {{-- <lottie-player src="https://lottie.host/3fee85d2-6452-4bc5-b7da-6d70c52e144c/F8qzNjmfxz.json" background="#FFFFFF" speed="1" style="width: 300px; height: 300px" loop controls autoplay direction="1" mode="normal"></lottie-player> --}}
         {{-- <img class="mb-4  w-[90%]" src="/img/verify-email.jpg" alt=""> --}}
         <div class="mb-8 w-80">
@@ -62,6 +78,7 @@
             Resend Email
           </button>
         </form>
+        <p class="text-xs text-gray-500">Verification email has been sent</p>
         @if (session('message'))
           <p class="text-xs text-gray-500">{{ session('message') }}</p>
         @endif
