@@ -65,6 +65,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/riwayat-pemeriksaan', function () {
         return view('client.riwayatPemeriksaan');
     });
+
+    Route::get('/riwayat-pemeriksaan/detail', function () {
+        return view('client.riwayatPemeriksaanDetail');
+    });
     
     Route::post('/logout', [LoginController::class, 'logout']);
 });
@@ -134,7 +138,9 @@ Route::get('/profile', function () {
     return("profile");
 })->middleware(['auth', 'verified']);
 
-
+Route::get('/riwayat-pemeriksaan/detail', function () {
+    return view('client.riwayatPemeriksaanDetail');
+});
 
 
 // Route::get('/admin/-jadwal-dokter', [JadwalDokterController::class, 'index']);
