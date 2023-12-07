@@ -67,12 +67,10 @@
                     <li>
                         <div class="bg-white w-full my-8 mx-8 ml-24 rounded-lg border border-dashed border-[#3D9B35] py-4 px-6">
                             <div class="p-6 border-black border-dashed rounded-lg ">
-                                <a href="#">
-                                    <div class = "items-center text-center">
-                                        <h5 class="mb-2 text-xl font-bold text-gray-900 ">Kesimpulan Pemeriksaan</h5>
-                                    </div>
-                                    <span class="w-full my-3 mb-10 md:h-0.5 bg-[#DADADA] rounded-full block"></span>
-                                </a>
+                                <div class = "items-center text-center">
+                                    <h5 class="mb-2 text-xl font-bold text-gray-900 ">Kesimpulan Pemeriksaan</h5>
+                                </div>
+                                <span class="w-full my-3 mb-10 md:h-0.5 bg-[#DADADA] rounded-full block"></span>
                                 <div class="flex">
                                     <ul class="list-none ">
                                         <li class="my-5">Berat badan</li>
@@ -108,12 +106,10 @@
                     <li>
                         <div class="bg-white w-full my-8 mx-8 ml-24 rounded-lg border border-dashed border-[#3D9B35] py-4 px-6">
                             <div class="p-6 border-black border-dashed rounded-lg ">
-                                <a href="#">
-                                    <div class = "items-center text-center">
-                                        <h5 class="mb-2 text-xl font-bold text-gray-900 ">Kesimpulan Pemeriksaan</h5>
-                                    </div>
-                                    <span class="w-full my-3 mb-10 md:h-0.5 bg-[#DADADA] rounded-full block"></span>
-                                </a>
+                                <div class = "items-center text-center">
+                                    <h5 class="mb-2 text-xl font-bold text-gray-900 ">Kesimpulan Pemeriksaan</h5>
+                                </div>
+                                <span class="w-full my-3 mb-10 md:h-0.5 bg-[#DADADA] rounded-full block"></span>
                                 <div class="flex">
                                     <ul class="list-none ">
                                         <li class="my-5">Antibiotik</li>
