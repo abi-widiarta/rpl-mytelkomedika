@@ -44,10 +44,11 @@
                                 </div>
                             </div>
                         </div>
-                        <button
+                        <a  
+                            href="/riwayat-pemeriksaan/detail"
                             class="py-3 font-medium px-10 text-white shadow-lg bg-gradient-to-r from-[#ED1C24]/90 to-[#ED1C24]/50 rounded-lg transition duration-200 hover:bg-[#ED1C24]">
                             Detail
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
