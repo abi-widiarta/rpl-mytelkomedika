@@ -16,7 +16,7 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();  
-            return redirect('/dashboard')->with('success', 'Login Berhasil!');
+            return redirect('/dashboard')->with('success','Login success');
         }
 
         return back()->withErrors([
@@ -35,7 +35,7 @@ class LoginController extends Controller
             
             $request->session()->regenerate();  
             
-            return redirect('/admin/dashboard');
+            return redirect('/admin/dashboard')->with('success','Login success');
         }
 
         // Alert::alert('Login Failed', 'Please Enter The Correct Data', 'error');

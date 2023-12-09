@@ -1,8 +1,6 @@
 @extends('layouts.layoutdashboard')
 
 @section('content')
-    <section class="flex-1 px-12 py-8">
-        
         {{-- @if(session('success'))
             @include('partials.modalLoginSuccess')
         @endif --}}
@@ -11,19 +9,10 @@
                 <div class="flex items-center justify-start space-x-4">
                     <h1 class="text-xl font-semibold">Dashboard</h1>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <div
-                        class="py-1 pl-4 pr-2 border-2 space-x-4 border-[#ED1C24] rounded-full flex items-center justify-between">
-                        <p class="text-sm font-semibold">{{ Auth::user()->name }}</p>
-                        <div class="grid w-8 bg-gray-600 rounded-full place-items-center aspect-square">
-                            <p class="m-0 text-white font-base">
-                                {{ Auth::user()->name[0] }}
-                            </p>
-                        </div>
-                    </div>
+                <div class="relative flex items-center space-x-4">
+                   @include('partials.dropdownProfile')
                 </div>
             </header>
-
             <div
                 class="px-6 pt-6 pb-8 w-full bg-gradient-to-r from-[#ED1C24]/90 via-[#ED1C24]/90 to-[#ED1C24]/20 text-white rounded-xl">
                 <h1 class="mb-2 text-xl font-semibold">
@@ -255,5 +244,4 @@
                 </div>
             </div>
         </div>
-    </section>
 @endsection

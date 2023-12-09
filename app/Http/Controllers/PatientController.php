@@ -18,28 +18,29 @@ class PatientController extends Controller
         return view("admin.dataPasien",["patients" => Patient::all()]);
     }
 
-    public function store(Request $request) {
-        $validatedData = $request->validate([
-            'name' => 'required|max:100',
-            'gender' => 'required',
-            'email' => 'required|unique:users|email:rfc,dns',
-            'birthdate' => 'required'
-        ]);
+    // public function store(Request $request) {
+    //     $validatedData = $request->validate([
+    //         'name' => 'required|max:100',
+    //         'gender' => 'required',
+    //         'email' => 'required|unique:users|email:rfc,dns',
+    //         'birthdate' => 'required'
+    //     ]);
 
-        $validatedData['google_id'] = null;
+    //     $validatedData['google_id'] = null;
 
-        User::create($validatedData);
+    //     User::create($validatedData);
 
-        return redirect('/admin-data-pasien');
-    }
+    //     return redirect('/admin-data-pasien');
+    // }
 
     public function create() {
         return view('admin.dataPasienTambah');
     }
 
     public function destroy(Request $request) {
-        Patient::where('id', $request->id)->delete();
-        return redirect('/admin-data-pasien');
+        // Patient::where('id', $request->id)->delete();
+
+        return redirect('/admin/data-pasien')->with('success', 'Data has been deleted successfully!');
     }
 
     public function edit($username) {

@@ -1,7 +1,6 @@
 @extends('layouts.layoutDashboardAdmin')
 
 @section('content')
-    <section class="flex-1 px-12 py-10">
         <div class="flex flex-col h-full">
             <header class="flex items-center justify-between mb-4">
                 <div class="flex items-start justify-start space-x-4">
@@ -144,5 +143,4 @@
               </div>
           </div>
         </div>
-    </section>
 @endsection
