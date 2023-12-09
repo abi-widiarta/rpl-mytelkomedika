@@ -51,7 +51,7 @@
                 <img class="w-[95%]" src="/img/login-img.png" alt="hero" />
             </div>
             <div class=" w-[45%] flex justify-center items-center -mt-6">
-                <form action="/login" method="post" class="w-72">
+                <form onsubmit="toggleDisable()" action="/login" method="post" class="w-72">
                     @csrf
                     <h1 class="text-[#ED1C24] text-4xl font-semibold text-center mb-10">
                         Login
@@ -95,7 +95,7 @@
                             <a href="/register" class="text-[#ED1C24]">Register here!</a>
                         </p>
                     </div>
-                    <button type="submit"
+                    <button id="btn-login" type="submit"
                         class="text-white rounded-full bg-[#ED1C24] font-medium shadow-lg transition duration-200 hover:shadow-[#ED1C24]/50 shadow-[#ED1C24]/30 text-sm w-full sm:w-auto px-6 py-2.5 text-center active:opacity-50 active:translate-y-2 active:shadow-sm">
                         Log in
                     </button>
@@ -115,6 +115,13 @@
             passwordInput.type = "password";
             imgPasswordToggle.src = "/img/icon-eye-closed.svg"
           }
+        }
+
+        function toggleDisable(){
+            const btnLogin = document.querySelector("#btn-login");
+            btnLogin.setAttribute('disabled', true);
+            btnLogin.style.opacity = 0.6
+            btnLogin.style.pointerEvents = "none"
         }
         </script>
 </body>

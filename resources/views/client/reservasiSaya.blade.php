@@ -1,23 +1,14 @@
 @extends('layouts.layoutdashboard')
 
 @section('content')
-    <section class="flex-1 px-12 py-10">
         <div class="h-full">
             <header class="flex items-center justify-between mb-8">
                 <div class="flex items-center justify-start space-x-4">
                     <img class="w-8" src="/img/antrian-sidebar-icon.png" alt="asd">
                     <h1 class="text-xl font-semibold">Reservasi Saya</h1>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <div
-                        class="py-1 pl-4 pr-2 border-2 space-x-4 border-[#ED1C24] rounded-full flex items-center justify-between">
-                        <p class="text-sm font-semibold">John Doe</p>
-                        <div class="grid w-8 bg-gray-600 rounded-full place-items-center aspect-square">
-                            <p class="m-0 text-white font-base">
-                                J
-                            </p>
-                        </div>
-                    </div>
+                <div class="relative flex items-center space-x-4">
+                    @include('partials.dropdownProfile')
                 </div>
             </header>
 
@@ -79,5 +70,4 @@
                 </div>
             </div>
         </div>
-    </section>
 @endsection

@@ -1,23 +1,14 @@
 @extends('layouts.layoutDashboardAdmin')
 
 @section('content')
-    <section class="flex-1 px-12 py-10">
         <div class="flex flex-col h-full">
             <header class="flex items-center justify-between mb-4">
                 <div class="flex items-start justify-start space-x-4">
                     <img src="/img/data-pasien-icon.png" alt="asd">
                     <h1 class="text-xl font-semibold">Data Pasien</h1>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <div
-                        class="py-1 pl-4 pr-2 border-2 space-x-4 border-[#ED1C24] rounded-full flex items-center justify-between">
-                        <p class="text-sm font-semibold">Admin John</p>
-                        <div class="grid w-8 bg-gray-600 rounded-full place-items-center aspect-square">
-                            <p class="m-0 text-white font-base">
-                                J
-                            </p>
-                        </div>
-                    </div>
+                <div class="relative flex items-center space-x-4">
+                    @include('partials.dropdownProfile')
                 </div>
             </header>
 
@@ -85,17 +76,20 @@
                                 </td>
                                 <td class="border-2 border-[#E9E9E9]">
                                     <div class="flex items-center justify-center space-x-2">
+                                        
                                         <a
                                             href="/admin/data-pasien/{{ $patient->username }}/edit"
                                             class="grid w-8 bg-gray-400 rounded-md place-items-center aspect-square hover:bg-gray-500">
                                             <img src="/img/edit-icon.png" alt="edit-icon" />
                                         </a>
-                                        @include('partials.modalConfirm')
-                                      
-                                        {{-- <button
-                                            class="grid w-8 bg-red-500 rounded-md place-items-center aspect-square hover:bg-red-600">
-                                            <img src="/img/delete-icon.png" alt="delete-icon" />
-                                        </button> --}}
+
+                                        <form class="patient-delete-form" action="/admin/data-pasien/delete/{{ $patient->id }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="grid w-8 bg-red-500 rounded-md place-items-center aspect-square hover:bg-red-600">
+                                                <img src="/img/delete-icon.png" alt="delete-icon" />
+                                            </button>
+                                        </form>
+                                        {{-- @include('partials.modalConfirm') --}}
                                     </div>
                                 </td>
                             </tr>
@@ -104,5 +98,32 @@
                 </table>
             </div>
         </div>
-    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        const formDelete = document.querySelectorAll(".patient-delete-form")
+
+        formDelete.forEach(form => {
+            form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            
+            Swal.fire({
+            title: 'Warning',
+            text: "Are you sure want to delete this data?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#ED1C24',
+            cancelButtonColor: '#C5C5C5',
+            confirmButtonText: 'Yes'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                form.submit();
+                } 
+            })
+            })
+        });
+    </script>
 @endsection
+
+

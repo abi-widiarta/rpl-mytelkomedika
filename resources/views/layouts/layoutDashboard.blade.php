@@ -60,21 +60,32 @@
             background-color: #e57373;
             color: #fff;
         }
+
+        .dropdown-open {
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            top: 3.5rem !important;
+            /* transform: scale(1) !important; */
+        }
     </style>
+    <script src="//unpkg.com/alpinejs"></script>
 
 </head>
 
 <body>
+    @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
     <main class="flex bg-[#F3FBFF] min-h-screen">
         {{-- sidebar --}}
         @include('partials.sidebar')
         
         {{-- main content --}}
-        @yield('content')
+        <section class="flex-1 px-8 py-6">
+            @yield('content')
+        </section>
     </main>
 
     <script src="./script.js"></script>
-    <script src="//unpkg.com/alpinejs" defer></script>
+    
 </body>
 
 </html>

@@ -98,7 +98,7 @@ Route::middleware('auth:admin')->group(function () {
     
     Route::post('/admin/data-pasien/store',[PatientController::class, 'store']); 
     
-    Route::post('/admin/delete-pasien', [PatientController::class, 'destroy']);
+    Route::post('/admin/data-pasien/delete/{id}', [PatientController::class, 'destroy']);
     
     Route::get('/admin/data-pasien/{username}/edit', [PatientController::class, 'edit']);
     
@@ -153,12 +153,10 @@ Route::post('/email/verification-notification', function (Request $request) {
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 Route::get('/profile', function () {
-    return("profile");
+    return view("client.profile");
 })->middleware(['auth', 'verified']);
 
-Route::get('/riwayat-pemeriksaan/detail', function () {
-    return view('client.riwayatPemeriksaanDetail');
-});
+
 
 
 // Route::get('/admin/-jadwal-dokter', [JadwalDokterController::class, 'index']);
