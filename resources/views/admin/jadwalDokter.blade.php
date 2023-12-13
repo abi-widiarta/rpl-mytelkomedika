@@ -15,7 +15,7 @@
             <div class="flex-1 w-full p-6 bg-white rounded-xl">
                 <h2 class="mb-8 text-lg font-semibold">Kelola Jadwal Dokter</h2>
                 <div class="flex justify-between mb-6">
-                    <a href="admin-data-pasien/create"
+                    <a href="/admin/jadwal-dokter/create"
                         class="bg-[#ED1C24] text-sm px-4 py-2 font-semibold text-white rounded-full transition duration-150 hover:opacity-70">
                         Tambah Data
                     </a>
@@ -53,7 +53,44 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @for ($i = 1; $i <= 6; $i++)
+                        @foreach ($schedules as $schedule)
+                            <tr class="text-sm">
+                                <td class="border-2 border-[#E9E9E9] py-3 px-4">
+                                    {{ $loop->iteration }}
+                                </td>
+                                <td class="border-2 border-[#E9E9E9] py-3 px-4">
+                                    {{ $schedule->doctor->name }}
+                                </td>
+                                <td class="border-2 border-[#E9E9E9] py-3 px-4 text-center">
+                                    {{ Str::ucfirst($schedule->hari) }}
+                                </td>
+                                <td class="border-2 border-[#E9E9E9] py-3 px-4 text-center">
+                                    {{ \Carbon\Carbon::parse($schedule->jam_mulai)->format('H:i') }}
+                                </td>
+                                <td class="border-2 border-[#E9E9E9] py-3 px-4 text-center">
+                                    {{ \Carbon\Carbon::parse($schedule->jam_selesai)->format('H:i') }}
+                                </td>
+                                <td class="border-2 border-[#E9E9E9] py-3 px-4 text-center">
+                                    {{ Str::ucfirst($schedule->doctor->spesialisasi) }}
+                                </td>
+                                <td class="border-2 border-[#E9E9E9]">
+                                    <div class="flex items-center justify-center space-x-2">
+                                        <a
+                                            href="/admin/jadwal-dokter/edit/{{ $schedule->id }}"
+                                            class="grid w-8 bg-gray-400 rounded-md place-items-center aspect-square hover:bg-gray-500">
+                                            <img src="/img/edit-icon.png" alt="edit-icon" />
+                                        </a>
+                                        <form class="schedule-delete-form" action="/admin/jadwal-dokter/delete/{{ $schedule->id }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="grid w-8 bg-red-500 rounded-md place-items-center aspect-square hover:bg-red-600">
+                                                <img src="/img/delete-icon.png" alt="delete-icon" />
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                        {{-- @for ($i = 1; $i <= 6; $i++)
                             <tr class="text-sm">
                                 <td class="border-2 border-[#E9E9E9] py-3 px-4">
                                     {{ $i }}
@@ -86,9 +123,35 @@
                                     </div>
                                 </td>
                             </tr>
-                        @endfor
+                        @endfor --}}
                     </tbody>s
                 </table>
             </div>
         </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+            const formDelete = document.querySelectorAll(".schedule-delete-form")
+
+            formDelete.forEach(form => {
+                form.addEventListener("submit", (e) => {
+                e.preventDefault();
+                
+                Swal.fire({
+                title: 'Warning',
+                text: "Are you sure want to delete this data?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#ED1C24',
+                cancelButtonColor: '#C5C5C5',
+                confirmButtonText: 'Yes'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                    form.submit();
+                    } 
+                })
+                })
+            });
+        </script>
 @endsection

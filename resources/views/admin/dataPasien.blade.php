@@ -78,7 +78,7 @@
                                     <div class="flex items-center justify-center space-x-2">
                                         
                                         <a
-                                            href="/admin/data-pasien/{{ $patient->username }}/edit"
+                                            href="/admin/data-pasien/edit/{{ $patient->username }}"
                                             class="grid w-8 bg-gray-400 rounded-md place-items-center aspect-square hover:bg-gray-500">
                                             <img src="/img/edit-icon.png" alt="edit-icon" />
                                         </a>

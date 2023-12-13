@@ -1,12 +1,16 @@
 <?php
 
+use App\Models\Patient;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\RegisterController;
+use App\Models\Doctor;
+use App\Models\DoctorSchedule;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,46 +24,43 @@ use Illuminate\Http\Request;
 */
 
 // GUEST
-
-// Route::middleware('guest')->group(function () { 
+Route::middleware('guest')->group(function () {
+    Route::get('/', function () {
+        return view('landingPage');
+    });
     
-// });
+    Route::get('/login', function () {
+        return view('client.login');
+    })->name('login');
+    
+    Route::post('/login', [LoginController::class, 'authenticate']);
 
-Route::get('/', function () {
-    return view('landingPage');
+    Route::get('/contact', function () {
+        return "contact page";
+    });
+    
+    Route::get('/register', function () {
+        return view('client.register');
+    });
+
+    Route::post('/register/profiling', [RegisterController::class, 'storeComplete']);
+    
+    Route::post('/register', [RegisterController::class, 'store']);
+    
+    Route::get('/admin/register', function () {
+        return view('admin.register');
+    });
+
+    Route::post('/admin/register', [RegisterController::class, 'storeAdmin']);
+    
+    Route::get('/admin/login', function () {
+        return view('admin.login');
+    });
+    
+    Route::post('/admin/login', [LoginController::class, 'authenticateAdmin']);
 });
 
-Route::get('/login', function () {
-    return view('client.login');
-})->name('login');
-
-Route::post('/login', [LoginController::class, 'authenticate']);
-
-Route::get('/contact', function () {
-    return "contact page";
-});
-
-Route::get('/register', function () {
-    return view('client.register');
-});
-
-Route::post('/register/profiling', [RegisterController::class, 'storeComplete']);
-
-Route::post('/register', [RegisterController::class, 'store']);
-
-Route::get('/admin/register', function () {
-    return view('admin.register');
-});
-
-Route::post('/admin/register', [RegisterController::class, 'storeAdmin']);
-
-Route::get('/admin/login', function () {
-    return view('admin.login');
-});
-
-Route::post('/admin/login', [LoginController::class, 'authenticateAdmin']);
 // PASIEN
-
 Route::middleware(['auth','verified'])->group(function () {
 
     Route::get('/dashboard', function () {
@@ -67,7 +68,11 @@ Route::middleware(['auth','verified'])->group(function () {
     });
 
     Route::get('/lakukan-reservasi', function () {
-        return view('client.lakukanReservasi');
+        return view('client.lakukanReservasi',["doctors" => Doctor::all()]);
+    });
+
+    Route::post('/lakukan-reservasi', function (Request $request) {
+        dd($request);
     });
     
     Route::get('/reservasi-saya', function () {
@@ -85,6 +90,7 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::post('/logout', [LoginController::class, 'logout']);
 });
 
+// ADMIN
 Route::middleware('auth:admin')->group(function () {
     Route::get('/admin/dashboard', function () {
         return view('admin.dashboard');
@@ -100,26 +106,92 @@ Route::middleware('auth:admin')->group(function () {
     
     Route::post('/admin/data-pasien/delete/{id}', [PatientController::class, 'destroy']);
     
-    Route::get('/admin/data-pasien/{username}/edit', [PatientController::class, 'edit']);
+    Route::get('/admin/data-pasien/edit/{username}', [PatientController::class, 'edit']);
     
-    Route::post('/admin/data-pasien/{id}/update', [PatientController::class, 'update']);
+    Route::post('/admin/data-pasien/update/{id}', [PatientController::class, 'update']);
     
-    Route::get('/admin/data-dokter',function() {
-        return view('admin.dataDokter');
-    });
+    Route::get('/admin/data-dokter',[DoctorController::class, 'index']);
     
     Route::get('/admin/data-dokter/create',[DoctorController::class, 'create']);
     
     Route::post('/admin/data-dokter/store',[DoctorController::class, 'store']);
     
-    Route::get('/admin/data-dokter/{id}/edit',[DoctorController::class, 'edit']);
+    Route::get('/admin/data-dokter/edit/{username}',[DoctorController::class, 'edit']);
     
-    Route::post('/admin/data-dokter/{id}/update', [DoctorController::class, 'update']);
+    Route::post('/admin/data-dokter/update/{username}', [DoctorController::class, 'update']);
     
-    Route::post('/admin/delete-dokter', [DoctorController::class, 'destroy']);
+    Route::post('/admin/data-doctor/delete/{id}', [DoctorController::class, 'destroy']);
     
     Route::get('/admin/jadwal-dokter', function () {
-        return view('admin.jadwalDokter');
+        $schedules = DoctorSchedule::with('doctor')->get();
+
+        // Menggunakan fungsi sortBy untuk mengurutkan berdasarkan 'doctor.username' dan 'hari'
+        $sortedSchedules = $schedules->sortBy([
+            'doctor.username',
+            'hari',
+        ]);
+
+        // Mengelompokkan jadwal berdasarkan 'doctor.username'
+        $groupedSchedulesByUsername = $sortedSchedules->groupBy('doctor.username');
+
+        // Menggabungkan grup-grup menjadi satu koleksi dengan pengurutan tambahan berdasarkan 'hari'
+        $finalSchedules = collect();
+        $daysOrder = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu', 'minggu'];
+        foreach ($groupedSchedulesByUsername as $usernameGroup) {
+            $groupedSchedulesByDay = $usernameGroup->groupBy('hari');
+            foreach ($daysOrder as $day) {
+                if (isset($groupedSchedulesByDay[$day])) {
+                    $finalSchedules = $finalSchedules->merge($groupedSchedulesByDay[$day]);
+                }
+            }
+        }
+
+        return view('admin.jadwalDokter', ["schedules" => $finalSchedules]);
+    });
+
+    Route::get('/admin/jadwal-dokter/create', function () {
+        return view('admin.jadwalDokterTambah', ["doctors"=> Doctor::all()]);
+    });
+
+    Route::post('/admin/jadwal-dokter/store', function (Request $request) {
+        DoctorSchedule::create([
+            "doctor_id" => $request->dokter,
+            "hari" => $request->hari,
+            "jam_mulai" => date('H:i', strtotime($request->jam_mulai)),
+            "jam_selesai" => date('H:i', strtotime($request->jam_selesai)),
+            "tanggal_berlaku_sampai" => $request->tanggal_berlaku_sampai,
+        ]);
+
+        return redirect('/admin/jadwal-dokter')->with('success','Data added successfully!');
+    });
+
+    Route::get('/admin/jadwal-dokter/edit/{id}', function ($id) {
+        return view('admin.jadwalDokterEdit', ["schedule"=> DoctorSchedule::findOrFail($id)]);
+    });
+
+
+    Route::post('/admin/jadwal-dokter/update/{id}', function (Request $request, $id) {
+        $schedule = DoctorSchedule::findOrFail($id);
+
+        $schedule->update(
+            [   
+                "doctor_id" =>$request->dokter,
+                "hari" => $request->hari,
+                "jam_mulai" => $request->jam_mulai,
+                "jam_selesai" => $request->jam_selesai,
+                "tanggal_berlaku_sampai" => $request->tanggal_berlaku_sampai,
+            ]
+            );
+
+        return redirect('/admin/jadwal-dokter/edit/' . $id)->with('success','Data updated successfully!');
+    });
+
+    Route::post('/admin/jadwal-dokter/delete/{id}', function ($id) {
+
+        DoctorSchedule::where('id', $id)->delete();
+
+        return redirect('/admin/jadwal-dokter')->with('success', 'Data has been deleted successfully!');
+
     });
     
     Route::get('/admin/antrian-pemeriksaan', function () {
@@ -131,11 +203,7 @@ Route::middleware('auth:admin')->group(function () {
     });
 });
 
-// ADMIN
-
-
 // Email verification
-
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice');
@@ -152,11 +220,14 @@ Route::post('/email/verification-notification', function (Request $request) {
     return back()->with('message', 'New verification has been link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-Route::get('/profile', function () {
-    return view("client.profile");
-})->middleware(['auth', 'verified']);
+Route::get('/profile', [PatientController::class, 'profileEdit'])->middleware(['auth', 'verified']);
 
+Route::post('/profile/edit/{id}',  [PatientController::class, 'profileUpdate'])->middleware(['auth', 'verified']);
 
+Route::get('/lakukan-reservasi/detail/{username}', function ($username) {
+    $doctor = Doctor::where('username',$username)->first();
+    return view('client.lakukanReservasiDetail',["doctor" => $doctor, "schedules" => $doctor->doctor_schedule]);
+});
 
 
 // Route::get('/admin/-jadwal-dokter', [JadwalDokterController::class, 'index']);
