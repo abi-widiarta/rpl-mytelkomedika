@@ -15,7 +15,7 @@
             <div class="flex-1 w-full p-6 bg-white rounded-xl">
                 <h2 class="mb-8 text-lg font-semibold">Kelola Data Dokter</h2>
                 <div class="flex justify-between mb-6">
-                    <a href="admin-data-pasien/create"
+                    <a href="/admin/data-dokter/create"
                         class="bg-[#ED1C24] text-sm px-4 py-2 font-semibold text-white rounded-full transition duration-150 hover:opacity-70">
                         Tambah Data
                     </a>
@@ -39,57 +39,98 @@
                                 Email
                             </th>
                             <th class="border-2 text-sm font-semibold border-[#E9E9E9]">
-                                Alamat
+                                Status
                             </th>
                             <th class="border-2 text-sm font-semibold border-[#E9E9E9]">
                                 Poli
                             </th>
-                            <th class="border-2 text-sm font-semibold border-[#E9E9E9] w-56">
-                                Tempat <br>
+                            <th class="border-2 text-sm font-semibold border-[#E9E9E9] w-32">
                                 Tanggal Lahir
                             </th>
-                            <th class="border-2 font-semibold border-[#E9E9E9]">
+                            <th class="border-2 text-sm font-semibold border-[#E9E9E9] w-56">
+                                Alamat
+                            </th>
+                            <th class="border-2 font-semibold border-[#E9E9E9] w-24">
                                 Action
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        @for ($i = 1; $i <= 6; $i++)
+                        @foreach ($doctors as $doctor)
                             <tr class="text-sm">
                                 <td class="border-2 border-[#E9E9E9] py-3 px-4">
-                                    {{ $i }}
+                                    {{ $loop->iteration }}
                                 </td>
                                 <td class="border-2 border-[#E9E9E9] py-3 px-4">
-                                    Dr. Jason
+                                    {{ $doctor->name }}
                                 </td>
                                 <td class="border-2 border-[#E9E9E9] py-3 px-4">
-                                    jason@employee.telkomuniversity.ac.id
+                                    {{ $doctor->email }}
+                                </td>
+                                <td class="border-2 border-[#E9E9E9] py-3 px-4 text-center">
+                                    @if ($doctor->status == 1)
+                                        Active
+                                    @else
+                                        Inactive
+                                    @endif
+                                    
+                                </td>
+                                <td class="border-2 border-[#E9E9E9] py-3 px-4 text-center">
+                                    {{ ucfirst($doctor->spesialisasi) }}
+                                </td>
+                                <td class="border-2 border-[#E9E9E9] py-3 px-4 text-center">
+                                    {{ $doctor->tanggal_lahir }}
                                 </td>
                                 <td class="border-2 border-[#E9E9E9] py-3 px-4">
-                                    Bandung
-                                </td>
-                                <td class="border-2 border-[#E9E9E9] py-3 px-4">
-                                    Umum
-                                </td>
-                                <td class="border-2 border-[#E9E9E9] py-3 px-4">
-                                    Yogyakarta, 20-01-2003
+                                    {{  $doctor->alamat }}
                                 </td>
                                 <td class="border-2 border-[#E9E9E9]">
                                     <div class="flex items-center justify-center space-x-2">
-                                        <a
+                                        <a  
+                                            href="/admin/data-dokter/edit/{{ $doctor->username }}"
                                             class="grid w-8 bg-gray-400 rounded-md place-items-center aspect-square hover:bg-gray-500">
                                             <img src="/img/edit-icon.png" alt="edit-icon" />
                                         </a>
-                                        <button
-                                            class="grid w-8 bg-red-500 rounded-md place-items-center aspect-square hover:bg-red-600">
-                                            <img src="/img/delete-icon.png" alt="delete-icon" />
-                                        </button>
+                                        <form class="doctor-delete-form" action="/admin/data-doctor/delete/{{ $doctor->id }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="grid w-8 bg-red-500 rounded-md place-items-center aspect-square hover:bg-red-600">
+                                                <img src="/img/delete-icon.png" alt="delete-icon" />
+                                            </button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>
-                        @endfor
+                        @endforeach
+                        {{-- @for ($i = 1; $i <= 6; $i++)
+                        @endfor --}}
                     </tbody>
                 </table>
             </div>
         </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+            const formDelete = document.querySelectorAll(".doctor-delete-form")
+
+            formDelete.forEach(form => {
+                form.addEventListener("submit", (e) => {
+                e.preventDefault();
+                
+                Swal.fire({
+                title: 'Warning',
+                text: "Are you sure want to delete this data?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#ED1C24',
+                cancelButtonColor: '#C5C5C5',
+                confirmButtonText: 'Yes'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                    form.submit();
+                    } 
+                })
+                })
+            });
+        </script>
 @endsection

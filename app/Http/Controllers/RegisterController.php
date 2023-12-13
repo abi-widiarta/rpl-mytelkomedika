@@ -49,7 +49,7 @@ class RegisterController extends Controller
                 return back()->withErrors(['validasi_nim' => 'NIM not registered in Telkom University'])->withInput();
             }  
         } else {
-            return back()->withErrors(['validasi_nim' => 'Invalid NIM'])->withInput();
+            return back()->withErrors(['api_error' => 'System Is Busy, please try again later'])->withInput();
         }
     }
 

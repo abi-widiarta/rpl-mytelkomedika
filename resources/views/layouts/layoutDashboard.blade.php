@@ -68,7 +68,7 @@
             /* transform: scale(1) !important; */
         }
     </style>
-    <script src="//unpkg.com/alpinejs"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
 
 </head>
 

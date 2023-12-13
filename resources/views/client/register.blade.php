@@ -26,7 +26,7 @@
 
 <body class="font-poppins">
     <nav class="fixed top-0 left-0 z-50 w-full shadow-lg bg-white/80 backdrop-blur-lg sm:px-5 shadow-gray-100/50">
-        <div class="max-w-screen-xl border h-[70px] flex flex-wrap items-center justify-between mx-auto">
+        <div class="max-w-screen-xl h-[70px] flex flex-wrap items-center justify-between mx-auto">
             <a href="/" class="flex items-center">
                 <span class="self-center text-2xl font-semibold whitespace-nowrap text-[#ED1C24]">MyTelkomedika</span>
             </a>
@@ -44,13 +44,13 @@
         </div>
     </nav>
 
-    <section class="flex items-center h-screen pt-8 bg-white">
-        <div class="flex flex-col max-w-screen-xl px-4 py-8 mx-auto md:flex-row md:items-center md:justify-center">
+    <section class="flex items-center bg-white">
+        <div class="flex flex-col max-w-screen-xl px-4 py-8 mx-auto mt-[5rem] mb-6 md:flex-row md:items-center md:justify-center">
             <div class="w-[55%] flex justify-start">
                 <img class="w-[95%]" src="/img/login-img.png" alt="hero" />
             </div>
             <div class=" w-[45%] flex justify-center items-center">
-                <form action="/register" method="POST" class="w-[75%]">
+                <form onsubmit="toggleDisable()" action="/register" method="POST" class="w-[75%]">
                     @csrf
                     <h1 class="text-[#ED1C24] text-3xl font-semibold text-center mb-8">
                         Register
@@ -84,6 +84,9 @@
                             <small class="text-xs text-red-400">{{ $message }}</small>
                         @enderror
                         @error('validasi_nim') 
+                            <small class="text-xs text-red-400">{{ $message }}</small>
+                        @enderror
+                        @error('api_error') 
                             <small class="text-xs text-red-400">{{ $message }}</small>
                         @enderror
                         @error('validasi_nama') 
@@ -167,7 +170,7 @@
                         </p>
                     </div>
 
-                    <button type="submit"
+                    <button id="btn-register" type="submit"
                         class="text-white rounded-full  bg-[#ED1C24] font-medium shadow-lg transition duration-200 hover:shadow-[#ED1C24]/50 shadow-[#ED1C24]/30 text-sm w-full sm:w-auto px-6 py-2.5 text-center active:opacity-50 active:translate-y-2 active:shadow-sm xl:w-full">
                         Continue
                     </button>
@@ -189,6 +192,13 @@
             passwordInput.type = "password";
             imgPasswordToggle.src = "./img/icon-eye-closed.svg"
         }
+        }
+
+        function toggleDisable(){
+            const btnRegister = document.querySelector("#btn-register");
+            btnRegister.setAttribute('disabled', true);
+            btnRegister.style.opacity = 0.6
+            btnRegister.style.pointerEvents = "none"
         }
     </script>
 </body>
