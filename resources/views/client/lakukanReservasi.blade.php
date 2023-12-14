@@ -2,7 +2,7 @@
 
 @section('content')
         <div class="h-full">
-            <header class="flex items-center justify-between mb-8">
+            <header class="flex items-center justify-between mb-4">
                 <div class="flex items-center justify-start space-x-4">
                     <img class="w-8" src="/img/antrian-sidebar-icon.png" alt="asd">
                     <h1 class="text-xl font-semibold">Lakukan Reservasi</h1>
@@ -11,6 +11,27 @@
                     @include('partials.dropdownProfile')
                 </div>
             </header>
+            
+            <div class="mb-4">
+                <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown-category" class="flex justify-between text-[#777A8F] focus:outline-[#777A8F] w-40 after:hidden bg-white border border-white/40 hover:bg-white/20 font-medium rounded-xl text-xs px-5 py-2.5 text-start items-center shadow-[0px_7px_61px_0px_rgba(198,203,232,0.5)] md:text-sm md:w-48" type="button">All <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                  </svg></button>
+                  <!-- Dropdown menu -->
+                  <div id="dropdown-category" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-[0px_7px_61px_0px_rgba(198,203,232,0.5)] w-40 -translate-y-20 md:mt-0 md:w-44">
+                    <ul class="py-2 text-xs text-[#777A8F] md:text-sm" aria-labelledby="dropdownDefaultButton">
+                      <li>
+                        <a href="/books/?category=all" class="block px-4 py-2 hover:bg-[#777A8F]/10">All</a>
+                      </li>
+                      <li>
+                        <a href="/books/?category=" class="block px-4 py-2 hover:bg-[#777A8F]/10">Poli Umum</a>
+                      </li>
+                      {{-- @foreach ($categories as $category)
+                        
+                      @endforeach --}}
+                      
+                    </ul>
+                  </div>
+            </div>
 
             <div class="grid grid-cols-2 gap-6">
                 
@@ -54,79 +75,7 @@
                         </div>
                     </div>
                 @endforeach
-
-                {{-- @foreach ($doctors as $doctor)
-                <div class="flex py-6 pl-6 pr-10 space-x-4 bg-white shadow-lg rounded-xl shadow-gray-100">
-                    <div class="space-y-2 text-center">
-                        <img class="object-cover h-56 bg-red-300 rounded-lg w-44" src="{{ $doctor->image }}" alt="doctor-1" />
-                    </div>
-                    <span class="block w-[2px] h-56 bg-gray-200"></span>
-                    <div class="flex flex-col justify-between flex-1 px-2 py-2">
-                        <div class="mb-2">
-                            <h1 class="mb-2 text-base font-semibold">{{ $doctor->name }}</h1>
-                            <div class="flex items-center mb-6 space-x-2">
-                                <img src="/img/poli-icon.png" alt="icon-poli">
-                                <p class="text-sm text-gray-600">Poli {{ ucfirst($doctor->spesialisasi) }}</p>
-                            </div>
-                            <p class="mb-2 text-sm font-medium">Jadwal Praktek</p>
-                            <ul class="flex justify-between pl-0.5">
-                                <li class="inline-block mb-4">
-                                    <h3 class="mb-1 text-sm font-medium capitalize">
-                                        Senin
-                                    </h3>
-                                    <p class="text-sm">08.00 - 13.00</p>
-                                </li>
-                                <li class="inline-block mb-4">
-                                    <h3 class="mb-1 text-sm font-medium capitalize">
-                                        Selasa
-                                    </h3>
-                                    <p class="text-sm">08.00 - 13.00</p>
-                                </li>
-                                <li class="inline-block mb-4">
-                                    <h3 class="mb-1 text-sm font-medium capitalize">
-                                        Rabu
-                                    </h3>
-                                    <p class="text-sm">08.00 - 13.00</p>
-                                </li>
-                                <li class="inline-block mb-4">
-                                    <h3 class="mb-1 text-sm font-medium capitalize">
-                                        Kamis
-                                    </h3>
-                                    <p class="text-sm">08.00 - 13.00</p>
-                                </li>
-                                <li class="inline-block mb-4">
-                                    <h3 class="mb-1 text-sm font-medium capitalize">
-                                        Jumat
-                                    </h3>
-                                    <p class="text-sm">08.00 - 13.00</p>
-                                </li>
-                                <li class="inline-block mb-4">
-                                    <h3 class="mb-1 text-sm font-medium capitalize">
-                                        Sabtu
-                                    </h3>
-                                    <p class="text-sm">08.00 - 13.00</p>
-                                </li>
-                                <li class="inline-block mb-4">
-                                    <h3 class="mb-1 text-sm font-medium capitalize">
-                                        Minggu
-                                    </h3>
-                                    <p class="text-sm">08.00 - 13.00</p>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <div class="space-y-3 ">
-                                <div class="flex items-center space-x-2">
-                                    <img src="/img/star-icon.png" alt="star-icon" />
-                                    <p class="inline-block text-sm translate-y-[2px]">
-                                        4.6
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @endforeach --}}
+                
             </div>
         </div>
 

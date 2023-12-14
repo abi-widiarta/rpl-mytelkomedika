@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('hari');
             $table->time('jam_mulai');
             $table->time('jam_selesai');
+            $table->integer('kapasistas_pasien')->default(30);
             $table->date('tanggal_berlaku_sampai')->nullable();
             $table->timestamps();
         });

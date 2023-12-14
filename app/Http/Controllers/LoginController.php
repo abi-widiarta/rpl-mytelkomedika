@@ -38,8 +38,6 @@ class LoginController extends Controller
             return redirect('/admin/dashboard')->with('success','Login success');
         }
 
-        // Alert::alert('Login Failed', 'Please Enter The Correct Data', 'error');
-
         return back()->withErrors([
             'username' => 'The provided credentials do not match our records.',
         ])->onlyInput('username');

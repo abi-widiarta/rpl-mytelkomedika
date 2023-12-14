@@ -1,15 +1,17 @@
 <?php
 
+use App\Models\Doctor;
 use App\Models\Patient;
+use App\Models\Reservation;
 use Illuminate\Http\Request;
+use App\Models\DoctorSchedule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\RegisterController;
-use App\Models\Doctor;
-use App\Models\DoctorSchedule;
+use App\Http\Controllers\ReservationController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 /*
@@ -42,8 +44,6 @@ Route::middleware('guest')->group(function () {
     Route::get('/register', function () {
         return view('client.register');
     });
-
-    Route::post('/register/profiling', [RegisterController::class, 'storeComplete']);
     
     Route::post('/register', [RegisterController::class, 'store']);
     
@@ -52,6 +52,7 @@ Route::middleware('guest')->group(function () {
     });
 
     Route::post('/admin/register', [RegisterController::class, 'storeAdmin']);
+    
     
     Route::get('/admin/login', function () {
         return view('admin.login');
@@ -76,7 +77,9 @@ Route::middleware(['auth','verified'])->group(function () {
     });
     
     Route::get('/reservasi-saya', function () {
-        return view('client.reservasiSaya');
+        $daftarReservasi = Reservation::where('patient_id',Auth::user()->id)->where('status','!=','canceled')->get();
+
+        return view('client.reservasiSaya', ['daftar_reservasi' => $daftarReservasi]);
     });
     
     Route::get('/riwayat-pemeriksaan', function () {
@@ -86,7 +89,11 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::get('/riwayat-pemeriksaan/detail', function () {
         return view('client.riwayatPemeriksaanDetail');
     });
+
+    Route::post('/lakukan-reservasi/detail/{id}',  [ReservationController::class, 'store']);
     
+    Route::post('/reservasi-saya/cancel/{id}',  [ReservationController::class, 'cancel']);
+
     Route::post('/logout', [LoginController::class, 'logout']);
 });
 

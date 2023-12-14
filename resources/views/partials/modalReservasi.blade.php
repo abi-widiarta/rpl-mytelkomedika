@@ -19,8 +19,9 @@
                     <p>Poli {{  ucfirst($doctor->spesialisasi) }}</p>
                   </div>
                   <div class="h-full w-96">
-                    <form action="/lakukan-reservasi" method="post">
+                    <form action="/lakukan-reservasi/detail/{{ $doctor->id }}" method="post">
                       @csrf
+                      <input type="hidden" id="dayName" name="hari">
                       <div class="flex justify-between space-x-4">
                         <div class="flex flex-col items-start mb-4 space-y-2 w-[65%]">
                           <label class="text-sm font-semibold" for="datepicker">Pilih Tanggal</label>
@@ -28,11 +29,11 @@
                         </div>
                         <div class="mb-4 w-[35%]">
                           <label
-                              for="hari"
+                              for="jam"
                               class="block mb-2 text-sm font-medium text-gray-900"
-                              >Hari</label
+                              >Jam</label
                           >
-                          <select id="select-jam" name="hari" id="hari" class="bg-white disabled:bg-slate-100 disabled:text-gray-500 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:outline-primary/50">
+                          <select id="select-jam" name="jam_mulai" id="jam" class="bg-white disabled:bg-slate-100 disabled:text-gray-500 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:outline-primary/50">
                             <option disabled selected>Pilih Jam</option>
                           </select>
                         </div>
@@ -111,6 +112,14 @@
 
         var selectedDay
 
+            var dayName = selectedDate.toLocaleDateString('id-ID', { weekday: 'long' });
+
+            // Tampilkan nilai hari di konsol atau tempat lain sesuai kebutuhan
+            console.log("Hari yang dipilih: " + dayName);
+
+            // Perbarui nilai input tersembunyi
+            $("#dayName").val(dayName.toLowerCase());
+
         selectJam.innerHTML = `
           <option disabled selected>Pilih Jam</option>
         `
@@ -150,7 +159,7 @@
             console.log(element.jam_mulai)
             selectJam.innerHTML += 
             `
-              <option value="${ element.hari}">${element.jam_mulai.substring(0, 5)} - ${element.jam_selesai.substring(0, 5)}</option>
+              <option value="${ element.jam_mulai}">${element.jam_mulai.substring(0, 5)} - ${element.jam_selesai.substring(0, 5)}</option>
             `
           }
         });

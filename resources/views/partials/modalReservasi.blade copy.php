@@ -1,39 +1,131 @@
-<!-- Modal toggle -->
-<button data-modal-target="static-modal" data-modal-toggle="static-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
-  Toggle modal
-</button>
+<div x-data="{ isOpen: false }" class="relative flex justify-center">
+ 
+  <button onclick="setData({{ $doctor }})" @click="isOpen = true" class="py-3 text-sm text-white px-10 shadow-lg bg-gradient-to-r from-[#ED1C24]/90 to-[#ED1C24]/50 rounded-xl transition duration-200 hover:bg-[#ED1C24]">
+    Reservasi
+  </button>
 
-<!-- Main modal -->
-<div id="static-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <div class="relative w-full max-w-2xl max-h-full p-4">
-        <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <!-- Modal header -->
-            <div class="flex items-center justify-between p-4 border-b rounded-t md:p-5 dark:border-gray-600">
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                    Static modal
-                </h3>
-                <button type="button" class="inline-flex items-center justify-center w-8 h-8 text-sm text-gray-400 bg-transparent rounded-lg hover:bg-gray-200 hover:text-gray-900 ms-auto dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="static-modal">
-                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                    </svg>
-                    <span class="sr-only">Close modal</span>
-                </button>
-            </div>
-            <!-- Modal body -->
-            <div class="p-4 space-y-4 md:p-5">
-                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                    With less than a month to go before the European Union enacts new consumer privacy laws for its citizens, companies around the world are updating their terms of service agreements to comply.
-                </p>
-                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                    The European Union’s General Data Protection Regulation (G.D.P.R.) goes into effect on May 25 and is meant to ensure a common set of data rights in the European Union. It requires organizations to notify users as soon as possible of high-risk data breaches that could personally affect them.
-                </p>
-            </div>
-            <!-- Modal footer -->
-            <div class="flex items-center p-4 border-t border-gray-200 rounded-b md:p-5 dark:border-gray-600">
-                <button data-modal-hide="static-modal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">I accept</button>
-                <button data-modal-hide="static-modal" type="button" class="ms-3 text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Decline</button>
-            </div>
-        </div>
-    </div>
+  <div x-show="isOpen" 
+      x-transition:enter="transition duration-100 ease-out"
+      x-transition:enter-start="translate-y-4 opacity-0 sm:translate-y-0"
+      x-transition:enter-end="translate-y-0 opacity-100 sm:scale-100"
+      x-transition:leave="transition duration-100 ease-in"
+      x-transition:leave-start="translate-y-0 opacity-100 sm:scale-100"
+      x-transition:leave-end="translate-y-4 opacity-0 sm:translate-y-0"
+      class="fixed inset-0 z-10 overflow-y-auto" 
+      aria-labelledby="modal-title" role="dialog" aria-modal="true"
+  >
+      <div class="items-end justify-center hidden min-h-screen px-4 pt-4 pb-20 text-center transition-all duration-500 bg-transparent modal-reservasi-container sm:block sm:p-0">
+          <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+          <div  class="relative hidden inline-block px-10 pt-5 pb-4 overflow-hidden text-left align-bottom transition-all transform bg-white rounded-lg shadow-xl modal-reservasi sm:my-8 sm:align-middle">
+              <div class="flex flex-col items-center justify-center w-full h-full ">
+                  <div class="mt-2 mb-8 text-center">
+                      <h3 class="mb-3 text-xl font-semibold leading-6 text-gray-800 capitalize" id="modal-title">Reservasi</h3>
+                      <span class="block w-full h-[3px] bg-gray-600/10 mb-8 rounded-md"></span>
+                      <div class="flex space-x-8">
+                        <div>
+                          <img class="object-cover mb-2 rounded-md w-36 h-44" src="{{ $doctor->image }}" alt="">
+                          {{-- <div class="overflow-hidden ">
+                          </div> --}}
+                          <h2 class="text-lg font-semibold">{{ $doctor->name }}</h2>
+                          <p>Poli {{  ucfirst($doctor->spesialisasi) }}</p>
+                        </div>
+                        <div class="h-full w-80">
+                          <form action="#" method="post">
+                            <div class="flex flex-col items-start mb-4 space-y-2">
+                              <label class="text-sm font-semibold" for="datepicker">Pilih Tanggal</label>
+                              <input autocomplete="off" class="border border-gray-300 bg-white text-gray-900 text-sm rounded-md block w-full px-2 py-2 focus:outline-[#ED1C24]/50 mr-3" name="date" type="text" id="datepicker" placeholder="dd/mm/yyyy">
+                            </div>
+                            <div class="flex flex-col items-start mb-6 space-y-2">
+                              <label class="text-sm font-semibold" for="keluhan">Keluhan Awal</label>
+                              <textarea autocomplete="off" class="resize-none w-full px-2 py-2 border border-gray-300 bg-white text-gray-900 text-sm rounded-md block p-1 focus:outline-[#ED1C24]/50 mr-3" name="keluhan" id="keluhan" rows="5"></textarea>
+                            </div>
+
+                            <div class="space-x-4 sm:flex sm:items-center">
+                              {{-- <button class="w-full px-4 py-2 mt-2 text-sm font-medium tracking-wide text-gray-700 capitalize transition-colors duration-300 transform border border-gray-200 rounded-md sm:mt-0 sm:w-auto sm:mx-2 hover:bg-gray-100 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-40">
+                                  Cancel
+                              </button> --}}
+
+                              <a
+                                  @click="isOpen = false"
+                                  class="cursor-pointer border rounded-lg text-gray-900 bg-white font-medium hover:shadow-xl shadow-lg transition duration-200 text-sm w-full sm:w-auto px-6 py-2.5 text-center active:opacity-50 active:translate-y-2 active:shadow-sm">
+                                  Cancel
+                              </a>
+
+                              <button type="submit"
+                                  class="text-white rounded-lg bg-[#ED1C24] font-medium shadow-lg transition duration-200 hover:shadow-[#ED1C24]/50 shadow-[#ED1C24]/30 text-sm w-full sm:w-auto px-6 py-2.5 text-center active:opacity-50 active:translate-y-2 active:shadow-sm">
+                                  Reservasi
+                              </button>
+
+                              
+          
+                              {{-- <button class="w-full px-4 py-2 mt-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-[#ED1C24] rounded-md sm:w-auto sm:mt-0 hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40">
+                                  Delete
+                              </button> --}}
+                            </div>
+
+                          </form>
+
+                        </div>
+                      </div>
+                  </div>
+                  
+              </div>
+          </div>
+      </div>
+  </div>
 </div>
+
+<script defer>
+  let modal = document.querySelectorAll(".modal-reservasi")
+  let modalContainer = document.querySelectorAll(".modal-reservasi-container")
+
+  let arrModal = Array.from( modal )
+  let arrModalContainer = Array.from( modalContainer )
+
+  arrModal.forEach(el => {
+      setTimeout(() => {
+        el.classList.remove("hidden")
+        console.log(el)
+      }, 500);
+  });
+
+  arrModalContainer.forEach(el => {
+      setTimeout(() => {
+        el.style.backgroundColor = "rgba(0,0,0,0.2)"
+      }, 500);
+  });
+  
+
+  function reverseBgColor() {
+    console.log("reverse")
+    // modalContainer.style.backgroundColor = "rgba(0,0,0,0)"
+  };
+
+  function setData(data) {
+      console.log(data)
+  }
+
+   // Daftar hari yang dapat dipilih (contoh: Senin dan Rabu)
+  var dokterHariPraktek = [1, 3]; // 0 = Minggu, 1 = Senin, ..., 6 = Sabtu
+
+  $(function() {
+    $("#datepicker").datepicker({
+      beforeShowDay: function(date) {
+        // Mendapatkan indeks hari (0 = Minggu, 1 = Senin, ..., 6 = Sabtu)
+        var dayIndex = date.getDay();
+
+        // Mengecek apakah hari ini dapat dipilih
+        var isSelectable = dokterHariPraktek.indexOf(dayIndex) != -1;
+
+        // Mengecek apakah tanggal berada dalam satu bulan ke depan
+        var isWithinOneMonth = date >= new Date() && date <= new Date(new Date().setMonth(new Date().getMonth() + 1));
+
+        return [isSelectable && isWithinOneMonth, isSelectable ? "ui-state-selectable" : "ui-state-disabled"];
+      }
+    });
+  });
+
+
+</script>
+
