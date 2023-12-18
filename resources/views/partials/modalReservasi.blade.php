@@ -4,7 +4,7 @@
 </button>
 
 <!-- Main modal -->
-<div id="static-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+<div backdropClasses="bg-gray-200" id="static-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full bg-gray-700/20">
     <div class="relative max-h-full py-4">
         <!-- Modal content -->
         <div class="relative w-full px-10 bg-white rounded-lg shadow">
@@ -19,9 +19,10 @@
                     <p>Poli {{  ucfirst($doctor->spesialisasi) }}</p>
                   </div>
                   <div class="h-full w-96">
-                    <form action="/lakukan-reservasi/detail/{{ $doctor->id }}" method="post">
+                    <form class="form-lakukan-reservasi" action="/lakukan-reservasi/detail/{{ $doctor->id }}" method="post">
                       @csrf
-                      <input type="hidden" id="dayName" name="hari">
+                      {{-- <input type="hidden" id="dayName" name="hari">
+                      <input type="hidden" id="jam_selesai" name="jam_selesai"> --}}
                       <div class="flex justify-between space-x-4">
                         <div class="flex flex-col items-start mb-4 space-y-2 w-[65%]">
                           <label class="text-sm font-semibold" for="datepicker">Pilih Tanggal</label>
@@ -33,7 +34,7 @@
                               class="block mb-2 text-sm font-medium text-gray-900"
                               >Jam</label
                           >
-                          <select id="select-jam" name="jam_mulai" id="jam" class="bg-white disabled:bg-slate-100 disabled:text-gray-500 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:outline-primary/50">
+                          <select id="select-jam" name="jam" id="jam" class="bg-white disabled:bg-slate-100 disabled:text-gray-500 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:outline-primary/50">
                             <option disabled selected>Pilih Jam</option>
                           </select>
                         </div>
@@ -65,15 +66,17 @@
           </div>
         </div>
     </div>
+  
 </div>
-
 <script defer>
-  let dokterHariPraktek = <?= json_encode($doctor->doctor_schedule) ?>;
-  let maxSelectableDate =  new Date(<?= json_encode($doctor->doctor_schedule[0]->tanggal_berlaku_sampai) ?>);
+  let dokterHariPraktek = <?= json_encode($doctor->schedule_time) ?>;
+  let maxSelectableDate = new Date("<?= $doctor->schedule_time[0]->pivot->tanggal_berlaku_sampai ?>");
+
+
+  // Cek hasilnya di konsol
+  console.log(maxSelectableDate);
+  
   const selectJam = document.querySelector('#select-jam')
-
-  console.log(maxSelectableDate)
-
   // Objek yang memetakan nama hari ke indeks (Minggu = 0, Senin = 1, ..., Sabtu = 6)
   var dayIndexMap = {
       'minggu': 0,
@@ -86,21 +89,18 @@
   };
 
   // Extracting the 'hari' properties from each object and converting to lowercase
-  var hariArray = dokterHariPraktek.map(schedule => dayIndexMap[schedule.hari.toLowerCase()]);
-  console.log(hariArray)
+  var hariArray = dokterHariPraktek.map(schedule => dayIndexMap[schedule.pivot.hari.toLowerCase()]);
+  // console.log(hariArray)
 
   $(function() {
     $("#datepicker").datepicker({
       beforeShowDay: function(date) {
-        // Mendapatkan indeks hari (0 = Minggu, 1 = Senin, ..., 6 = Sabtu)
         var dayIndex = date.getDay();
-        // console.log(dayIndex)
 
-        // Mengecek apakah hari ini dapat dipilih
         var isSelectable = hariArray.indexOf(dayIndex) != -1;
-
+        console.log(isSelectable)
         
-        isSelectable = isSelectable && date <= maxSelectableDate && date >= new Date(new Date().setHours(0, 0, 0, 0));;
+        isSelectable = isSelectable && date >= new Date(new Date().setHours(0, 0, 0, 0)) && date <= maxSelectableDate;
 
         return [isSelectable, isSelectable ? "ui-state-selectable" : "ui-state-disabled"];
       },
@@ -108,65 +108,25 @@
       onSelect: function(dateText, inst) {
         // Callback ini akan dipanggil ketika suatu tanggal dipilih
         var selectedDate = new Date(dateText);
-        var selectedDayIndex = selectedDate.getDay();
-
-        var selectedDay
-
-            var dayName = selectedDate.toLocaleDateString('id-ID', { weekday: 'long' });
-
-            // Tampilkan nilai hari di konsol atau tempat lain sesuai kebutuhan
-            console.log("Hari yang dipilih: " + dayName);
-
-            // Perbarui nilai input tersembunyi
-            $("#dayName").val(dayName.toLowerCase());
-
+        var dayName = selectedDate.toLocaleDateString('id-ID', { weekday: 'long' });
+        
         selectJam.innerHTML = `
           <option disabled selected>Pilih Jam</option>
         `
 
         console.log("Tanggal yang dipilih:", selectedDate);
-        console.log("Hari yang dipilih:", selectedDayIndex);
-
-        switch (selectedDayIndex) {
-          case 0:
-            selectedDay = 'minggu'
-            break;
-          case 1:
-            selectedDay = 'senin'
-          break;
-          case 2:
-            selectedDay = 'selasa'
-          break;
-          case 3:
-            selectedDay = 'rabu'
-          break;
-          case 4:
-            selectedDay = 'kamis'
-          break;
-          case 5:
-            selectedDay = 'jumat'
-          break;
-          case 6:
-            selectedDay = 'sabtu'
-          break;
-          default:
-            break;
-        }
-
 
         dokterHariPraktek.forEach(element => {
-          if(element.hari ==  selectedDay) {
+          console.log("element" + element)
+          if(element.pivot.hari ==  dayName.toLowerCase()) {
             console.log(element.jam_mulai)
             selectJam.innerHTML += 
             `
-              <option value="${ element.jam_mulai}">${element.jam_mulai.substring(0, 5)} - ${element.jam_selesai.substring(0, 5)}</option>
+              <option value="${ element.jam_mulai} - ${ element.jam_selesai}">${element.jam_mulai.substring(0, 5)} - ${element.jam_selesai.substring(0, 5)}</option>
             `
           }
         });
-        // console.log(selectedDay)
-
-        // Lakukan sesuatu dengan tanggal atau hari yang dipilih
-      }
+      },
     });
   });
 

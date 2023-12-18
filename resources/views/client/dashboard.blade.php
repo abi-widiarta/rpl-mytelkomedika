@@ -1,9 +1,7 @@
 @extends('layouts.layoutdashboard')
 
 @section('content')
-        {{-- @if(session('success'))
-            @include('partials.modalLoginSuccess')
-        @endif --}}
+
         <div class="h-full">
             <header class="flex items-center justify-between mb-4">
                 <div class="flex items-center justify-start space-x-4">
@@ -25,8 +23,43 @@
 
             <div class="flex gap-8 mt-6">
                 <div class="bg-white h-96 w-[70%] py-6 px-8">
-                    <h3 class="text-lg font-semibold">Reservasi Saya</h3>
-                    <table class="border-collapse w-full border-[#E9E9E9] mt-8">
+                    <h3 class="mb-4 text-lg font-semibold">Reservasi Saya</h3>
+                    <div class="w-full mb-4">
+                        <div class="flex w-full pb-2 font-medium border-b-2 border-slate-100">
+                            <p class="w-[45%]">Dokter</p>
+                            <p class="w-[20%] text-center">Tanggal</p>
+                            <p class="w-[10%] text-center">Jam</p>
+                            <p class="w-[25%] text-center">Nomor Antrian</p>
+                        </div>
+                    </div>
+                    <div class="w-full space-y-2">
+                        @foreach ($daftar_reservasi as $reservasi)
+                                <div class="flex text-sm  rounded-lg bg-[#F6FBFF]">
+                                        <div class="w-[45%] px-4 py-4 rounded-lg">
+                                            <div class="flex space-x-4">
+                                                <div
+                                                    class="w-10 aspect-square rounded-full overflow-hidden border-[3px] {{ $reservasi->doctor->spesialisasi == 'umum' ? 'border-[#9FAEFF]' : ($reservasi->doctor->spesialisasi == 'mata' ? 'border-[#FF0000]' : ($reservasi->doctor->spesialisasi == 'gigi' ? 'border-[#55FF70]' : '')) }} ">
+                                                    <img class="object-cover scale-110 aspect-square" src="{{ $reservasi->doctor->image }}">
+                                                </div>
+                                                <div>
+                                                    <p class="font-semibold">{{ $reservasi->doctor->name }}</p>
+                                                    <p class="">Poli {{ Str::ucfirst($reservasi->doctor->spesialisasi) }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="w-[20%] px-4 py-4 text-center">
+                                            {{ $reservasi->tanggal }}
+                                        </div>
+                                        <div class="w-[10%] py-4 text-center">
+                                            {{  \Carbon\Carbon::parse($reservasi->jam)->format('H:i') }}
+                                        </div>
+                                        <div class="w-[25%] py-4 text-center">
+                                            {{ $reservasi->nomor_antrian }}
+                                        </div>
+                                </div>
+                            @endforeach
+                    </div>
+                    {{-- <table class="border-separate w-full border-[#E9E9E9] mt-8 border-spacing-y-1">
                         <thead>
                             <tr>
                                 <th
@@ -48,79 +81,33 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="text-sm">
-                                <td class="px-4 py-4">
-                                    <div class="flex space-x-4">
-                                        <div
-                                            class="w-10 aspect-square rounded-full overflow-hidden border-[3px] border-[#ED1C24]">
-                                            <img class="aspect-square" src="/img/doctor-1.png">
-                                        </div>
-                                        <div>
-                                            <p class="font-semibold">Dr. Chika</p>
-                                            <p class="">Poli Umum</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="px-4 py-4">
-                                    20 Mei 2023
-                                </td>
-                                <td class="px-4 py-4">
-                                    09.00
-                                </td>
-                                <td class="px-4 py-4 text-center">
-                                    1
-                                </td>
-                            </tr>
-
-                            <tr class="text-sm">
-                                <td class="px-4 py-4">
-                                    <div class="flex space-x-4">
-                                        <div
-                                            class="w-10 aspect-square rounded-full overflow-hidden border-[3px] border-[#ED1C24]">
-                                            <img class="aspect-square" src="/img/doctor-1.png">
-                                        </div>
-                                        <div>
-                                            <p class="font-semibold">Dr. Chika</p>
-                                            <p class="">Poli Umum</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="px-4 py-4">
-                                    20 Mei 2023
-                                </td>
-                                <td class="px-4 py-4">
-                                    09.00
-                                </td>
-                                <td class="px-4 py-4 text-center">
-                                    1
-                                </td>
-                            </tr>
-
-                            <tr class="text-sm">
-                                <td class="px-4 py-4">
-                                    <div class="flex space-x-4">
-                                        <div
-                                            class="w-10 aspect-square rounded-full overflow-hidden border-[3px] border-[#ED1C24]">
-                                            <img class="aspect-square" src="/img/doctor-1.png">
-                                        </div>
-                                        <div>
-                                            <p class="font-semibold">Dr. Chika</p>
-                                            <p class="">Poli Umum</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="px-4 py-4">
-                                    20 Mei 2023
-                                </td>
-                                <td class="px-4 py-4">
-                                    09.00
-                                </td>
-                                <td class="px-4 py-4 text-center">
-                                    1
-                                </td>
-                            </tr>
+                            @foreach ($daftar_reservasi as $reservasi)
+                                <tr class="text-sm border-2 border-red-400 rounded-lg">
+                                        <td class="px-4 py-4 bg-white rounded-lg">
+                                            <div class="flex space-x-4">
+                                                <div
+                                                    class="w-10 aspect-square rounded-full overflow-hidden border-[3px] border-[#ED1C24]">
+                                                    <img class="object-cover aspect-square" src="{{ $reservasi->doctor->image }}">
+                                                </div>
+                                                <div>
+                                                    <p class="font-semibold">{{ $reservasi->doctor->name }}</p>
+                                                    <p class="">Poli {{ Str::ucfirst($reservasi->doctor->spesialisasi) }}</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-4 py-4">
+                                            {{ $reservasi->tanggal }}
+                                        </td>
+                                        <td class="px-4 py-4">
+                                            {{ $reservasi->jam }}
+                                        </td>
+                                        <td class="px-4 py-4 text-center">
+                                            {{ $reservasi->nomor_antrian }}
+                                        </td>
+                                </tr>
+                            @endforeach
                         </tbody>
-                    </table>
+                    </table> --}}
                 </div>
 
                 <div class="h-96 w-[30%]">

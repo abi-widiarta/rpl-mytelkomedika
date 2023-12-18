@@ -33,12 +33,23 @@ class ReservationController extends Controller
      */
     public function store(Request $request,$id)
     {
-        $schedule = DoctorSchedule::where('jam_mulai',$request->jam_mulai)->where('hari',$request->hari)->first()  ;
+        // $schedule = DoctorSchedule::where('jam_mulai',$request->jam_mulai)->where('hari',$request->hari)->first()  ;
         $tanggal = date('Y-m-d', strtotime($request->tanggal_reservasi));
+        // Pecah string berdasarkan tanda strip
+        $jamArray = explode(' - ', $request->jam);
+
+        // Dapatkan jam awal dan jam akhir
+        $jam_mulai = $jamArray[0];
+        $jam_selesai = $jamArray[1];
+
 
         $nextQueueNumber = $this->calculateNextQueueNumber($id, $tanggal);
 
-        if(Reservation::where('jam',$request->jam_mulai)->where('tanggal',$tanggal)->where('patient_id',Auth::user()->id)->first()) {
+        if(Reservation::where('jam_mulai',$jam_mulai)
+                        ->where('jam_selesai',$jam_selesai)
+                        ->where('tanggal',$tanggal)
+                        ->where('patient_id',Auth::user()->id)
+                        ->where('status','!=','canceled')->first()) {
             return redirect('/lakukan-reservasi')->with('error','You already book this!');
         }
 
@@ -46,8 +57,10 @@ class ReservationController extends Controller
             return redirect('/lakukan-reservasi')->with('error','Quota Full!');
         }
 
+       
+
         $user = Patient::find(Auth::user()->id);
-        $user->doctors()->attach($id,['tanggal' => $tanggal,'jam' => $request->jam_mulai,'status' => 'approved', 'nomor_antrian' => $nextQueueNumber]);
+        $user->doctors()->attach($id,['tanggal' => $tanggal,'jam_mulai' => $jam_mulai,'jam_selesai' => $jam_selesai,'status' => 'approved', 'nomor_antrian' => $nextQueueNumber]);
 
         return redirect('/lakukan-reservasi')->withToastSuccess('Reservation Sent Successfully!');
     }
@@ -71,18 +84,6 @@ class ReservationController extends Controller
 
     public function cancel(Request $request, $reservationId) {
         $reservation = Reservation::find($reservationId);
-
-        // Pastikan reservasi ditemukan
-        if (!$reservation) {
-            // Handle jika reservasi tidak ditemukan (misalnya, tampilkan pesan error)
-            return redirect()->back()->with('error', 'Reservasi tidak ditemukan.');
-        }
-
-        // Pastikan pasien yang ingin membatalkan reservasi adalah pemiliknya
-        if ($reservation->patient_id != auth()->user()->id) {
-            // Handle jika pasien bukan pemilik reservasi (misalnya, tampilkan pesan error)
-            return redirect()->back()->with('error', 'Anda tidak memiliki izin untuk membatalkan reservasi ini.');
-        }
 
         // Simpan nomor antrian yang akan dihapus
         $canceledQueueNumber = $reservation->nomor_antrian;

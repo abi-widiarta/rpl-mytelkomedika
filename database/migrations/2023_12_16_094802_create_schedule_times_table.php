@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('doctor_schedules', function (Blueprint $table) {
+        Schema::create('schedule_times', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('doctor_id')->constrained(); // Foreign key ke tabel dokter
-            $table->string('hari');
             $table->time('jam_mulai');
             $table->time('jam_selesai');
-            $table->integer('kapasistas_pasien')->default(30);
-            $table->date('tanggal_berlaku_sampai')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('doctor_schedules');
+        Schema::dropIfExists('schedule_times');
     }
 };

@@ -26,13 +26,18 @@ class Doctor extends Model
             "image",
     ];
 
-    public function doctor_schedule(): HasMany
+    public function schedule_time(): BelongsToMany
     {
-        return $this->hasMany(DoctorSchedule::class);
+        return $this->belongsToMany(ScheduleTime::class, 'doctor_schedules', 'doctor_id','schedule_time_id')->withPivot('hari', 'tanggal_berlaku_sampai', 'kapasitas_pasien');
     }
 
     public function patients(): BelongsToMany
     {
         return $this->belongsToMany(Patient::class, 'reservations', 'doctor_id', 'patient_id');
+    }
+
+    public function review(): HasMany
+    {
+        return $this->hasMany(Review::class);
     }
 }

@@ -16,8 +16,10 @@ return new class extends Migration
             $table->foreignId('patient_id')->constrained()->onDelete('cascade');
             $table->foreignId('doctor_id')->constrained()->onDelete('cascade');
             $table->date('tanggal');
-            $table->time('jam');
-            $table->string('status')->default('Pending');
+            $table->time('jam_mulai');
+            $table->time('jam_selesai');
+            $table->string('status')->default('approved');
+            $table->string('keluhan_awal')->default('');
             $table->integer('nomor_antrian')->nullable();
             $table->timestamps();
         });

@@ -13,24 +13,30 @@
             </header>
             
             <div class="mb-4">
-                <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown-category" class="flex justify-between text-[#777A8F] focus:outline-[#777A8F] w-40 after:hidden bg-white border border-white/40 hover:bg-white/20 font-medium rounded-xl text-xs px-5 py-2.5 text-start items-center shadow-[0px_7px_61px_0px_rgba(198,203,232,0.5)] md:text-sm md:w-48" type="button">All <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown-category" class="flex justify-between text-[#777A8F] focus:outline-[#777A8F] w-40 after:hidden bg-white border border-white/40 hover:bg-white/20 font-medium rounded-xl text-xs px-5 py-2.5 text-start items-center shadow-[0px_7px_61px_0px_rgba(198,203,232,0.5)] md:text-sm md:w-48" type="button">{{ request('poli') ? Str::ucfirst(request('poli')) : 'All'}}<svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-                  </svg></button>
-                  <!-- Dropdown menu -->
-                  <div id="dropdown-category" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-[0px_7px_61px_0px_rgba(198,203,232,0.5)] w-40 -translate-y-20 md:mt-0 md:w-44">
+                </svg></button>
+                <!-- Dropdown menu -->
+                <div id="dropdown-category" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-[0px_7px_61px_0px_rgba(198,203,232,0.5)] w-40 -translate-y-20 md:mt-0 md:w-44">
                     <ul class="py-2 text-xs text-[#777A8F] md:text-sm" aria-labelledby="dropdownDefaultButton">
-                      <li>
-                        <a href="/books/?category=all" class="block px-4 py-2 hover:bg-[#777A8F]/10">All</a>
-                      </li>
-                      <li>
-                        <a href="/books/?category=" class="block px-4 py-2 hover:bg-[#777A8F]/10">Poli Umum</a>
-                      </li>
-                      {{-- @foreach ($categories as $category)
+                    <li>
+                        <a href="/lakukan-reservasi" class="block px-4 py-2 hover:bg-[#777A8F]/10">All</a>
+                    </li>
+                    <li>
+                        <a href="/lakukan-reservasi/?poli=umum" class="block px-4 py-2 hover:bg-[#777A8F]/10">Poli Umum</a>
+                    </li>
+                    <li>
+                        <a href="/lakukan-reservasi/?poli=mata" class="block px-4 py-2 hover:bg-[#777A8F]/10">Poli Mata</a>
+                    </li>
+                    <li>
+                        <a href="/lakukan-reservasi/?poli=gigi" class="block px-4 py-2 hover:bg-[#777A8F]/10">Poli Gigi</a>
+                    </li>
+                    {{-- @foreach ($categories as $category)
                         
-                      @endforeach --}}
-                      
+                    @endforeach --}}
+                    
                     </ul>
-                  </div>
+                </div>
             </div>
 
             <div class="grid grid-cols-2 gap-6">
@@ -45,20 +51,20 @@
                             <h1 class="mb-2 text-lg font-semibold">{{ $doctor->name }}</h1>
                             <div class="flex flex-col mb-4 space-y-2">
                                 <div class="flex items-center space-x-2">
-                                    <div class="flex justify-center items-center w-7 rounded-full aspect-square bg-[#ED1C24]/10">
-                                        <img src="/img/poli-icon.png" alt="">
+                                    <div class="flex justify-center items-center w-7 rounded-full aspect-square bg-[#55FF70]/10">
+                                        <img src="/img/poli-icon-green.png" alt="">
                                     </div>
                                     <p class="text-sm font-medium text-gray-500">Poli {{ Str::ucfirst($doctor->spesialisasi) }}</p>
                                 </div>
                                 <div class="flex items-center space-x-2">
-                                    <div class="flex justify-center items-center w-7 rounded-full aspect-square bg-[#ED1C24]/10">
-                                        <img src="/img/patient-icon.png" alt="">
+                                    <div class="flex justify-center items-center w-7 rounded-full aspect-square bg-[#55FF70]/10">
+                                        <img src="/img/patient-icon-green.png" alt="">
                                     </div>
                                     <p class="text-sm font-medium text-gray-500">270 patients</p>
                                 </div>
                                 <div class="flex items-center space-x-2">
-                                    <div class="flex justify-center items-center w-7 rounded-full aspect-square bg-[#ED1C24]/10">
-                                        <img src="/img/review-icon.png" alt="">
+                                    <div class="flex justify-center items-center w-7 rounded-full aspect-square bg-[#55FF70]/10">
+                                        <img src="/img/review-icon-green.png" alt="">
                                     </div>
                                     <p class="text-sm font-medium text-gray-500">60+ reviews</p>
                                 </div>

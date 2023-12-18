@@ -1,10 +1,15 @@
 <?php
 
+use Carbon\Carbon;
 use App\Models\Doctor;
+use App\Models\Report;
 use App\Models\Patient;
 use App\Models\Reservation;
+use App\Models\ScheduleTime;
 use Illuminate\Http\Request;
 use App\Models\DoctorSchedule;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
@@ -12,6 +17,8 @@ use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ReservationController;
+use App\Models\Payment;
+use App\Models\Review;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 /*
@@ -65,29 +72,78 @@ Route::middleware('guest')->group(function () {
 Route::middleware(['auth','verified'])->group(function () {
 
     Route::get('/dashboard', function () {
-        return view('client.dashboard');
+
+        $reservations = Reservation::where('patient_id', Auth::user()->id)->where('status', '!=', 'canceled');
+    
+        $daftar_reservasi = $reservations->get();
+
+        return view('client.dashboard', ['daftar_reservasi' => $daftar_reservasi]);
     });
 
-    Route::get('/lakukan-reservasi', function () {
-        return view('client.lakukanReservasi',["doctors" => Doctor::all()]);
-    });
+    Route::get('/lakukan-reservasi', [DoctorController::class, 'indexClient']);
 
     Route::post('/lakukan-reservasi', function (Request $request) {
         dd($request);
     });
     
-    Route::get('/reservasi-saya', function () {
-        $daftarReservasi = Reservation::where('patient_id',Auth::user()->id)->where('status','!=','canceled')->get();
-
-        return view('client.reservasiSaya', ['daftar_reservasi' => $daftarReservasi]);
+    Route::get('/reservasi-saya', function (Request $request) {
+        $reservations = Reservation::where('patient_id', Auth::user()->id)
+            ->where('status','approved');
+    
+        $reservations->when($request->poli, function ($query) use ($request) {
+            $query->whereHas('doctor', function ($subquery) use ($request) {
+                $subquery->where('spesialisasi', $request->poli);
+            });
+        });
+    
+        $daftar_reservasi = $reservations->get();
+    
+        return view('client.reservasiSaya', ['daftar_reservasi' => $daftar_reservasi]);
     });
     
     Route::get('/riwayat-pemeriksaan', function () {
-        return view('client.riwayatPemeriksaan');
+
+        $daftar_pemeriksaan = Reservation::with('doctor')->where('patient_id', Auth::user()->id)->where('status','completed')->get();
+
+        return view('client.riwayatPemeriksaan',['daftar_pemeriksaan'=>$daftar_pemeriksaan ]);
     });
 
-    Route::get('/riwayat-pemeriksaan/detail', function () {
-        return view('client.riwayatPemeriksaanDetail');
+    Route::get('/riwayat-pemeriksaan/detail/{id}', function ($id) {
+        $report = Report::with('reservation')->where('reservation_id',$id)->first();
+
+        // Pisahkan input menjadi baris-baris
+        $lines = explode("\n", $report->obat);
+
+        // Inisialisasi dua array
+        $array1 = [];
+        $array2 = [];
+
+        // Proses setiap baris
+        foreach ($lines as $line) {
+            // Pisahkan setiap baris menjadi array berdasarkan tanda "-"
+            $parts = explode(" - ", $line);
+
+            // Tambahkan ke array yang sesuai
+            $array1[] = $parts[0];
+            $array2[] = $parts[1];
+        }
+
+        return view('client.riwayatPemeriksaanDetail', ["report" => $report, "daftar_obat" => $array1,"dosis_obat" => $array2]);
+    });
+
+    Route::get('/riwayat-pemeriksaan/detail/pdf/{id}', function ($id) {
+        $report = Report::with('reservation')->where('reservation_id',$id)->first();
+        
+
+        $obatList = explode("\n", $report->obat);
+        
+        // $pdf = App::make('dompdf.wrapper');
+
+        $pdf = Pdf::loadView('client.riwayatPemeriksaanDetailPDF',["report" => $report, "daftar_obat" => $obatList]);
+        return $pdf->stream('TelkoMedika_Hasil Pemeriksaan_' . $report->reservation->patient->nim . '.pdf');
+        // return $pdf->download('invoice.pdf');
+
+        return view('client.riwayatPemeriksaanDetailPDF', ["report" => $report, "daftar_obat" => $obatList]);
     });
 
     Route::post('/lakukan-reservasi/detail/{id}',  [ReservationController::class, 'store']);
@@ -95,6 +151,18 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::post('/reservasi-saya/cancel/{id}',  [ReservationController::class, 'cancel']);
 
     Route::post('/logout', [LoginController::class, 'logout']);
+
+    Route::post('/riwayat-pemeriksaan/detail/review/{id}', function (Request $request,$id) {
+        Review::create([
+            'doctor_id' => $request->doctor_id,
+            'report_id'=> $id,
+            'comment'=> $request->comment,
+            'rating' => $request->rating,
+        ]);
+
+        return redirect()->back()->with('success', 'Review berhasil dikirim.');
+
+    });
 });
 
 // ADMIN
@@ -130,30 +198,33 @@ Route::middleware('auth:admin')->group(function () {
     Route::post('/admin/data-doctor/delete/{id}', [DoctorController::class, 'destroy']);
     
     Route::get('/admin/jadwal-dokter', function () {
-        $schedules = DoctorSchedule::with('doctor')->get();
+        $schedules =  DoctorSchedule::with('doctor')->get();
 
-        // Menggunakan fungsi sortBy untuk mengurutkan berdasarkan 'doctor.username' dan 'hari'
-        $sortedSchedules = $schedules->sortBy([
-            'doctor.username',
-            'hari',
-        ]);
+        // dd($doctor);
+        // $schedules = DoctorSchedule::with('doctor')->get();
 
-        // Mengelompokkan jadwal berdasarkan 'doctor.username'
-        $groupedSchedulesByUsername = $sortedSchedules->groupBy('doctor.username');
+        // // Menggunakan fungsi sortBy untuk mengurutkan berdasarkan 'doctor.username' dan 'hari'
+        // $sortedSchedules = $schedules->sortBy([
+        //     'doctor.username',
+        //     'hari',
+        // ]);
 
-        // Menggabungkan grup-grup menjadi satu koleksi dengan pengurutan tambahan berdasarkan 'hari'
-        $finalSchedules = collect();
-        $daysOrder = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu', 'minggu'];
-        foreach ($groupedSchedulesByUsername as $usernameGroup) {
-            $groupedSchedulesByDay = $usernameGroup->groupBy('hari');
-            foreach ($daysOrder as $day) {
-                if (isset($groupedSchedulesByDay[$day])) {
-                    $finalSchedules = $finalSchedules->merge($groupedSchedulesByDay[$day]);
-                }
-            }
-        }
+        // // Mengelompokkan jadwal berdasarkan 'doctor.username'
+        // $groupedSchedulesByUsername = $sortedSchedules->groupBy('doctor.username');
 
-        return view('admin.jadwalDokter', ["schedules" => $finalSchedules]);
+        // // Menggabungkan grup-grup menjadi satu koleksi dengan pengurutan tambahan berdasarkan 'hari'
+        // $finalSchedules = collect();
+        // $daysOrder = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu', 'minggu'];
+        // foreach ($groupedSchedulesByUsername as $usernameGroup) {
+        //     $groupedSchedulesByDay = $usernameGroup->groupBy('hari');
+        //     foreach ($daysOrder as $day) {
+        //         if (isset($groupedSchedulesByDay[$day])) {
+        //             $finalSchedules = $finalSchedules->merge($groupedSchedulesByDay[$day]);
+        //         }
+        //     }
+        // }
+
+        return view('admin.jadwalDokter', ["schedules" => $schedules]);
     });
 
     Route::get('/admin/jadwal-dokter/create', function () {
@@ -201,13 +272,137 @@ Route::middleware('auth:admin')->group(function () {
 
     });
     
-    Route::get('/admin/antrian-pemeriksaan', function () {
-        return view('admin.antrianPemeriksaan');
+    Route::get('/admin/antrian-pemeriksaan', function (Request $request) {
+        $reservation = Reservation::with('doctor') // Pastikan telah mendefinisikan relasi dengan model Doctor
+        ->when($request->tanggal_reservasi, function ($query) use ($request) {
+            $originalDate = $request->tanggal_reservasi;
+
+            // Membuat objek Carbon dari string tanggal awal
+            $carbonDate = Carbon::createFromFormat('m/d/Y', $originalDate);
+
+            // Mengubah format tanggal
+            $formattedDate = $carbonDate->format('Y-m-d');
+            
+            // dd($formattedDate);
+            $query->where('tanggal',$formattedDate);
+        })
+        ->when($request->poli, function ($query) use ($request) {
+            $query->whereHas('doctor', function ($subquery) use ($request) {
+                $subquery->where('spesialisasi', $request->poli);
+            });
+        })
+        ->when($request->jam_mulai, function ($query) use ($request) {
+            $query->where('jam_mulai',$request->jam_mulai);
+        })
+        ->where('status', '!=', 'canceled') 
+        ->get();
+
+
+        return view('admin.antrianPemeriksaan',["daftar_jam" => ScheduleTime::all(),"reservations" => $reservation]);
+    });
+
+    Route::post('/admin/antrian-pemeriksaan/complete/{id}', function ($id) {
+        $reservation = Reservation::findOrFail($id);
+        $reservation->update([
+            "status" => 'completed',
+
+        ]);
+
+        return redirect()->back()->with('success', 'Reservasi berhasil dibatalkan.');
+
+    });
+
+    Route::get('/admin/antrian-pemeriksaan/hasil-pemeriksaan/{id}', function ($id) {
+        if(Report::where('reservation_id',$id)->first() != null) {
+            // dd("teds");
+            return view('admin.formHasilPemeriksaanEdit',["report" => Report::where('reservation_id',$id)->first()]);
+        } else {
+            return view('admin.formHasilPemeriksaan',["reservation" => Reservation::with(['patient','doctor'])->findOrFail($id)]);
+        }
+    });
+
+    Route::post('/admin/antrian-pemeriksaan/hasil-pemeriksaan/{id}', function (Request $request,$id) {
+        
+        $biaya = $request->biaya;
+        $status = 0;
+        
+        if($request->biaya == null || $request->biaya == '0') {
+            $biaya = "0";
+            $status = 1; 
+        };
+
+        // dd($request->surat_dokter);
+        Report::create([
+            'reservation_id' => $id,
+            'berat_badan' => $request->berat_badan,
+            'tinggi_badan'=> $request->tinggi_badan,
+            'suhu_badan' => $request->suhu_badan,
+            'keluhan' => $request->keluhan,
+            'diagnosa' => $request->diagnosa,
+            'anjuran' => $request->anjuran,
+            'obat' => $request->obat,
+            'surat_dokter' => $request->surat_dokter,
+        ]);
+
+        Payment::create([
+            'reservation_id' => $id,
+            'nominal' => $biaya,
+            'status' => $status,
+        ]);
+        
+        return redirect('/admin/antrian-pemeriksaan/hasil-pemeriksaan/' . $id)->with('success', 'Data has been added successfully!');
+    });
+
+    Route::post('/admin/antrian-pemeriksaan/hasil-pemeriksaan/update/{id}', function (Request $request,$id) {
+
+        $report = Report::where('reservation_id',$id)->first();
+        $payment = Payment::where('reservation_id',$id)->first();
+
+        $biaya = $request->biaya;
+        $status = 0;
+        
+        if($request->biaya == null || $request->biaya == '0') {
+            $biaya = "0";
+            $status = 1; 
+        };
+
+        $report->update([
+            'berat_badan' => $request->berat_badan,
+            'tinggi_badan'=> $request->tinggi_badan,
+            'suhu_badan' => $request->suhu_badan,
+            'keluhan' => $request->keluhan,
+            'diagnosa' => $request->diagnosa,
+            'anjuran' => $request->anjuran,
+            'obat' => $request->obat,
+            'surat_dokter' => $request->surat_dokter == null ? '0' : '1' ,
+        ]);
+
+        $payment->update([
+            'nominal' => $biaya,
+            'status' => $status,
+        ]);
+        
+        return redirect('/admin/antrian-pemeriksaan/hasil-pemeriksaan/' . $id)->with('success', 'Data has been updated successfully!');
     });
     
     Route::get('/admin/pembayaran', function () {
-        return view('admin.pembayaran');
+
+        // dd(Payment::where('nominal','!=','0')->get());
+        return view('admin.pembayaran',['payments' => Payment::where('nominal','!=','0')->get()]);
     });
+
+    Route::post('/admin/pembayaran/complete/{id}', function ($id) {
+        $payment = Payment::find($id);
+        $payment->update([
+            'status' => 1,
+        ]);
+
+        return redirect()->back()->with('success', 'Pembayaran berhasil dikonfirmasi!');
+    });
+
+
+
+
 });
 
 // Email verification
@@ -233,7 +428,9 @@ Route::post('/profile/edit/{id}',  [PatientController::class, 'profileUpdate'])-
 
 Route::get('/lakukan-reservasi/detail/{username}', function ($username) {
     $doctor = Doctor::where('username',$username)->first();
-    return view('client.lakukanReservasiDetail',["doctor" => $doctor, "schedules" => $doctor->doctor_schedule]);
+
+    $reviews = Review::with(['doctor','report'])->where('doctor_id',$doctor->id)->get();
+    return view('client.lakukanReservasiDetail',["doctor" => $doctor, "schedules" => DoctorSchedule::where('doctor_id',$doctor->id)->get(),"reviews" =>$reviews ]);
 });
 
 

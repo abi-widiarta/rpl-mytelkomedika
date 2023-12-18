@@ -4,22 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class DoctorSchedule extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        "doctor_id",
-        "hari",
-        "jam_mulai",
-        "jam_selesai",
-        "tanggal_berlaku_sampai",
-];
+            "hari",
+            "kapasitas_pasien",
+            "tanggal_berlaku_sampai",
+    ];
 
-    public function doctor(): BelongsTo
+    public function doctor()
     {
-        return $this->belongsTo(Doctor::class);
+        return $this->belongsTo(Doctor::class,'doctor_id');
+    }
+
+    public function schedule_time()
+    {
+        return $this->belongsTo(ScheduleTime::class,'schedule_time_id');
     }
 }

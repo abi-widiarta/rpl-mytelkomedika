@@ -65,13 +65,13 @@
                                         {{ Str::ucfirst($schedule->doctor->spesialisasi) }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        {{ $schedule->hari }}
+                                        {{ Str::ucfirst($schedule->hari)  }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        {{ $schedule->jam_mulai }}
+                                        {{ $schedule->schedule_time->jam_mulai }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        {{ $schedule->jam_selesai }}
+                                        {{ $schedule->schedule_time->jam_selesai }}
                                     </td>
                                     <td class="px-6 py-4">
                                         <div class="flex items-center justify-center space-x-2">
