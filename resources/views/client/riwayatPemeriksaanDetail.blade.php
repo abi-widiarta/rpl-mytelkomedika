@@ -12,116 +12,134 @@
                 </div>
             </header>
 
-            <div>
-                <button type="button" class="text-black bg-white hover:bg-gray-100 font-medium rounded-lg px-2 py-2.5 mb-3 inline-flex">
-                    <div class="flex items-center space-x-5 justify-items-stretch">
-                        <p class="text-sm text-black">
-                            1 Minggu Lalu
-                        </p>
-                        <div class="w-6">
-                            <img class="w-4 justify-items-end" src="/img/icon-chevron-down.svg" alt="checklist" />
-                        </div>
-                    </div>
-                </button>
-            </div>
 
-            <div class="flex items-stretch bg-white border border-gray-200 ">
-                <div class="max-w-sm">
-                    <a href="#">
-                        <img class="w-[212px] rounded-lg mx-8 mt-8 items-center" src="/img/doctor-1.png" alt="doctor-1" />
-                    </a>
-                    <div class="mx-8 mt-3">
-                        <a href="#">
-                            <h5 class="text-lg font-bold">Dr. Chika</h5>
-                        </a>
-                        <p class="mb-5 text-base font-medium">Poli Umum</p>
-                            <div class="mt-6 space-y-3">
+            <div class="flex items-stretch px-10 pb-10 mb-10 bg-white rounded-lg">
+                <div class="w-[30%] flex-col items-center">
+                    <img class="w-[212px] object-cover rounded-lg mt-8 items-center" src="{{ $report->reservation->doctor->image }}" alt="doctor-1" />
+                    <div class="pr-6 mt-3">
+                        <h5 class="text-lg font-semibold">{{ $report->reservation->doctor->name }}</h5>
+                        <div class="mt-2 mb-4 -ml-1 space-y-6">
+                            <div class="flex flex-col mb-4 space-y-2">
                                 <div class="flex items-center space-x-2">
-                                    <img class="w-6" src="/img/reservasi-saya-icon.png" alt="antrian" />
-                                    <p class="text-sm">Sabtu - 20 Mei 2023</p>
+                                    <div class="flex justify-center items-center w-7 rounded-full aspect-square bg-[#55FF70]/10">
+                                        <img src="/img/poli-icon-green.png" alt="">
+                                    </div>
+                                    <p class="text-sm font-medium text-gray-500">Poli {{ Str::ucfirst($report->reservation->doctor->spesialisasi) }}</p>
                                 </div>
                                 <div class="flex items-center space-x-2">
-                                    <div class="w-6">
-                                        <img class="w-4 mx-auto" src="/img/checklist-icon.png" alt="checklist" />
+                                    <div class="flex justify-center items-center w-7 rounded-full aspect-square bg-[#55FF70]/10">
+                                        <img src="/img/reservasi-saya-tanggal-icon.png" alt="">
                                     </div>
-                                    <p class="text-sm text-gray-500">
-                                        Surat Dokter
-                                    </p>
+                                    <p class="text-sm font-medium text-gray-500">{{ $report->reservation->tanggal }}</p>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <div class="flex justify-center items-center w-7 rounded-full aspect-square bg-[#55FF70]/10">
+                                        <img class="w-4" src="/img/icon-wallet.png" alt="">
+                                    </div>
+                                    <div class="flex">
+                                        <p class="text-sm font-medium text-gray-500">Rp. {{ $report->reservation->payment->nominal }}</p>
+                                        @if ($report->reservation->payment->nominal != 0)
+                                            <p class="text-sm font-medium text-gray-500">- {{ $report->reservation->payment->status == 1 ? 'Lunas' : 'Belum Lunas'  }}</span></p>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
-                        <button class="my-10 py-3 font-medium px-10 text-white shadow-lg bg-gradient-to-r from-[#ED1C24]/90 to-[#ED1C24]/50 rounded-lg transition duration-200 hover:bg-[#ED1C24]">
-                            Review
-                        </button>
+                            @if ($report->surat_dokter == 1)
+                                <div class="text-medium">
+                                    <a href="/riwayat-pemeriksaan/detail/pdf/{{ $report->reservation->id }}" class="inline-flex items-center w-auto space-x-2 transition-all duration-150 hover:cursor-pointer hover:opacity-70">
+                                        <div class="flex justify-center items-center w-7 rounded-full aspect-square bg-[#55FF70]/10">
+                                            <img class="w-4 mx-auto" src="/img/checklist-icon.png" alt="checklist" />
+                                        </div>
+                                        <p class="text-sm font-medium text-gray-500">Surat Dokter</p>
+                                        <img src="/img/download-icon.svg" alt="">
+                                    </a>
+                                </div>
+                            @else
+                            <div data-tooltip-target="tooltip-light" data-tooltip-style="light" class="flex items-center space-x-2 transition-all duration-100 hover:cursor-pointer hover:opacity-70">
+                                <div class="flex justify-center items-center w-7 rounded-full aspect-square bg-[#ED1C24]/10">
+                                    <img class="w-4 mx-auto" src="/img/cross-icon.png" alt="checklist" />
+                                </div>
+                                <p class="text-sm font-semibold text-gray-600">Surat Dokter</p>
+                            </div>
+                                
+
+                                <div id="tooltip-light" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
+                                    Anda tidak eligible untuk mendapatkan surat keterangan sakit
+                                    <div class="tooltip-arrow" data-popper-arrow></div>
+                                </div>
+                            @endif
+                        </div>
+                        @include('partials.modalReview')
                     </div>
                 </div>
-                <ul class= "w-full mr-32">
-                    <li>
-                        <div class="bg-white w-full my-8 mx-8 ml-24 rounded-lg border border-dashed border-[#3D9B35] py-4 px-6">
-                            <div class="p-6 border-black border-dashed rounded-lg ">
-                                <div class = "items-center text-center">
-                                    <h5 class="mb-2 text-xl font-bold text-gray-900 ">Kesimpulan Pemeriksaan</h5>
-                                </div>
-                                <span class="w-full my-3 mb-10 md:h-0.5 bg-[#DADADA] rounded-full block"></span>
-                                <div class="flex">
-                                    <ul class="list-none ">
-                                        <li class="my-5">Berat badan</li>
-                                        <li class="my-5">Tinggi badan</li>
-                                        <li class="my-5">Suhu tubuh</li>
-                                        <li class="my-5">Tekanan Darah</li>
-                                        <li class="my-5">Keadaan umum</li>
-                                        <li class="my-5">Frekuensi nafas</li>
-                                        <li class="my-5">Diagnosa</li>
-                                    </ul>
-                                    <ul class="ml-12 mr-4 list-none">
-                                        <li class="my-5">:</li>
-                                        <li class="my-5">:</li>
-                                        <li class="my-5">:</li>
-                                        <li class="my-5">:</li>
-                                        <li class="my-5">:</li>
-                                        <li class="my-5">:</li>
-                                        <li class="my-5">:</li>
-                                    </ul>
-                                    <ul class="list-none ">
-                                        <li class="my-5">42 kg</li>
-                                        <li class="my-5">172 cm</li>
-                                        <li class="my-5">37,2 derajat Celcius</li>
-                                        <li class="my-5">80/660 mmHg</li>
-                                        <li class="my-5">Tampak sakit sedang</li>
-                                        <li class="my-5">3x/menit</li>
-                                        <li class="my-5">Demam, batuk, pilek</li>
-                                    </ul>
-                                </div>
+                <div class="w-[70%]">
+                    <div class="bg-white w-full my-8 rounded-lg border-2 border-dashed border-[#3D9B35] py-4 px-6">
+                        <div class="px-6 pt-4 pb-6 border-black border-dashed rounded-lg ">
+                            <div class="items-center text-center">
+                                <h5 class="mb-2 text-lg font-semibold text-gray-900 ">Kesimpulan Pemeriksaan</h5>
+                            </div>
+                            <span class="w-full my-3 mb-4 md:h-0.5 bg-[#DADADA] rounded-full block"></span>
+                            <div class="flex">
+                                <ul class="list-none w-[30%]">
+                                    <li class="my-5 font-medium text-gray-600">Berat badan</li>
+                                    <li class="my-5 font-medium text-gray-600">Tinggi badan</li>
+                                    <li class="my-5 font-medium text-gray-600">Suhu tubuh</li>
+                                    <li class="my-5 font-medium text-gray-600">Keluhan</li>
+                                    <li class="my-5 font-medium text-gray-600">Diagnosa</li>
+                                    <li class="my-5 font-medium text-gray-600">Anjuran</li>
+                                    {{-- <li class="my-5">Diagnosa</li> --}}
+                                </ul>
+                                <ul class="ml-12 mr-4 list-none">
+                                    <li class="my-5">:</li>
+                                    <li class="my-5">:</li>
+                                    <li class="my-5">:</li>
+                                    <li class="my-5">:</li>
+                                    <li class="my-5">:</li>
+                                    <li class="my-5">:</li>
+                                </ul>
+                                <ul class="list-none ">
+                                    <li class="my-5 text-base text-gray-600">{{ $report->berat_badan }} kg</li>
+                                    <li class="my-5 text-base text-gray-600">{{ $report->tinggi_badan }} cm</li>
+                                    <li class="my-5 text-base text-gray-600">{{ $report->suhu_badan }} celcius</li>
+                                    <li class="my-5 text-base text-gray-600">{{ $report->keluhan }}</li>
+                                    <li class="my-5 text-base text-gray-600">{{ $report->diagnosa}}</li>
+                                    <li class="my-5 text-base text-gray-600">{{ $report->anjuran}}</li>
+                                </ul>
                             </div>
                         </div>
-                    </li>
-                    <li>
-                        <div class="bg-white w-full my-8 mx-8 ml-24 rounded-lg border border-dashed border-[#3D9B35] py-4 px-6">
-                            <div class="p-6 border-black border-dashed rounded-lg ">
-                                <div class = "items-center text-center">
-                                    <h5 class="mb-2 text-xl font-bold text-gray-900 ">Kesimpulan Pemeriksaan</h5>
-                                </div>
-                                <span class="w-full my-3 mb-10 md:h-0.5 bg-[#DADADA] rounded-full block"></span>
-                                <div class="flex">
-                                    <ul class="list-none ">
-                                        <li class="my-5">Antibiotik</li>
-                                        <li class="my-5">Paracetamol</li>
-                                        <li class="my-5">Vitamin</li>
-                                    </ul>
-                                    <ul class="ml-12 mr-4 list-none">
-                                        <li class="my-5">:</li>
-                                        <li class="my-5">:</li>
-                                        <li class="my-5">:</li>
-                                    </ul>
-                                    <ul class="list-none ">
-                                        <li class="my-5">3x sehari setelah makan</li>
-                                        <li class="my-5">3x sehari setelah makan</li>
-                                        <li class="my-5">3x sehari setelah makan</li>
-                                    </ul>
-                                </div>
+                    </div>
+                    <div class="bg-white w-full my-8 rounded-lg border-2 border-dashed border-[#3D9B35] py-4 px-6">
+                        <div class="px-6 pt-4 pb-6 rounded-lg ">
+                            <div class="items-center text-center">
+                                <h5 class="mb-2 text-lg font-semibold text-gray-900 ">Obat</h5>
+                            </div>
+                            <span class="w-full my-3 mb-4 md:h-0.5 bg-[#DADADA] rounded-full block"></span>
+                            <div class="flex">
+                                <ul class="list-none w-[22%]">
+                                    @foreach ($daftar_obat as $obat)
+                                        <li class="my-5 font-medium text-gray-600">{{ $obat }}</li>    
+                                    @endforeach
+                                </ul>
+                                <ul class="ml-12 mr-4 list-none">
+                                    @foreach ($daftar_obat as $obat)
+                                        <li class="my-5">:</li>  
+                                    @endforeach
+                                </ul>
+                                <ul class="list-none ">
+                                    @foreach ($dosis_obat as $dosis)
+                                        <li class="my-5 text-gray-600">{{ $dosis }}</li>    
+                                    @endforeach
+                                </ul>
                             </div>
                         </div>
-                    </li>
-                </ul>
+                    </div>
+                    <div class="flex justify-end">
+                        <a href="/riwayat-pemeriksaan/detail/pdf/{{ $report->reservation->id }}"  class="flex space-x-2 transition-all duration-150 hover:opacity-80">
+                            <img src="/img/download-icon.svg" alt="">
+                            <p>Download</p>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
 @endsection

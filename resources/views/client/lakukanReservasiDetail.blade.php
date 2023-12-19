@@ -1,6 +1,7 @@
 @extends('layouts.layoutdashboard')
 
 @section('content')
+{{-- @dd($schedules[0]->schedule_time->jam_mulai) --}}
         <div class="flex flex-col h-full overflow-hidden">
             <header class="flex items-center justify-between mb-8">
                 <div class="flex items-center justify-start space-x-4">
@@ -115,53 +116,14 @@
                                       {{ Str::ucfirst($schedule->hari) }}
                                     </div>
                                     <div class="w-[20%] text-sm text-left text-gray-500 flex justify-between">
-                                      <p>{{ \Carbon\Carbon::parse($schedule->jam_mulai)->format('H:i') }}</p>
+                                      <p>{{ \Carbon\Carbon::parse($schedule->schedule_time->jam_mulai)->format('H:i') }}</p>
                                       <p>-</p>
-                                      <p>{{ \Carbon\Carbon::parse($schedule->jam_selesai)->format('H:i') }}</p>
+                                      <p>{{ \Carbon\Carbon::parse($schedule->schedule_time->jam_selesai)->format('H:i') }}</p>
                                     </div>
                                 </div>
                             @endforeach
                           @endif
                         </div>
-                        {{-- <div class="flex py-2.5">
-                          <div class="w-[80%] text-sm text-left text-gray-500">
-                          </div>
-                          <div class="w-[20%] text-sm text-left text-gray-500">
-                            08.00 - 10.00
-                          </div>
-                        </div>
-                        <div class="flex py-2.5 border-t">
-                          <div class="w-[80%] text-sm text-left text-gray-500">
-                            Selasa
-                          </div>
-                          <div class="w-[20%] text-sm text-left text-gray-500">
-                            08.00 - 10.00
-                          </div>
-                        </div>
-                        <div class="flex py-2.5">
-                          <div class="w-[80%] text-sm text-left text-gray-500">
-                            
-                          </div>
-                          <div class="w-[20%] text-sm text-left text-gray-500">
-                            08.00 - 10.00
-                          </div>
-                        </div>
-                        <div class="flex py-2.5 border-t">
-                          <div class="w-[80%] text-sm text-left text-gray-500">
-                            Selasa
-                          </div>
-                          <div class="w-[20%] text-sm text-left text-gray-500">
-                            08.00 - 10.00
-                          </div>
-                        </div>
-                        <div class="flex py-2.5">
-                          <div class="w-[80%] text-sm text-left text-gray-500">
-                            
-                          </div>
-                          <div class="w-[20%] text-sm text-left text-gray-500">
-                            08.00 - 10.00
-                          </div>
-                        </div> --}}
                       </div>
                     </div>
                     {{-- review dokter --}}
@@ -172,24 +134,28 @@
                       </div>
                       <div>
                         {{-- review card --}}
-                        <div class="flex items-start space-x-4 border-b w-[90%] pt-4 pb-4">
-                          <div class="w-9 flex justify-center items-center aspect-square rounded-full bg-[#ED1C24]/10">
-                            <img class="w-6" src="/img/thumb-up-icon.svg" alt="">
-                          </div>
-                          <div>
-                            <p class="text-[#526069] font-medium mb-1 text-sm">Steven Kurniawan</p>
-                            <div class="flex mb-2">
-                              <img src="/img/star-icon.png" alt="">
-                              <img src="/img/star-icon.png" alt="">
-                              <img src="/img/star-icon.png" alt="">
-                              <img src="/img/star-icon.png" alt="">
-                              <img src="/img/star-icon.png" alt="">
+                        @foreach ($reviews as $review)
+                          <div class="flex items-start space-x-4 border-b w-[90%] pt-4 pb-4">
+                            <div class="w-9 flex justify-center items-center aspect-square rounded-full bg-[#ED1C24]/10">
+                              <img class="w-6" src="/img/thumb-up-icon.svg" alt="">
                             </div>
-                            <p class="text-sm text-[#526069]">Dokternya ramah sangat informatif</p>
+                            <div>
+                              <p class="text-[#526069] font-medium mb-1 text-sm">{{ $review->report->reservation->patient->name }}</p>
+                              <div class="flex mb-2">
+                                @for ($i = 0; $i < $review->rating; $i++)
+                                  <img src="/img/star-icon.png" alt="">
+                                @endfor
+                                {{-- <img src="/img/star-icon.png" alt="">
+                                <img src="/img/star-icon.png" alt="">
+                                <img src="/img/star-icon.png" alt="">
+                                <img src="/img/star-icon.png" alt=""> --}}
+                              </div>
+                              <p class="text-sm text-[#526069]">{{ $review->comment }}</p>
+                            </div>
                           </div>
-                        </div>
+                        @endforeach
                         {{-- review card --}}
-                        <div class="flex items-start space-x-4 border-b w-[90%] pt-4 pb-4">
+                        {{-- <div class="flex items-start space-x-4 border-b w-[90%] pt-4 pb-4">
                           <div class="w-9 flex justify-center items-center aspect-square rounded-full bg-[#ED1C24]/10">
                             <img class="w-6" src="/img/thumb-up-icon.svg" alt="">
                           </div>
@@ -204,79 +170,37 @@
                             </div>
                             <p class="text-sm text-[#526069]">Dokternya ramah sangat informatif</p>
                           </div>
-                        </div>
+                        </div> --}}
                       </div>
                     </div>
                   </div>
-                  {{-- <ul class="mr-32">
-                      <li>
-                          <div class="bg-white w-full my-8 mx-8 ml-24 rounded-lg border border-dashed border-[#3D9B35] py-4 px-6">
-                              <div class="p-6 border-black border-dashed rounded-lg ">
-                                  <div class = "items-center text-center">
-                                      <h5 class="mb-2 text-xl font-bold text-gray-900 ">Kesimpulan Pemeriksaan</h5>
-                                  </div>
-                                  <span class="w-full my-3 mb-10 md:h-0.5 bg-[#DADADA] rounded-full block"></span>
-                                  <div class="flex">
-                                      <ul class="list-none ">
-                                          <li class="my-5">Berat badan</li>
-                                          <li class="my-5">Tinggi badan</li>
-                                          <li class="my-5">Suhu tubuh</li>
-                                          <li class="my-5">Tekanan Darah</li>
-                                          <li class="my-5">Keadaan umum</li>
-                                          <li class="my-5">Frekuensi nafas</li>
-                                          <li class="my-5">Diagnosa</li>
-                                      </ul>
-                                      <ul class="ml-12 mr-4 list-none">
-                                          <li class="my-5">:</li>
-                                          <li class="my-5">:</li>
-                                          <li class="my-5">:</li>
-                                          <li class="my-5">:</li>
-                                          <li class="my-5">:</li>
-                                          <li class="my-5">:</li>
-                                          <li class="my-5">:</li>
-                                      </ul>
-                                      <ul class="list-none ">
-                                          <li class="my-5">42 kg</li>
-                                          <li class="my-5">172 cm</li>
-                                          <li class="my-5">37,2 derajat Celcius</li>
-                                          <li class="my-5">80/660 mmHg</li>
-                                          <li class="my-5">Tampak sakit sedang</li>
-                                          <li class="my-5">3x/menit</li>
-                                          <li class="my-5">Demam, batuk, pilek</li>
-                                      </ul>
-                                  </div>
-                              </div>
-                          </div>
-                      </li>
-                      <li>
-                          <div class="bg-white w-full my-8 mx-8 ml-24 rounded-lg border border-dashed border-[#3D9B35] py-4 px-6">
-                              <div class="p-6 border-black border-dashed rounded-lg ">
-                                  <div class = "items-center text-center">
-                                      <h5 class="mb-2 text-xl font-bold text-gray-900 ">Kesimpulan Pemeriksaan</h5>
-                                  </div>
-                                  <span class="w-full my-3 mb-10 md:h-0.5 bg-[#DADADA] rounded-full block"></span>
-                                  <div class="flex">
-                                      <ul class="list-none ">
-                                          <li class="my-5">Antibiotik</li>
-                                          <li class="my-5">Paracetamol</li>
-                                          <li class="my-5">Vitamin</li>
-                                      </ul>
-                                      <ul class="ml-12 mr-4 list-none">
-                                          <li class="my-5">:</li>
-                                          <li class="my-5">:</li>
-                                          <li class="my-5">:</li>
-                                      </ul>
-                                      <ul class="list-none ">
-                                          <li class="my-5">3x sehari setelah makan</li>
-                                          <li class="my-5">3x sehari setelah makan</li>
-                                          <li class="my-5">3x sehari setelah makan</li>
-                                      </ul>
-                                  </div>
-                              </div>
-                          </div>
-                      </li>
-                  </ul> --}}
               </div>
             </div>
         </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+            const formReservasi = document.querySelectorAll(".form-lakukan-reservasi")
+
+            formReservasi.forEach(form => {
+                form.addEventListener("submit", (e) => {
+                e.preventDefault();
+                
+                Swal.fire({
+                title: 'Warning',
+                text: "Apakah semua data sudah benar?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#ED1C24',
+                cancelButtonColor: '#C5C5C5',
+                confirmButtonText: 'Yes'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                    form.submit();
+                    } 
+                })
+                })
+            });
+        </script>
 @endsection

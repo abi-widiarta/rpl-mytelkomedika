@@ -14,7 +14,7 @@
 
             <div class="flex-1 w-full p-6 bg-white rounded-xl">
                 <h2 class="mb-8 text-lg font-semibold">Kelola Jadwal Dokter</h2>
-                <div class="flex justify-between mb-6">
+                <div class="flex justify-between mb-8">
                     <a href="/admin/jadwal-dokter/create"
                         class="bg-[#ED1C24] text-sm px-4 py-2 font-semibold text-white rounded-full transition duration-150 hover:opacity-70">
                         Tambah Data
@@ -25,7 +25,76 @@
                         <img class="w-5" src="/img/icon-search.svg" alt="">
                     </div>
                 </div>
-                <table class="border-collapse border-2 w-full border-[#E9E9E9] mt-8">
+                <div class="relative overflow-x-auto">
+                    <table class="w-full text-sm text-left text-gray-500 rtl:text-right">
+                        <thead class="text-xs text-gray-700 uppercase border-b">
+                            <tr>
+                                <th scope="col" class="py-3 pl-2 pr-6">
+                                    No
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Nama
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Poli
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Hari
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Jam Mulai
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Jam Selesai
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($schedules as $schedule)
+                                <tr class="bg-white border-b">
+                                    <td scope="row" class="py-4 pl-4 pr-6">
+                                        {{ $loop->iteration }}
+                                    </td>
+                                    <td scope="row" class="px-6 py-4">
+                                        {{ $schedule->doctor->name }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ Str::ucfirst($schedule->doctor->spesialisasi) }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ Str::ucfirst($schedule->hari)  }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ $schedule->schedule_time->jam_mulai }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ $schedule->schedule_time->jam_selesai }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center justify-center space-x-2">
+                                            <a
+                                                href="/admin/jadwal-dokter/edit/{{ $schedule->id }}"
+                                                class="grid w-8 bg-gray-400 rounded-md place-items-center aspect-square hover:bg-gray-500">
+                                                <img src="/img/edit-icon.png" alt="edit-icon" />
+                                            </a>
+                                            <form class="schedule-delete-form" action="/admin/jadwal-dokter/delete/{{ $schedule->id }}" method="POST">
+                                                @csrf
+                                                <button type="submit" class="grid w-8 bg-red-500 rounded-md place-items-center aspect-square hover:bg-red-600">
+                                                    <img src="/img/delete-icon.png" alt="delete-icon" />
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            
+                        </tbody>
+                    </table>
+                </div>
+                {{-- <table class="border-collapse border-2 w-full border-[#E9E9E9] mt-8">
                     <thead>
                         <tr>
                             <th class="border-2 w-1 text-sm font-semibold py-5 border-[#E9E9E9]">
@@ -90,42 +159,8 @@
                                 </td>
                             </tr>
                         @endforeach
-                        {{-- @for ($i = 1; $i <= 6; $i++)
-                            <tr class="text-sm">
-                                <td class="border-2 border-[#E9E9E9] py-3 px-4">
-                                    {{ $i }}
-                                </td>
-                                <td class="border-2 border-[#E9E9E9] py-3 px-4">
-                                    Dr. Jason
-                                </td>
-                                <td class="border-2 border-[#E9E9E9] py-3 px-4 text-center">
-                                    Senin
-                                </td>
-                                <td class="border-2 border-[#E9E9E9] py-3 px-4 text-center">
-                                    08.00
-                                </td>
-                                <td class="border-2 border-[#E9E9E9] py-3 px-4 text-center">
-                                    12.00
-                                </td>
-                                <td class="border-2 border-[#E9E9E9] py-3 px-4 text-center">
-                                    Umum
-                                </td>
-                                <td class="border-2 border-[#E9E9E9]">
-                                    <div class="flex items-center justify-center space-x-2">
-                                        <a
-                                            class="grid w-8 bg-gray-400 rounded-md place-items-center aspect-square hover:bg-gray-500">
-                                            <img src="/img/edit-icon.png" alt="edit-icon" />
-                                        </a>
-                                        <button
-                                            class="grid w-8 bg-red-500 rounded-md place-items-center aspect-square hover:bg-red-600">
-                                            <img src="/img/delete-icon.png" alt="delete-icon" />
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endfor --}}
                     </tbody>s
-                </table>
+                </table> --}}
             </div>
         </div>
 

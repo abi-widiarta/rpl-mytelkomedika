@@ -13,35 +13,36 @@
             </header>
 
             <div class="flex">
-
-                <div class="flex py-6 pl-6 pr-10 space-x-6 bg-white shadow-lg rounded-xl shadow-gray-100">
-                    <img class="w-[212px] rounded-lg" src="/img/doctor-1.png" alt="doctor-1" />
-                    <div class="flex flex-col items-start justify-between">
-                        <div>
-                            <h1 class="text-lg font-bold">Dr.Chika</h1>
-                            <p class="mb-5 text-base font-medium">Poli Umum</p>
-                            <div class="mt-6 space-y-3">
-                                <div class="flex items-center space-x-2">
-                                    <img class="w-6" src="/img/reservasi-saya-icon.png" alt="antrian" />
-                                    <p class="text-sm">Sabtu - 20 Mei 2023</p>
-                                </div>
-                                <div class="flex items-center space-x-2">
-                                    <div class="w-6">
-                                        <img class="w-4 mx-auto" src="/img/checklist-icon.png" alt="checklist" />
+                @foreach ($daftar_pemeriksaan as $pemeriksaan)
+                    <div class="flex py-6 pl-6 pr-10 space-x-6 bg-white shadow-lg rounded-xl shadow-gray-100">
+                        <img class="w-[212px] rounded-lg" src="{{ $pemeriksaan->doctor->image }}" alt="doctor-1" />
+                        <div class="flex flex-col items-start justify-between">
+                            <div>
+                                <h1 class="text-lg font-semibold">{{ $pemeriksaan->doctor->name }}</h1>
+                                <p class="mb-5 text-base font-medium">Poli {{ Str::ucfirst($pemeriksaan->doctor->spesialisasi) }}</p>
+                                <div class="mt-6 space-y-3">
+                                    <div class="flex items-center space-x-2">
+                                        <img class="w-6" src="/img/reservasi-saya-icon.png" alt="antrian" />
+                                        <p class="text-sm">{{ $pemeriksaan->tanggal }}</p>
                                     </div>
-                                    <p class="text-sm text-gray-500">
-                                        Surat Dokter
-                                    </p>
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-6">
+                                            <img class="w-4 mx-auto" src="/img/checklist-icon.png" alt="checklist" />
+                                        </div>
+                                        <p class="text-sm text-gray-500">
+                                            Surat Dokter
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
+                            <a  
+                                href="/riwayat-pemeriksaan/detail/{{ $pemeriksaan->id }}"
+                                class="py-3 font-medium px-10 text-white shadow-lg bg-gradient-to-r from-[#ED1C24]/90 to-[#ED1C24]/50 rounded-lg transition duration-200 hover:bg-[#ED1C24]">
+                                Detail
+                            </a>
                         </div>
-                        <a  
-                            href="/riwayat-pemeriksaan/detail"
-                            class="py-3 font-medium px-10 text-white shadow-lg bg-gradient-to-r from-[#ED1C24]/90 to-[#ED1C24]/50 rounded-lg transition duration-200 hover:bg-[#ED1C24]">
-                            Detail
-                        </a>
                     </div>
-                </div>
+                @endforeach
             </div>
         </div>
 @endsection

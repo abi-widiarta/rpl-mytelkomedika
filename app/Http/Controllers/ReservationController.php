@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Patient;
 use App\Models\Reservation;
+use Illuminate\Http\Request;
+use App\Models\DoctorSchedule;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreReservationRequest;
 use App\Http\Requests\UpdateReservationRequest;
 
@@ -27,10 +31,76 @@ class ReservationController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreReservationRequest $request)
+    public function store(Request $request,$id)
     {
-        //
+        // $schedule = DoctorSchedule::where('jam_mulai',$request->jam_mulai)->where('hari',$request->hari)->first()  ;
+        $tanggal = date('Y-m-d', strtotime($request->tanggal_reservasi));
+        // Pecah string berdasarkan tanda strip
+        $jamArray = explode(' - ', $request->jam);
+
+        // Dapatkan jam awal dan jam akhir
+        $jam_mulai = $jamArray[0];
+        $jam_selesai = $jamArray[1];
+
+
+        $nextQueueNumber = $this->calculateNextQueueNumber($id, $tanggal);
+
+        if(Reservation::where('jam_mulai',$jam_mulai)
+                        ->where('jam_selesai',$jam_selesai)
+                        ->where('tanggal',$tanggal)
+                        ->where('patient_id',Auth::user()->id)
+                        ->where('status','!=','canceled')->first()) {
+            return redirect('/lakukan-reservasi')->with('error','You already book this!');
+        }
+
+        if($nextQueueNumber == 21) {
+            return redirect('/lakukan-reservasi')->with('error','Quota Full!');
+        }
+
+       
+
+        $user = Patient::find(Auth::user()->id);
+        $user->doctors()->attach($id,['tanggal' => $tanggal,'jam_mulai' => $jam_mulai,'jam_selesai' => $jam_selesai,'status' => 'approved', 'nomor_antrian' => $nextQueueNumber]);
+
+        return redirect('/lakukan-reservasi')->withToastSuccess('Reservation Sent Successfully!');
     }
+
+    // Logika untuk menghitung nomor antrian secara manual
+    private function calculateNextQueueNumber($doctorId, $tanggal)
+    {
+        // dd($doctorId, $tanggal);
+        
+        $lastReservation = Reservation::where('doctor_id', $doctorId)
+        ->where('tanggal', $tanggal)
+        ->where('status','!=','canceled')
+        ->orderBy('nomor_antrian', 'desc')
+        ->first();
+        
+
+        $nextQueueNumber = $lastReservation ? $lastReservation->nomor_antrian + 1 : 1;
+
+        return $nextQueueNumber;
+    }
+
+    public function cancel(Request $request, $reservationId) {
+        $reservation = Reservation::find($reservationId);
+
+        // Simpan nomor antrian yang akan dihapus
+        $canceledQueueNumber = $reservation->nomor_antrian;
+
+        // Batalkan reservasi
+        $reservation->update(['status' => 'canceled']);
+
+        // Hapus nomor antrian yang dibatalkan
+        Reservation::where('doctor_id', $reservation->doctor_id)
+            ->where('tanggal', $reservation->tanggal)
+            ->where('nomor_antrian', '>', $canceledQueueNumber)
+            ->decrement('nomor_antrian');
+
+        // Redirect atau tampilkan pesan sukses
+        return redirect()->back()->with('success', 'Reservasi berhasil dibatalkan.');
+    }
+    
 
     /**
      * Display the specified resource.

@@ -25,86 +25,87 @@
                         <img class="w-5" src="/img/icon-search.svg" alt="">
                     </div>
                 </div>
-                <table class="border-collapse border-2 w-full border-[#E9E9E9] mt-8">
-                    <thead>
-                        <tr>
-                            <th class="border-2 w-1 text-sm font-semibold py-5 border-[#E9E9E9]">
-                                No
-                            </th>
-
-                            <th class="border-2 text-sm font-semibold border-[#E9E9E9]">
-                                Nama Dokter
-                            </th>
-                            <th class="border-2 text-sm font-semibold border-[#E9E9E9]">
-                                Email
-                            </th>
-                            <th class="border-2 text-sm font-semibold border-[#E9E9E9]">
-                                Status
-                            </th>
-                            <th class="border-2 text-sm font-semibold border-[#E9E9E9]">
-                                Poli
-                            </th>
-                            <th class="border-2 text-sm font-semibold border-[#E9E9E9] w-32">
-                                Tanggal Lahir
-                            </th>
-                            <th class="border-2 text-sm font-semibold border-[#E9E9E9] w-56">
-                                Alamat
-                            </th>
-                            <th class="border-2 font-semibold border-[#E9E9E9] w-24">
-                                Action
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($doctors as $doctor)
-                            <tr class="text-sm">
-                                <td class="border-2 border-[#E9E9E9] py-3 px-4">
-                                    {{ $loop->iteration }}
-                                </td>
-                                <td class="border-2 border-[#E9E9E9] py-3 px-4">
-                                    {{ $doctor->name }}
-                                </td>
-                                <td class="border-2 border-[#E9E9E9] py-3 px-4">
-                                    {{ $doctor->email }}
-                                </td>
-                                <td class="border-2 border-[#E9E9E9] py-3 px-4 text-center">
-                                    @if ($doctor->status == 1)
-                                        Active
-                                    @else
-                                        Inactive
-                                    @endif
-                                    
-                                </td>
-                                <td class="border-2 border-[#E9E9E9] py-3 px-4 text-center">
-                                    {{ ucfirst($doctor->spesialisasi) }}
-                                </td>
-                                <td class="border-2 border-[#E9E9E9] py-3 px-4 text-center">
-                                    {{ $doctor->tanggal_lahir }}
-                                </td>
-                                <td class="border-2 border-[#E9E9E9] py-3 px-4">
-                                    {{  $doctor->alamat }}
-                                </td>
-                                <td class="border-2 border-[#E9E9E9]">
-                                    <div class="flex items-center justify-center space-x-2">
-                                        <a  
-                                            href="/admin/data-dokter/edit/{{ $doctor->username }}"
-                                            class="grid w-8 bg-gray-400 rounded-md place-items-center aspect-square hover:bg-gray-500">
-                                            <img src="/img/edit-icon.png" alt="edit-icon" />
-                                        </a>
-                                        <form class="doctor-delete-form" action="/admin/data-doctor/delete/{{ $doctor->id }}" method="POST">
-                                            @csrf
-                                            <button type="submit" class="grid w-8 bg-red-500 rounded-md place-items-center aspect-square hover:bg-red-600">
-                                                <img src="/img/delete-icon.png" alt="delete-icon" />
-                                            </button>
-                                        </form>
-                                    </div>
-                                </td>
+                <div class="relative overflow-x-auto">
+                    <table class="w-full text-sm text-left text-gray-500 rtl:text-right">
+                        <thead class="text-xs text-gray-700 uppercase border-b">
+                            <tr>
+                                <th scope="col" class="py-3 pl-2 pr-6">
+                                    No
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Nama
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Email
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Status
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Poli
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-center">
+                                    Jenis Kelamin
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-center">
+                                    Tanggal Lahir
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Alamat
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Action
+                                </th>
                             </tr>
-                        @endforeach
-                        {{-- @for ($i = 1; $i <= 6; $i++)
-                        @endfor --}}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($doctors as $doctor)
+                                <tr class="bg-white border-b">
+                                    <td scope="row" class="py-4 pl-4 pr-6">
+                                        {{ $loop->iteration }}
+                                    </td>
+                                    <td scope="row" class="py-4 pl-2 pr-6">
+                                        {{ $doctor->name }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ $doctor->email }}
+                                    </td>
+                                    <td class="px-6 py-4 text-center">
+                                        {{ $doctor->status == 1 ? 'Active' : 'Inactive' }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ Str::ucfirst($doctor->spesialisasi) }}
+                                    </td>
+                                    <td class="px-6 py-4 text-center">
+                                        {{ $doctor->jenis_kelamin }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ $doctor->tanggal_lahir }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ $doctor->alamat }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center justify-center space-x-2">
+                                            <a  
+                                                href="/admin/data-dokter/edit/{{ $doctor->username }}"
+                                                class="grid w-8 bg-gray-400 rounded-md place-items-center aspect-square hover:bg-gray-500">
+                                                <img src="/img/edit-icon.png" alt="edit-icon" />
+                                            </a>
+                                            <form class="doctor-delete-form" action="/admin/data-doctor/delete/{{ $doctor->id }}" method="POST">
+                                                @csrf
+                                                <button type="submit" class="grid w-8 bg-red-500 rounded-md place-items-center aspect-square hover:bg-red-600">
+                                                    <img src="/img/delete-icon.png" alt="delete-icon" />
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 

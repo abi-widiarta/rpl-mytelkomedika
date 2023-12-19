@@ -16,6 +16,21 @@ class DoctorController extends Controller
         return view('admin.dataDokter',["doctors" => Doctor::all()]);
     }
 
+    public function indexClient(Request $request)
+    {
+        $doctors = Doctor::query();
+
+        $doctors->when($request->poli, function($query) use ($request) {
+            return $query->where('spesialisasi', $request->poli);
+        })->whereHas('schedule_time', function ($query) {
+            $query->whereNotNull('schedule_time_id'); // Sesuaikan dengan nama kolom di tabel pivot
+        });
+
+        $doctors = $doctors->paginate(10);
+        
+        return view('client.lakukanReservasi',["doctors" => $doctors]);
+    }
+
     /**
      * Show the form for creating a new resource.
      */
