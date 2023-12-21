@@ -1,7 +1,7 @@
 @extends('layouts.layoutdashboard')
 
 @section('content')
-        <div class="h-full">
+        <div class="flex flex-col h-full">
             <header class="flex items-center justify-between mb-8">
                 <div class="flex items-center justify-start space-x-4">
                     <img class="w-8" src="/img/riwayat-pemeriksaan-icon.png" alt="asd">
@@ -12,7 +12,7 @@
                 </div>
             </header>
 
-            <div class="flex">
+            <div class="grid grid-cols-2 gap-6 w-[90%] mb-10">
                 @foreach ($daftar_pemeriksaan as $pemeriksaan)
                     <div class="flex py-6 pl-6 pr-10 space-x-6 bg-white shadow-lg rounded-xl shadow-gray-100">
                         <img class="w-[212px] rounded-lg" src="{{ $pemeriksaan->doctor->image }}" alt="doctor-1" />
@@ -43,6 +43,10 @@
                         </div>
                     </div>
                 @endforeach
+            </div>
+            
+            <div class="w-full mt-auto">
+                {{ $daftar_pemeriksaan->links() }}
             </div>
         </div>
 @endsection

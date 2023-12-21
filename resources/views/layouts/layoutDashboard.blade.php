@@ -75,13 +75,14 @@
             background-color: #E81C23;
             position: fixed;
             bottom: 20px;
-            right: 50px;
+            right: 30px;
             border-radius: 50%;
             display: grid;
             place-items: center;
             cursor: pointer;
             transition: all 0.2s ease; 
             font-size: 16px;
+            box-shadow: 0px 6px 27px -1px rgba(237, 28, 36, 0.39);
             }
 
             .btn-toggle div {
@@ -123,7 +124,7 @@
             /* height: 500px; */
             border-radius: 15px;
             bottom: 90px;
-            right: 50px;
+            right: 30px;
             background-color: white;
             overflow: hidden;
             transform: scale(0.5);
@@ -176,9 +177,14 @@
 
             .chat-list {
             display: flex;
-            align-items: flex-end;
+            align-items: flex-start;
             gap: 6px;
             margin-top: 20px;
+            font-size: 14px;
+            }
+            
+            .chat-list img {
+                padding-left: 0.2px;
             }
 
             .chat-list.from-bot {
@@ -205,14 +211,14 @@
             background-color: #1EC639;
             display: grid;
             place-items: center;
-            margin-bottom: 4px;
+            margin-top: 4px;
             } 
 
             .chat-list.from-bot p {
             display: block;
             background: #f2f2f2;
             padding: 12px 16px;
-            border-radius: 10px 10px 10px 0;
+            border-radius: 0 10px 10px 10px;
             max-width: 80%;
             }
 
@@ -265,7 +271,7 @@
             margin-top: 4px
         }
 
-        .option a {
+        .option div {
             text-decoration: none;
             color: #1EC639;
             padding: 10px;
@@ -276,8 +282,9 @@
             transition: all 0.2s ease; 
         }
 
-        .option a:hover {
+        .option div:hover {
             opacity: 0.7;
+            cursor: pointer;
             transition: all 0.2s ease; 
         }
         
@@ -297,16 +304,75 @@
         }
 
         .pulse {
-        animation: pulse 0.5s infinite ease-in-out alternate;
+          animation: pulse 0.5s infinite ease-in-out alternate;
         }
 
-        .chat-list img {
-            padding-left: 1px;
+        .flash {
+          animation: flash 500ms ease infinite alternate;
         }
+              
         @keyframes pulse {
             from { transform: scale(0.8); }
             to { transform: scale(1.2); }
         }
+
+        @keyframes flash {
+            from { opacity:1; }
+            to { opacity:0; }
+        }
+
+        .hidden {
+          visibility: hidden;
+        }
+
+        .tooltip-textarea {
+          display: block;
+          position: absolute;
+          width: 400px;
+          bottom: 60px;
+          background-color: #FDE2E3;
+          color: #ED1C24;
+          font-size: 12px;
+          padding: 8px 4px;
+          border-radius: 8px 8px 8px 0;
+          z-index: 999;
+          text-align: center;
+          left: 10px;
+          transform: scale(0.5);
+          opacity: 0;
+          transform-origin: left bottom; 
+          transition: all 0.2s ease; 
+        }
+
+        .tooltip-show {
+          transform: scale(1);
+          opacity: 1;
+          transition: all 0.2s ease;
+          transform-origin: left bottom; 
+        }
+
+        .input-container-overlay {
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          height: 56px;
+          background-color: rgba(255, 255, 255,0.7);
+          display: block;
+          cursor:not-allowed;
+        }
+
+        .chat-in {
+          animation: chat-in 400ms cubic-bezier(.47,1.64,.41,.8) forwards;
+          animation-name: 1;
+          transform-origin: bottom right;
+        }
+
+        @keyframes chat-in {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
+        }
+
+
     </style>
     <script src="//unpkg.com/alpinejs" defer></script>
 
@@ -355,9 +421,9 @@
               </p>
             </li>
             <div class="option">
-              <a class="option-choice" data-option="layanan" href="#">Layanan Telkomedika</a>
-              <a class="option-choice" data-option="pembayaran" href="#">Pembayaran</a>
-              <a class="option-choice" data-option="ai" href="#">AI Consule</a>
+              <div class="option-choice" data-option="layanan">Layanan Telkomedika</div>
+              <div class="option-choice" data-option="pembayaran">Pembayaran</div>
+              <div class="option-choice" data-option="ai">AI Consule</div>
             </div>
           </div>
           {{-- <li class="chat-list from-user">
@@ -367,12 +433,18 @@
             </p>
           </li> --}}
         </ul>
-        <div class="input-container disable-user-input">
+        <div class="input-container">
           <textarea rows="1" placeholder="Ketik pesan..."></textarea>
           <div class="send">
             <img src="/send-icon.svg" alt="">
           </div>
         </div>
+        <div class="input-container-overlay">
+
+        </div>
+        <span class="tooltip-textarea">
+          Untuk mengirim pesan harap pilih AI Consule terlebih dahulu
+        </sp>
       </div>
 
     <script src="./script.js"></script>
@@ -385,21 +457,30 @@
         const sendBtn = document.querySelector(".send");
         const textArea = document.querySelector(".input-container textarea")
         const inputContainer = document.querySelector(".input-container")
+        const inputContainerOverlay = document.querySelector(".input-container-overlay")
+        const tooltip = document.querySelector(".tooltip-textarea");
+
         let options = document.querySelectorAll(".option-choice")
         let chooseFromBody = true;
         let userMessage = null;
-      
+        let initalTextAreaHeight = textArea.scrollHeight;
+        let textDummy = `GERD (gastroesophageal reflux disease) adalah kondisi medis yang terjadi ketika asam lambung naik ke kerongkongan, menyebabkan gejala seperti nyeri dada, sakit tenggorokan, atau sensasi terbakar di dada (heartburn). Hal ini terjadi karena adanya gangguan pada katup antara kerongkongan dan lambung yang dikenal sebagai katup esophagogastric, sehingga tidak berfungsi dengan baik untuk mencegah asam lambung naik.
+
+Beberapa faktor dapat meningkatkan risiko terjadinya GERD, seperti kelebihan berat badan, merokok, konsumsi makanan pedas, konsumsi alkohol, dan pola makan yang tidak sehat. Selain itu, faktor genetik juga bisa berperan dalam mengembangkan GERD.
+
+Gejala GERD sering kali muncul setelah makan atau saat berbaring. Gejala tersebut dapat diatasi dengan mengubah gaya hidup dan pola makan, seperti menghindari makanan pedas, berlemak, atau asam, makan dalam porsi kecil tapi sering, tidak makan sebelum tidur, dan menghindari merokok atau konsumsi alkohol. Jika gejala terus muncul atau mengganggu aktivitas sehari-hari, perlu berkonsultasi dengan dokter untuk penanganan medis yang tepat, seperti penggunaan obat asam lambung atau bahkan tindakan operasi pada kasus yang lebih parah.`
+
         const optionMaster = `
             <div class="option">
-                <a class="option-choice" data-option="layanan" href="#">Layanan Telkomedika</a>
-                <a class="option-choice" data-option="pembayaran" href="#">Pembayaran</a>
-                <a class="option-choice" data-option="ai" href="#">AI Consule</a>
+                <div class="option-choice" data-option="layanan">Layanan Telkomedika</div>
+                <div class="option-choice" data-option="pembayaran">Pembayaran</div>
+                <div class="option-choice" data-option="ai">AI Consule</div>
             </div>
         `;
       
         const tanyaUlangElement = `
         <li class="chat-list from-bot no-margin-top">
-              <div>
+              <div class="img-hidden">
                 <img src="/chatbot-icon.svg" alt="">
               </div>
               <p>
@@ -410,7 +491,7 @@
       
         const addOptionToChatBox = (optionContent) => {
           const optionElement = `<li class="chat-list from-bot">
-              <div class="img-hidden">
+              <div>
                 <img src="/chatbot-icon.svg" alt="">
               </div>
               <p>
@@ -424,11 +505,15 @@
         };
       
         function addUserChat(msg) {
-          const optionElement = ` <li class="chat-list from-user">
+          const optionElement = ` <li class="chat-list from-user chat-in">
               <p>
                 ${msg}
               </p>
             </li>`;
+
+          setTimeout(() => {
+            document.body.querySelector(".chat-in").classList.remove('chat-in');
+          }, 400);
           chatBox.innerHTML += optionElement;
           chatBox.scrollTo({
             top: chatBox.scrollHeight,
@@ -467,10 +552,16 @@
                   Jadi, jangan ragu ya untuk dateng ke Telkomedika!
                   `
                 });
+                inputContainerOverlay.style.display = "block";
+
+                if(tooltip.classList.contains('tooltip-show')) {
+                  tooltip.classList.remove('tooltip-show');
+                }
+
                 chatBox.innerHTML += tanyaUlangElement;
                 chatBox.innerHTML += optionMaster;
                 chatBox.scrollTo({
-                  top: chatBox.scrollHeight,
+                  top: 260,
                   behavior: 'smooth'
                 });
                 options = document.querySelectorAll(".option-choice");
@@ -485,6 +576,12 @@
                   <br>
                   Jadi jangan terlalu khawatir ya soal biaya!`
                 });
+                inputContainerOverlay.style.display = "block";
+                
+                if(tooltip.classList.contains('tooltip-show')) {
+                  tooltip.classList.remove('tooltip-show');
+                }
+
                 chatBox.innerHTML += tanyaUlangElement;
                 chatBox.innerHTML += optionMaster;
                 chatBox.scrollTo({
@@ -502,7 +599,7 @@
                 });
                 chatBox.innerHTML += `
                 <li class="chat-list from-bot no-margin-top">
-                  <div>
+                  <div class="img-hidden">
                     <img src="/chatbot-icon.svg" alt="">
                   </div>
                   <p>
@@ -517,7 +614,12 @@
                   top: chatBox.scrollHeight,
                   behavior: 'smooth'
                 });
-                inputContainer.classList.remove('disable-user-input')
+
+                if(tooltip.classList.contains('tooltip-show')) {
+                  tooltip.classList.remove('tooltip-show');
+                }
+
+                inputContainerOverlay.style.display = "none";
                 break;
               default:
                 break;
@@ -525,14 +627,16 @@
         });
       
         sendBtn.addEventListener('click', () => {
+          textArea.style.height = "50px";
           msg = textArea.value.trim(); // Get user entered message and remove extra whitespace
           if(!msg) return;
           console.log(textArea.value)
           textArea.value = "";
-          textArea.height = "50px";
-      
+          
+          console.log(textArea.clientHeight)
+
           addUserChat(msg)
-          inputContainer.classList.add('disable-user-input')
+          inputContainerOverlay.style.display = "block";
           userMessage = msg;
       
           setTimeout(() => {
@@ -540,7 +644,7 @@
               chatBox.innerHTML += `
               <li class="chat-list from-bot">
                   <div>
-                    <img src="/chatbot-icon.svg" class="pulse" alt="">
+                    <img src="/chatbot-icon.svg" class="pulse flash" alt="">
                   </div>
                   <p class="loading">
                     Tunggu sebentar ya...
@@ -550,11 +654,12 @@
               chatBox.scrollTo(0, chatBox.scrollHeight)
               const loading = document.querySelectorAll('.loading')
               generateResponse(Array.from(loading)[loading.length - 1]);
-          }, 600);
+          }, 800);
       
         })
       
-        const API_KEY = "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";
+        const API_KEY = "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";
+        // const API_KEY = "asd";
       
         const generateResponse = (chatElement) => {
           // setTimeout(() => {
@@ -577,27 +682,56 @@
                   messages: [{role: "user", content: userMessage + " pastikan maksimal sekitar 150 kata"}],
               })
           }
+
+
+          function repeatAferAI() {
+            chatBox.innerHTML += tanyaUlangElement;
+            chatBox.innerHTML += optionMaster;
+            inputContainerOverlay.style.display = "block";
+            options = document.querySelectorAll(".option-choice");
+            scrollDown();
+          }
       
           // Send POST request to API, get response and set the reponse as paragraph text
           fetch(API_URL, requestOptions).then(res => res.json()).then(data => {
               chatElement.innerHTML = data.choices[0].message.content.replace(/\n/g, '<br>');
           }).catch(() => {
               chatElement.classList.add("error");
-              chatElement.innerHTML = "Oops! Something went wrong. Please try again.";
+              chatElement.innerHTML = textDummy;
+              // chatElement.innerHTML = "Oops! Something went wrong. Please try again.";
           }).finally(() => {
-              chatBox.scrollTo(0, chatBox.scrollHeight)
-              inputContainer.classList.remove('disable-user-input')
-      
               const allLoadingElement = Array.from(document.querySelectorAll('.loading'));
-      
               allLoadingElement[allLoadingElement.length - 1].previousElementSibling.querySelector('img').classList.remove('pulse') 
+              allLoadingElement[allLoadingElement.length - 1].previousElementSibling.querySelector('img').classList.remove('flash') 
+              repeatAferAI()
           });
       }
-      
-        function handleInputUser(msg) {
-          console.log(msg)
-          
-        }
+      console.log(textArea.parentElement)
+
+      textArea.parentElement.addEventListener('click', (e) => {
+        console.log(e.target)
+      })
+
+      inputContainerOverlay.addEventListener('click' , () => {
+        console.log('asd')
+        tooltip.classList.add('tooltip-show')
+        
+        setTimeout(() => {
+          tooltip.classList.remove('tooltip-show')
+        }, 5000);
+      })
+
+      function scrollDown() {
+        const userInput = document.querySelectorAll('.chat-list.from-user')
+        const scrollAmount = userInput[userInput.length - 1].clientHeight + 280;
+        
+        console.log('elemen',userInput[userInput.length - 1].clientHeight)
+        console.log('elemen',userInput[userInput.length - 1].offsetTop)
+        
+        chatBox.scrollTo(0, userInput[userInput.length - 1].offsetTop)
+      }
+
+
       </script>
 </body>
 </html>

@@ -3,7 +3,7 @@
       <div class="flex items-center justify-center w-8 text-white bg-gray-600 rounded-full aspect-square">
           <p class="inline-block">{{ Auth::user()->username[0] }}</p>
       </div>
-      <div class="hidden text-start md:block">
+      <div class="text-start md:block">
           <p class="text-xs">{{ Auth::user()->name ?? Auth::guard('admin')->user()->username  }}</p>
           <p class="text-xs text-[#777A8F]">{{ Auth::guard('web')->check() ? 'Student' : 'Admin' }}</p>
       </div>

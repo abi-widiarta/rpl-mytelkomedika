@@ -26,6 +26,8 @@ return new class extends Migration
             $table->string('alamat',100);
             $table->string('image');
             $table->float('rating')->default(0.0);
+            $table->integer('total_pasien')->default(0);
+            $table->integer('total_review')->default(0);
             $table->timestamps();
         });
     }
