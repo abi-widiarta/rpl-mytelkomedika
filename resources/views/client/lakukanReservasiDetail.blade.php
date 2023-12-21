@@ -19,35 +19,35 @@
               </a>
               <div class="flex flex-1 items-stretch px-2.5 pt-3 pb-10 overflow-hidden ">
                   <div class="w-auto">
-                      <img class="items-center object-cover h-56 mx-auto mb-4 rounded-lg w-44" src="{{ $doctor->image }}" alt="doctor-1" />
+                      <img class="items-center object-cover h-56 mx-auto mb-4 rounded-lg w-44" src="{{ $doctor->jenis_kelamin == 'L' ? '/uploads/img/stephenstrange.jpg' : '/uploads/img/poetri.jpg' }}" alt="doctor-1" />
                       <div class="mx-8 ">
                         <div class="flex flex-col justify-start flex-1">
                           <h1 class="mb-4 text-lg font-semibold">{{ $doctor->name }}</h1>
                           <div class="flex flex-col mb-4 space-y-2">
                               <div class="flex items-center space-x-2">
-                                  <div class="flex justify-center items-center w-7 rounded-full aspect-square bg-[#ED1C24]/10">
-                                      <img src="/img/poli-icon.png" alt="">
+                                  <div class="flex justify-center items-center w-7 rounded-full aspect-square bg-[#DCFCE7]">
+                                      <img src="/img/poli-green.png" alt="">
                                   </div>
                                   <p class="text-sm font-medium text-gray-500">Poli {{ Str::ucfirst($doctor->spesialisasi) }}</p>
                               </div>
                               <div class="flex items-center space-x-2">
-                                  <div class="flex justify-center items-center w-7 rounded-full aspect-square bg-[#ED1C24]/10">
-                                      <img src="/img/patient-icon.png" alt="">
+                                  <div class="flex justify-center items-center w-7 rounded-full aspect-square bg-[#DCFCE7]">
+                                      <img src="/img/patient-green.png" alt="">
                                   </div>
-                                  <p class="text-sm font-medium text-gray-500">270 patients</p>
+                                  <p class="text-sm font-medium text-gray-500">{{ $doctor->total_pasien }} pasien</p>
                               </div>
                               <div class="flex items-center space-x-2">
-                                  <div class="flex justify-center items-center w-7 rounded-full aspect-square bg-[#ED1C24]/10">
-                                      <img src="/img/review-icon.png" alt="">
+                                  <div class="flex justify-center items-center w-7 rounded-full aspect-square bg-[#DCFCE7]">
+                                      <img src="/img/review-green.png" alt="">
                                   </div>
-                                  <p class="text-sm font-medium text-gray-500">60+ reviews</p>
+                                  <p class="text-sm font-medium text-gray-500">{{ $doctor->total_review }} review</p>
                               </div>
                           </div>
                           <div class="flex items-center mb-6 space-x-1">
-                              <p class="text-sm font-semibold">Rating : 0.0</p>
+                              <p class="text-sm font-semibold">Rating : {{ $doctor->rating }}</p>
                               <img src="/img/star-icon.png" alt="">
                           </div>
-                          <div class="flex justify-start w-full ">
+                          <div class="flex justify-start w-full">
                               @include('partials.modalReservasi')
                           </div>
                         </div>
@@ -130,7 +130,7 @@
                     <div>
                       <div class="flex items-center mb-2 space-x-2">
                         <img class="w-6" src="/img/review-dokter-icon.svg" alt="">
-                        <h1 class="text-sm font-medium">Review</h1>
+                        <h1 class="text-sm font-medium">Review Terbaru</h1>
                       </div>
                       <div>
                         {{-- review card --}}

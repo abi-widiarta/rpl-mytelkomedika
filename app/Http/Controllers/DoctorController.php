@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Doctor;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -18,17 +19,25 @@ class DoctorController extends Controller
 
     public function indexClient(Request $request)
     {
-        $doctors = Doctor::query();
-
-        $doctors->when($request->poli, function($query) use ($request) {
+        
+        $doctors = Doctor::when($request->poli, function($query) use ($request) {
             return $query->where('spesialisasi', $request->poli);
         })->whereHas('schedule_time', function ($query) {
             $query->whereNotNull('schedule_time_id'); // Sesuaikan dengan nama kolom di tabel pivot
         });
 
-        $doctors = $doctors->paginate(10);
+        $doctors = $doctors->paginate(10)->withQueryString();
+
+        $ratings = [];
+
+        foreach ($doctors as $doctor) {
+            $rating = number_format(Review::where('doctor_id', $doctor->id)->avg('rating'), 1);
+            $ratings[] = $rating;
+        }
+
+        // $doctors = Doctor::where('spesialisasi','umum')->paginate(2);
         
-        return view('client.lakukanReservasi',["doctors" => $doctors]);
+        return view('client.lakukanReservasi',["doctors" => $doctors, "ratings" => $ratings]);
     }
 
     /**

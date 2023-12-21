@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Carbon\Carbon;
 use App\Models\Doctor;
 use App\Models\Report;
@@ -73,7 +74,7 @@ Route::middleware(['auth','verified'])->group(function () {
 
     Route::get('/dashboard', function () {
 
-        $reservations = Reservation::where('patient_id', Auth::user()->id)->where('status', '!=', 'canceled');
+        $reservations = Reservation::where('patient_id', Auth::user()->id)->where('status', 'approved');
     
         $daftar_reservasi = $reservations->get();
 
@@ -96,16 +97,16 @@ Route::middleware(['auth','verified'])->group(function () {
             });
         });
     
-        $daftar_reservasi = $reservations->get();
+        $daftar_reservasi = $reservations;
     
         return view('client.reservasiSaya', ['daftar_reservasi' => $daftar_reservasi]);
     });
     
     Route::get('/riwayat-pemeriksaan', function () {
 
-        $daftar_pemeriksaan = Reservation::with('doctor')->where('patient_id', Auth::user()->id)->where('status','completed')->get();
+        $daftar_pemeriksaan = Reservation::with('doctor')->where('patient_id', Auth::user()->id)->where('status','completed');
 
-        return view('client.riwayatPemeriksaan',['daftar_pemeriksaan'=>$daftar_pemeriksaan ]);
+        return view('client.riwayatPemeriksaan',['daftar_pemeriksaan'=> $daftar_pemeriksaan->paginate(5) ]);
     });
 
     Route::get('/riwayat-pemeriksaan/detail/{id}', function ($id) {
@@ -167,9 +168,7 @@ Route::middleware(['auth','verified'])->group(function () {
 
 // ADMIN
 Route::middleware('auth:admin')->group(function () {
-    Route::get('/admin/dashboard', function () {
-        return view('admin.dashboard');
-    });
+    Route::get('/admin/dashboard', [AdminController::class, 'index']);
 
     Route::post('/admin/logout', [LoginController::class, 'logoutAdmin']);
     
@@ -429,8 +428,8 @@ Route::post('/profile/edit/{id}',  [PatientController::class, 'profileUpdate'])-
 Route::get('/lakukan-reservasi/detail/{username}', function ($username) {
     $doctor = Doctor::where('username',$username)->first();
 
-    $reviews = Review::with(['doctor','report'])->where('doctor_id',$doctor->id)->get();
-    return view('client.lakukanReservasiDetail',["doctor" => $doctor, "schedules" => DoctorSchedule::where('doctor_id',$doctor->id)->get(),"reviews" =>$reviews ]);
+    $reviews = Review::with(['doctor','report'])->where('doctor_id',$doctor->id) ->orderBy('created_at', 'desc')->take(3)->get();
+    return view('client.lakukanReservasiDetail',["doctor" => $doctor, "schedules" => DoctorSchedule::where('doctor_id',$doctor->id)->get(),"reviews" =>$reviews]);
 });
 
 
