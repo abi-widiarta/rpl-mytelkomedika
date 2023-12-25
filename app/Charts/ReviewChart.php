@@ -17,9 +17,9 @@ class ReviewChart
     public function build(): \ArielMejiaDev\LarapexCharts\BarChart
     {
 
-        $ratingPoliUmum = number_format(Doctor::where('spesialisasi','umum')->get()->avg('rating'), 1);
-        $ratingPoliMata = number_format(Doctor::where('spesialisasi','mata')->get()->avg('rating'), 1);
-        $ratingPoliGigi= number_format(Doctor::where('spesialisasi','gigi')->get()->avg('rating'), 1);
+        $ratingPoliUmum = number_format(Doctor::where('specialization','umum')->get()->avg('rating'), 1);
+        $ratingPoliMata = number_format(Doctor::where('specialization','mata')->get()->avg('rating'), 1);
+        $ratingPoliGigi= number_format(Doctor::where('specialization','gigi')->get()->avg('rating'), 1);
         
 
         return $this->chart->barChart()

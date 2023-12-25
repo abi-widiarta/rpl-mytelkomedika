@@ -14,24 +14,24 @@ class ScheduleTimeSeeder extends Seeder
     public function run(): void
     {
         ScheduleTime::create([
-            "jam_mulai" => "07:00:00",
-            "jam_selesai" => "09:00:00",
+            "start_hour" => "07:00:00",
+            "end_hour" => "09:00:00",
         ]);
         ScheduleTime::create([
-            "jam_mulai" => "10:00:00",
-            "jam_selesai" => "12:00:00",
+            "start_hour" => "10:00:00",
+            "end_hour" => "12:00:00",
         ]);
         ScheduleTime::create([
-            "jam_mulai" => "13:00:00",
-            "jam_selesai" => "15:00:00",
+            "start_hour" => "13:00:00",
+            "end_hour" => "15:00:00",
         ]);
         ScheduleTime::create([
-            "jam_mulai" => "16:00:00",
-            "jam_selesai" => "18:00:00",
+            "start_hour" => "16:00:00",
+            "end_hour" => "18:00:00",
         ]);
         ScheduleTime::create([
-            "jam_mulai" => "19:00:00",
-            "jam_selesai" => "21:00:00",
+            "start_hour" => "19:00:00",
+            "end_hour" => "21:00:00",
         ]);
         
     }

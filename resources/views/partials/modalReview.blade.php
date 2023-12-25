@@ -71,12 +71,12 @@
                             type="button"
                             data-modal-hide="static-modal"
                             class="cursor-pointer border rounded-lg text-gray-900 bg-white font-medium hover:shadow-xl shadow-lg transition duration-200 text-sm w-full sm:w-auto px-6 py-2.5 text-center active:opacity-50 active:translate-y-2 active:shadow-sm">
-                            Cancel
+                            Batalkan
                         </button>
 
                         <button type="submit"
                             class="text-white rounded-lg bg-[#ED1C24] font-medium shadow-lg transition duration-200 hover:shadow-[#ED1C24]/50 shadow-[#ED1C24]/30 text-sm w-full sm:w-auto px-6 py-2.5 text-center active:opacity-50 active:translate-y-2 active:shadow-sm">
-                            Reservasi
+                            Kirim
                         </button>
                       </div>
                     </form>

@@ -21,8 +21,6 @@
                   <div class="h-full w-96">
                     <form class="form-lakukan-reservasi" action="/lakukan-reservasi/detail/{{ $doctor->id }}" method="post">
                       @csrf
-                      {{-- <input type="hidden" id="dayName" name="hari">
-                      <input type="hidden" id="jam_selesai" name="jam_selesai"> --}}
                       <div class="flex justify-between space-x-4">
                         <div class="flex flex-col items-start mb-4 space-y-2 w-[65%]">
                           <label class="text-sm font-semibold" for="datepicker">Pilih Tanggal</label>
@@ -34,8 +32,8 @@
                               class="block mb-2 text-sm font-medium text-gray-900"
                               >Jam</label
                           >
-                          <select id="select-jam" name="jam" id="jam" class="bg-white disabled:bg-slate-100 disabled:text-gray-500 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:outline-primary/50">
-                            <option disabled selected>Pilih Jam</option>
+                          <select required id="select-jam" name="jam" id="jam" class="bg-white disabled:bg-slate-100 disabled:text-gray-500 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:outline-primary/50">
+                            <option disabled>Pilih Jam</option>
                           </select>
                         </div>
 
@@ -43,7 +41,7 @@
                       
                       <div class="flex flex-col items-start mb-6 space-y-2">
                         <label class="text-sm font-semibold" for="keluhan">Keluhan Awal</label>
-                        <textarea name="keluhan_awal" autocomplete="off" class="resize-none w-full px-2 py-2 border border-gray-300 bg-white text-gray-900 text-sm rounded-md block p-1 focus:outline-[#ED1C24]/50 mr-3" name="keluhan" id="keluhan" rows="5"></textarea>
+                        <textarea required name="keluhan_awal" autocomplete="off" class="resize-none w-full px-2 py-2 border border-gray-300 bg-white text-gray-900 text-sm rounded-md block p-1 focus:outline-[#ED1C24]/50 mr-3" name="keluhan" id="keluhan" rows="5"></textarea>
                       </div>
 
                       <div class="space-x-4 sm:flex sm:items-center">
@@ -51,7 +49,7 @@
                             type="button"
                             data-modal-hide="static-modal"
                             class="cursor-pointer border rounded-lg text-gray-900 bg-white font-medium hover:shadow-xl shadow-lg transition duration-200 text-sm w-full sm:w-auto px-6 py-2.5 text-center active:opacity-50 active:translate-y-2 active:shadow-sm">
-                            Cancel
+                            Batalkan
                         </button>
 
                         <button type="submit"
@@ -70,7 +68,7 @@
 </div>
 <script defer>
   let dokterHariPraktek = <?= json_encode($doctor->schedule_time) ?>;
-  let maxSelectableDate = new Date("<?= $doctor->schedule_time[0]->pivot->tanggal_berlaku_sampai ?>");
+  let maxSelectableDate = new Date("<?= $doctor->schedule_time[0]->pivot->end_date ?>");
 
 
   // Cek hasilnya di konsol
@@ -89,7 +87,7 @@
   };
 
   // Extracting the 'hari' properties from each object and converting to lowercase
-  var hariArray = dokterHariPraktek.map(schedule => dayIndexMap[schedule.pivot.hari.toLowerCase()]);
+  var hariArray = dokterHariPraktek.map(schedule => dayIndexMap[schedule.pivot.day.toLowerCase()]);
   // console.log(hariArray)
 
   $(function() {
@@ -118,11 +116,11 @@
 
         dokterHariPraktek.forEach(element => {
           console.log("element" + element)
-          if(element.pivot.hari ==  dayName.toLowerCase()) {
-            console.log(element.jam_mulai)
+          if(element.pivot.day ==  dayName.toLowerCase()) {
+            console.log(element.start_hour)
             selectJam.innerHTML += 
             `
-              <option value="${ element.jam_mulai} - ${ element.jam_selesai}">${element.jam_mulai.substring(0, 5)} - ${element.jam_selesai.substring(0, 5)}</option>
+              <option value="${ element.start_hour} - ${ element.end_hour}">${element.start_hour.substring(0, 5)} - ${element.end_hour.substring(0, 5)}</option>
             `
           }
         });

@@ -23,8 +23,12 @@ class PatientSeeder extends Seeder
             'username' => 'abiwidi',
             'name' => 'Abi Widiarta',
             'email' => 'abiwidiarta@student.telkomuniversity.ac.id',
-            'password' => 'AAAAa1!',
-            'nim' => '1301213196',
+            'password' => bcrypt('AAAAa1!'),
+            'gender' => 'L',
+            'address' => "Jl. Telekomunikasi",
+            "phone" => "082237910255",
+            'student_id' => '1301213196',
+            'birthdate' => "2003-01-01",
             'email_verified_at' => '2023-12-11 02:51:12'
         ]);
 
@@ -36,7 +40,11 @@ class PatientSeeder extends Seeder
                 'name' => $faker->name,
                 'email' => $truncatedUsername . '@student.telkomuniversity.ac.id',
                 'password' => bcrypt('AAAAa1!'),
-                'nim' => $faker->numberBetween(1000000000, 9999999999),
+                'gender' => ['L', 'P'][array_rand(['L', 'P'])],
+                'address' => "Jl. Telekomunikasi",
+                "phone" => "082237910255",
+                "birthdate" => $faker->date($format = 'Y-m-d', $max = '2002-01-01'),
+                'student_id' => '130121' . $faker->randomNumber(4),
                 'email_verified_at' => $faker->dateTimeThisMonth('2023-12-11 02:51:12'),
             ];
         }

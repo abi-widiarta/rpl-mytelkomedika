@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Doctor extends Model
+class Doctor extends Authenticatable
 {
     use HasFactory;
 
@@ -16,19 +17,23 @@ class Doctor extends Model
             "email",
             "username",
             "password",
-            "spesialisasi",
+            "specialization",
             "status",
-            "no_str",
-            "no_hp",
-            "jenis_kelamin",
-            "tanggal_lahir",
+            "registration_number",
+            "phone",
+            "gender",
+            "birthdate",
             "alamat",
-            "image",
+            "address",
+            "rating",
+            "patient_total",
+            "review_total",
+            "image"
     ];
 
     public function schedule_time(): BelongsToMany
     {
-        return $this->belongsToMany(ScheduleTime::class, 'doctor_schedules', 'doctor_id','schedule_time_id')->withPivot('hari', 'tanggal_berlaku_sampai', 'kapasitas_pasien');
+        return $this->belongsToMany(ScheduleTime::class, 'doctor_schedules', 'doctor_id','schedule_time_id')->withPivot('day', 'end_date', 'max_patient');
     }
 
     public function patients(): BelongsToMany

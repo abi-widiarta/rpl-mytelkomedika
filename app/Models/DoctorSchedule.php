@@ -10,9 +10,11 @@ class DoctorSchedule extends Model
     use HasFactory;
 
     protected $fillable = [
-            "hari",
-            "kapasitas_pasien",
-            "tanggal_berlaku_sampai",
+            "doctor_id",
+            "schedule_time_id",
+            "day",
+            "max_patient",
+            "end_date",
     ];
 
     public function doctor()

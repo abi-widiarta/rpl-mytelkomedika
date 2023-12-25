@@ -28,16 +28,16 @@
                       <div class="w-full">
                         <div class="mb-6">
                           <label
-                              for="nim"
+                              for="student_id"
                               class="block mb-2 text-sm font-medium text-gray-900"
                               >Nim</label
                           >
                           <input
                               type="text"
-                              id="nim"
-                              name="nim"
+                              id="student_id"
+                              name="student_id"
                               class="bg-white disabled:bg-slate-100 disabled:text-gray-500 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:outline-primary/50"
-                              value="{{ Auth::user()->nim }}"
+                              value="{{ Auth::user()->student_id }}"
                               disabled
                               required
                           />
@@ -97,16 +97,16 @@
                       <div class="w-full">
                         <div class="mb-6">
                           <label
-                              for="no_hp"
+                              for="phone"
                               class="block mb-2 text-sm font-medium text-gray-900"
                               >No Hp</label
                           >
                           <input
                               type="text"
                               id="name"
-                              name="no_hp"
+                              name="phone"
                               class="bg-white disabled:bg-slate-100 disabled:text-gray-500 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:outline-primary/50"
-                              value="{{ Auth::user()->no_hp }}"
+                              value="{{ Auth::user()->phone }}"
                               required
                           />
                         </div>
@@ -121,7 +121,7 @@
                                   <input
                                       class="cursor-pointer"
                                       type="radio"
-                                      name="jenis_kelamin"
+                                      name="gender"
                                       id="gender-male"
                                       value="L"
                                       checked
@@ -134,7 +134,7 @@
                                   <input
                                       class="cursor-pointer"
                                       type="radio"
-                                      name="jenis_kelamin"
+                                      name="gender"
                                       value="P"
                                       id="gender-female"
                                   />
@@ -152,24 +152,24 @@
                           >
                           <input
                               type="date"
-                              id="tanggal_lahir"
-                              name="tanggal_lahir"
-                              value="{{ Auth::user()->tanggal_lahir }}"
+                              id="birthdate"
+                              name="birthdate"
+                              value="{{ Auth::user()->birthdate }}"
                               class="bg-white disabled:bg-slate-100 disabled:text-gray-500 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:outline-primary/50"
                               required
                           />
                         </div>
                         <div class="mb-6">
                           <label
-                              for="alamat"
+                              for="address"
                               class="block mb-2 text-sm font-medium text-gray-900"
                               >Alamat</label
                           >
                           <input
                               type="text"
-                              id="alamat"
-                              name="alamat"
-                              value="{{ Auth::user()->alamat }}"
+                              id="address"
+                              name="address"
+                              value="{{ Auth::user()->address }}"
                               class="bg-white disabled:bg-slate-100 disabled:text-gray-500 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:outline-primary/50"
                               required
                           />
@@ -184,82 +184,6 @@
                     </button>
                   </form>
                 </div>
-                {{-- <div class="flex justify-between mb-6">
-                    <a href="admin-data-pasien/create"
-                        class="bg-[#ED1C24] text-sm px-4 py-2 font-semibold text-white rounded-full transition duration-150 hover:opacity-70">
-                        Tambah Data
-                    </a>
-                    <div
-                        class="flex justify-between px-2 py-1 text-sm border-2 border-gray-300 rounded-md focus:border-gray-600">
-                        <input type="text" class="w-56" />
-                        <img class="w-5" src="/img/icon-search.svg" alt="">
-                    </div>
-                </div>
-                <table class="border-collapse border-2 w-full border-[#E9E9E9] mt-8">
-                    <thead>
-                        <tr>
-                            <th class="border-2 w-1 text-sm font-semibold py-5 border-[#E9E9E9]">
-                                No
-                            </th>
-
-                            <th class="border-2 text-sm font-semibold border-[#E9E9E9]">
-                                Nama Dokter
-                            </th>
-                            <th class="border-2 text-sm font-semibold border-[#E9E9E9]">
-                                Email
-                            </th>
-                            <th class="border-2 text-sm font-semibold border-[#E9E9E9]">
-                                Alamat
-                            </th>
-                            <th class="border-2 text-sm font-semibold border-[#E9E9E9]">
-                                Poli
-                            </th>
-                            <th class="border-2 text-sm font-semibold border-[#E9E9E9] w-56">
-                                Tempat <br>
-                                Tanggal Lahir
-                            </th>
-                            <th class="border-2 font-semibold border-[#E9E9E9]">
-                                Action
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for ($i = 1; $i <= 6; $i++)
-                            <tr class="text-sm">
-                                <td class="border-2 border-[#E9E9E9] py-3 px-4">
-                                    {{ $i }}
-                                </td>
-                                <td class="border-2 border-[#E9E9E9] py-3 px-4">
-                                    Dr. Jason
-                                </td>
-                                <td class="border-2 border-[#E9E9E9] py-3 px-4">
-                                    jason@employee.telkomuniversity.ac.id
-                                </td>
-                                <td class="border-2 border-[#E9E9E9] py-3 px-4">
-                                    Bandung
-                                </td>
-                                <td class="border-2 border-[#E9E9E9] py-3 px-4">
-                                    Umum
-                                </td>
-                                <td class="border-2 border-[#E9E9E9] py-3 px-4">
-                                    Yogyakarta, 20-01-2003
-                                </td>
-                                <td class="border-2 border-[#E9E9E9]">
-                                    <div class="flex items-center justify-center space-x-2">
-                                        <a
-                                            class="grid w-8 bg-gray-400 rounded-md place-items-center aspect-square hover:bg-gray-500">
-                                            <img src="/img/edit-icon.png" alt="edit-icon" />
-                                        </a>
-                                        <button
-                                            class="grid w-8 bg-red-500 rounded-md place-items-center aspect-square hover:bg-red-600">
-                                            <img src="/img/delete-icon.png" alt="delete-icon" />
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endfor
-                    </tbody>
-                </table> --}}
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

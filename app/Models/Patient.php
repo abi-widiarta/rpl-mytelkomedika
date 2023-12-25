@@ -17,14 +17,14 @@ class Patient extends Authenticatable implements MustVerifyEmail
 
     protected $fillable = [
         'username',
-            'name',
-            'email',
-            'password',
-            'nim',
-            'no_hp',
-            'alamat',
-            'jenis_kelamin',
-            'tanggal_lahir'
+        'name',
+        'email',
+        'password',
+        'student_id',
+        'phone',
+        'address',
+        'gender',
+        'birthdate'
     ];
 
     public function getRouteKeyName()

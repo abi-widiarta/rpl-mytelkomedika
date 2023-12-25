@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('doctor_id')->constrained(); // Foreign key ke tabel dokter
             $table->foreignId('schedule_time_id')->constrained(); // Foreign key ke tabel dokter
-            $table->string('hari');
-            $table->integer('kapasitas_pasien')->default(30);
-            $table->date('tanggal_berlaku_sampai')->nullable();
+            $table->string('day');
+            $table->integer('max_patient')->default(20);
+            $table->date('end_date')->nullable();
             $table->timestamps();
         });
     }

@@ -40,6 +40,24 @@
                       </a>
                   </li>
                   <li>
+                      <a class="{{ Request::is('admin/data-admin*') ? 'bg-gradient-to-r from-[#ED1C24]/90 via-[#ED1C24]/90 to-[#ED1C24]/50 text-white' : 'text-[#151C48] hover:bg-gray-400/10' }} flex items-center justify-start px-4 py-4 space-x-3 transition duration-150 rounded-xl hover:bg-gray-100 hover:transition"
+                          href="/admin/data-admin">
+                          <img class="{{ Request::is('admin/data-admin*') ? 'invert' : ''}} w-6 -ml-0.5 aspect-square z-10" src="/img/sidebar-admin.png" alt="logo" />
+                          <p class="z-10 text-sm" class="font-medium">
+                              Data Admin
+                          </p>
+                      </a>
+                  </li>
+                  <li>
+                    <a class="{{ Request::is('admin/data-review*') ? 'bg-gradient-to-r from-[#ED1C24]/90 via-[#ED1C24]/90 to-[#ED1C24]/50 text-white' : 'text-[#151C48] hover:bg-gray-400/10' }} flex items-center justify-start px-4 py-4 space-x-3 transition duration-150 rounded-xl hover:bg-gray-100 hover:transition"
+                        href="/admin/data-review">
+                        <img class="{{ Request::is('admin/data-review*') ? 'invert' : ''}} w-5 aspect-square z-10" src="/img/sidebar-rating.png" alt="logo" />
+                        <p class="z-10 text-sm" class="font-medium">
+                            Data Review
+                        </p>
+                    </a>
+                    </li>
+                  <li>
                       <a class="{{ Request::is('admin/jadwal-dokter*') ? 'bg-gradient-to-r from-[#ED1C24]/90 via-[#ED1C24]/90 to-[#ED1C24]/50 text-white' : 'text-[#151C48] hover:bg-gray-400/10' }} flex items-center justify-start px-4 py-4 space-x-3 transition duration-150 rounded-xl hover:bg-gray-100 hover:transition"
                           href="/admin/jadwal-dokter">
                           <img class="{{ Request::is('admin/jadwal-dokter*') ? 'invert' : ''}} w-5 aspect-square z-10" src="/img/reservasi-saya-icon.png" alt="logo" />
@@ -47,7 +65,6 @@
                               Jadwal Dokter
                           </p>
                       </a>
-
                   </li>
                   <li>
                       <a class="{{ Request::is('admin/antrian-pemeriksaan*') ? 'bg-gradient-to-r from-[#ED1C24]/90 via-[#ED1C24]/90 to-[#ED1C24]/50 text-white' : 'text-[#151C48] hover:bg-gray-400/10' }} flex items-center justify-start px-4 py-4 space-x-3 transition duration-150 rounded-xl hover:bg-gray-100 hover:transition"
