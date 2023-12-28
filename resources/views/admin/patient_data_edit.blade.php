@@ -97,9 +97,22 @@
                               required
                           />
                         </div>
+                        <div class="mb-6">
+                          <label
+                              for="email"
+                              class="block mb-2 text-sm font-medium text-gray-900"
+                              >Password</label
+                          >
+                          <input
+                              type="password"
+                              id="password"
+                              name="password"
+                              class="bg-white disabled:bg-slate-100 disabled:text-gray-500 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:outline-primary/50"
+                          />
+                        </div>
                       </div>
   
-                      <span class="block w-0.5 bg-gray-300 h-[22rem]"></span>
+                      <span class="block w-0.5 bg-gray-300 h-[28rem]"></span>
   
                       <div class="w-full">
                         <div class="mb-6">

@@ -542,11 +542,11 @@ Gejala GERD sering kali muncul setelah makan atau saat berbaring. Gejala tersebu
                   <br><br>
                   2. Poli Mata
                   <br>
-                  Melayani konsultasi dan pemeriksaan untuk penyakit umum dengan gejala umum
+                  Melayani konsultasi dan pemeriksaan untuk penyakit mata dengan gejala umum
                   <br><br>
                   3. Poli Gigi
                   <br>
-                  Melayani konsultasi dan pemeriksaan untuk penyakit umum dengan gejala umum
+                  Melayani konsultasi dan pemeriksaan untuk penyakit gigi dengan gejala umum
                   <br>
                   <br>
                   Jadi, jangan ragu ya untuk dateng ke Telkomedika!
@@ -640,7 +640,6 @@ Gejala GERD sering kali muncul setelah makan atau saat berbaring. Gejala tersebu
           userMessage = msg;
       
           setTimeout(() => {
-              // Display "Thinking..." message while waiting for the response
               chatBox.innerHTML += `
               <li class="chat-list from-bot">
                   <div>
@@ -658,16 +657,9 @@ Gejala GERD sering kali muncul setelah makan atau saat berbaring. Gejala tersebu
       
         })
       
-        const API_KEY = "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";
-        // const API_KEY = "asd";
+        const API_KEY = "masukan api chatgpt disini";
       
         const generateResponse = (chatElement) => {
-          // setTimeout(() => {
-          //   chatElement.textContent = "yey ini hasilnya";
-          // }, 1000);
-      
-          let gptContent = "Analisis teks berikut terlebih dahulu, jika konteksnya kesehatan, makanan, penyakit, gejala penyakit, anjuran penyakit, penyakit maka tampilkan pesan sesuai yang diminta jika tidak kembalikan 'maaf saya rasa pesan anda tidak mengenai kesehatan harap berikan pesan yang sesuai.'" + userMessage
-      
           const API_URL = "https://api.openai.com/v1/chat/completions";
       
           // Define the properties and message for the API request
@@ -679,7 +671,7 @@ Gejala GERD sering kali muncul setelah makan atau saat berbaring. Gejala tersebu
               },
               body: JSON.stringify({
                   model: "gpt-3.5-turbo",
-                  messages: [{role: "user", content: userMessage + " pastikan maksimal sekitar 150 kata"}],
+                  messages: [{role: "user", content: userMessage}],
               })
           }
 
@@ -692,13 +684,11 @@ Gejala GERD sering kali muncul setelah makan atau saat berbaring. Gejala tersebu
             scrollDown();
           }
       
-          // Send POST request to API, get response and set the reponse as paragraph text
           fetch(API_URL, requestOptions).then(res => res.json()).then(data => {
               chatElement.innerHTML = data.choices[0].message.content.replace(/\n/g, '<br>');
           }).catch(() => {
               chatElement.classList.add("error");
               chatElement.innerHTML = textDummy;
-              // chatElement.innerHTML = "Oops! Something went wrong. Please try again.";
           }).finally(() => {
               const allLoadingElement = Array.from(document.querySelectorAll('.loading'));
               allLoadingElement[allLoadingElement.length - 1].previousElementSibling.querySelector('img').classList.remove('pulse') 
@@ -730,8 +720,6 @@ Gejala GERD sering kali muncul setelah makan atau saat berbaring. Gejala tersebu
         
         chatBox.scrollTo(0, userInput[userInput.length - 1].offsetTop)
       }
-
-
       </script>
 </body>
 </html>

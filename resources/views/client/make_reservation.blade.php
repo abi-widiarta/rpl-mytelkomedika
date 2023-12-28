@@ -44,7 +44,7 @@
                 @foreach ($doctors as $doctor)
                     <div onclick="location.href='/lakukan-reservasi/detail/{{ $doctor->username }}';" class="flex justify-start py-6 pl-6 pr-10 space-x-4 transition-all duration-150 bg-white shadow-lg hover:cursor-pointer hover:pointer hover:-translate-y-1 rounded-xl shadow-gray-100">
                         <div class="space-y-2 text-center">
-                            <img class="object-cover h-56 rounded-lg w-44" src="{{ $doctor->gender == 'L' ? '/uploads/img/stephenstrange.jpg' : '/uploads/img/poetri.jpg' }}" alt="doctor-1" />
+                            <img class="object-cover h-56 rounded-lg w-44" src="{{ $doctor->image}}" alt="doctor-1" />
                         </div>
                         <span class="block w-[2px] bg-gray-200"></span>
 
@@ -87,7 +87,7 @@
                                 @endif
                             </div>
                             <div class="flex justify-start w-full ">
-                                <a href="/lakukan-reservasi/detail" class="py-2.5 text-sm text-white px-12 shadow-lg bg-gradient-to-r from-[#ED1C24]/90 to-[#ED1C24]/50 rounded-lg transition duration-200 hover:bg-[#ED1C24]">
+                                <a href="/lakukan-reservasi/detail/{{ $doctor->username }}" class="py-2.5 text-sm text-white px-12 shadow-lg bg-gradient-to-r from-[#ED1C24]/90 to-[#ED1C24]/50 rounded-lg transition duration-200 hover:bg-[#ED1C24]">
                                     Detail
                                 </a>
                             </div>

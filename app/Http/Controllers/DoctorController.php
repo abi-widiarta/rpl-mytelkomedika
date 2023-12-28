@@ -72,28 +72,6 @@ class DoctorController extends Controller
         return view('doctor.review_data',["reviews" => $reviews]);
     }
 
-    public function indexClient(Request $request)
-    {
-        
-        $doctors = Doctor::when($request->poli, function($query) use ($request) {
-            return $query->where('specialization', $request->poli);
-        })->whereHas('schedule_time', function ($query) {
-            $query->whereNotNull('schedule_time_id'); // Sesuaikan dengan nama kolom di tabel pivot
-        });
-
-        $doctors = $doctors->paginate(10)->withQueryString();
-
-        $ratings = [];
-
-        foreach ($doctors as $doctor) {
-            $rating = number_format(Review::where('doctor_id', $doctor->id)->avg('rating'), 1);
-            $ratings[] = $rating;
-        }
-
-        // $doctors = Doctor::where('spesialisasi','umum')->paginate(2);
-        
-        return view('client.make_reservation',["doctors" => $doctors, "ratings" => $ratings]);
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -108,10 +86,26 @@ class DoctorController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+            'name' => 'required|string|max:100',
+            'email' => 'required|email|unique:doctors,email|max:100',
+            'username' => 'required|string|unique:doctors,username|max:30',
+            'password' => 'max:15|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
+            'poli' => 'required',
+            'status' => 'required',
+            'no_str' => 'required|string|max:100',
+            'no_hp' => 'required|numeric',
+            'jenis_kelamin' => 'required',
+            'tanggal_lahir' => 'required|date',
+            'alamat' => 'required|string|max:100',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+
         $imageExtension = $request->file('image')->getClientOriginalExtension();
         $image_path = $request->file('image')->storeAs('img', $request->username . "." . $imageExtension,['disk' => 'public']);
-
-        // dd($request->name);
+        
 
         Doctor::create([
             "name" => $request->name,
@@ -159,11 +153,14 @@ class DoctorController extends Controller
     public function update(Request $request, $username)
     {   
         $doctor = Doctor::where('username',$username)->firstOrFail();
+        $initialPassword = $doctor->password;
 
+        
         if($request->file('image') != null) {
             
             $imageExtension = $request->file('image')->getClientOriginalExtension();
             $image_path = $request->file('image')->storeAs('img', $request->username . "." . $imageExtension,['disk' => 'public']);
+
             $doctor->update([
                 "name" => $request->name,
                 "email" => $request->email,
@@ -175,6 +172,7 @@ class DoctorController extends Controller
                 "gender" => $request->jenis_kelamin,
                 "birthdate" => $request->tanggal_lahir,
                 "address" => $request->alamat,
+                "password" => $request->password == null ? $initialPassword : bcrypt($request->password),
                 "image" => "/uploads/" . $image_path,
             ]);
         } else {
@@ -189,6 +187,7 @@ class DoctorController extends Controller
                 "gender" => $request->jenis_kelamin,
                 "birthdate" => $request->tanggal_lahir,
                 "address" => $request->alamat,
+                "password" => $request->password == null ? $initialPassword : bcrypt($request->password),
             ]);
         }
         return redirect('/admin/data-dokter/edit/' . $request->username)->with('success','Data berhasil diupdate!');
@@ -216,7 +215,7 @@ class DoctorController extends Controller
             
             $request->session()->regenerate();  
             
-            return redirect('/doctor/dashboard')->with('success','Login berhasil!');
+            return redirect('/dokter/dashboard')->with('success','Login berhasil!');
         }
 
         return back()->withErrors([

@@ -30,7 +30,7 @@
                     </div>
                 </h1>
                 <p class="text-sm font-normal">
-                    Anda belum memiliki reservasi
+                    Terimakasih atas pelayanan Anda!
                 </p>
             </div>
 

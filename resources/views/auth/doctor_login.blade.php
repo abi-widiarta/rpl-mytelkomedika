@@ -48,10 +48,10 @@
     <section class="flex items-center h-screen pt-8 bg-white">
         <div class="flex flex-col max-w-screen-xl px-4 py-8 mx-auto md:flex-row md:justify-center">
             <div class="w-[55%] flex justify-start">
-                <img class="w-[95%]" src="/img/login-img.png" alt="hero" />
+                <img class="w-[95%]" src="/img/auth.jpg" alt="hero" />
             </div>
             <div class=" w-[45%] flex justify-center items-center -mt-6">
-                <form onsubmit="toggleDisable()" action="/doctor/login" method="post" class="w-72">
+                <form onsubmit="toggleDisable()" action="/dokter/login" method="post" class="w-72">
                     @csrf
                     <h1 class="relative text-[#ED1C24] text-4xl font-semibold text-center mb-10">
                         Login

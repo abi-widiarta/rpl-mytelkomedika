@@ -4,8 +4,8 @@
         <div class="flex flex-col h-full">
             <header class="flex items-center justify-between mb-4">
                 <div class="flex items-start justify-start space-x-4">
-                  <img src="/img/data-pasien-icon.png" alt="asd">
-                  <h1 class="text-xl font-semibold">Data Pasien</h1>
+                  <img src="/img/data-dokter-icon.png" alt="asd">
+                  <h1 class="text-xl font-semibold">Data Dokter</h1>
                 </div>
                 <div class="relative flex items-center space-x-4">
                     @include('partials.dropdownProfile')
@@ -258,7 +258,7 @@
               
               Swal.fire({
               title: 'Warning',
-              text: "Are you sure want to add this data?",
+              text: "Anda yakin akan menambahkan data ini?",
               icon: 'warning',
               showCancelButton: true,
               confirmButtonColor: '#ED1C24',

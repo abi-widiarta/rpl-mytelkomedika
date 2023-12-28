@@ -50,31 +50,31 @@
                     </div>
                     <div class="flex items-center">
                       <label class="w-[20%] text-sm" for="berat_badan">Berat Badan (Kg)</label>
-                      <input value="{{ $report->weight }}" name="berat_badan" class="w-[70%] bg-white disabled:bg-slate-100 disabled:text-gray-500 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5 focus:outline-primary/50"  id="berat_badan" type="text">
+                      <input required value="{{ $report->weight }}" name="berat_badan" class="w-[70%] bg-white disabled:bg-slate-100 disabled:text-gray-500 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5 focus:outline-primary/50"  id="berat_badan" type="text">
                     </div>
                     <div class="flex items-center">
                       <label class="w-[20%] text-sm" for="tinggi_badan">Tinggi Badan (cm)</label>
-                      <input value="{{ $report->height }}" name="tinggi_badan" class="w-[70%] bg-white disabled:bg-slate-100 disabled:text-gray-500 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5 focus:outline-primary/50"  id="tinggi_badan" type="text">
+                      <input required value="{{ $report->height }}" name="tinggi_badan" class="w-[70%] bg-white disabled:bg-slate-100 disabled:text-gray-500 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5 focus:outline-primary/50"  id="tinggi_badan" type="text">
                     </div>
                     <div class="flex items-center">
                       <label class="w-[20%] text-sm" for="suhu_badan">Suhu Badan (C)</label>
-                      <input value="{{ $report->temperature }}" name="suhu_badan" class="w-[70%] bg-white disabled:bg-slate-100 disabled:text-gray-500 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5 focus:outline-primary/50"  id="suhu_tubuh" type="text">
+                      <input required value="{{ $report->temperature }}" name="suhu_badan" class="w-[70%] bg-white disabled:bg-slate-100 disabled:text-gray-500 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5 focus:outline-primary/50"  id="suhu_tubuh" type="text">
                     </div>
                     <div class="flex items-center">
                       <label class="w-[20%] text-sm" for="keluhan">Keluhan</label>
-                      <input type="text" value="{{ $report->initial_complaint }}" name="keluhan" class="w-[70%] resize-none bg-white disabled:bg-slate-100 disabled:text-gray-500 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5 focus:outline-primary/50" name="keluhan" id="keluhan">
+                      <input required type="text" value="{{ $report->initial_complaint }}" name="keluhan" class="w-[70%] resize-none bg-white disabled:bg-slate-100 disabled:text-gray-500 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5 focus:outline-primary/50" name="keluhan" id="keluhan">
                     </div>
                     <div class="flex items-center">
                       <label class="w-[20%] text-sm" for="diagnosa">Diagnosa</label>
-                      <input type="text" value="{{ $report->diagnosis }}" name="diagnosa" class="w-[70%] resize-none bg-white disabled:bg-slate-100 disabled:text-gray-500 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5 focus:outline-primary/50" name="diagnosa" id="keluhan">
+                      <input required type="text" value="{{ $report->diagnosis }}" name="diagnosa" class="w-[70%] resize-none bg-white disabled:bg-slate-100 disabled:text-gray-500 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5 focus:outline-primary/50" name="diagnosa" id="keluhan">
                     </div>
                     <div class="flex items-center">
                       <label class="w-[20%] text-sm" for="anjuran">Anjuran</label>
-                      <input type="text" value="{{ $report->recommendations }}" name="anjuran" class="w-[70%] resize-none bg-white disabled:bg-slate-100 disabled:text-gray-500 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5 focus:outline-primary/50" name="anjuran" id="keluhan"></input>
+                      <input required type="text" value="{{ $report->recommendations }}" name="anjuran" class="w-[70%] resize-none bg-white disabled:bg-slate-100 disabled:text-gray-500 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5 focus:outline-primary/50" name="anjuran" id="keluhan"></input>
                     </div>
                     <div class="flex items-center">
                       <label class="w-[20%] text-sm" for="anjuran">Daftar Obat</label>
-                      <textarea rows="3" name="obat" class="w-[70%] resize-none bg-white disabled:bg-slate-100 disabled:text-gray-500 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5 focus:outline-primary/50" name="anjuran" id="keluhan">{{ $report->medications }}</textarea>
+                      <textarea required rows="3" name="obat" class="w-[70%] resize-none bg-white disabled:bg-slate-100 disabled:text-gray-500 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5 focus:outline-primary/50" name="anjuran" id="keluhan">{{ $report->medications }}</textarea>
                     </div>
                     <div class="flex items-center">
                         <label class="w-[20%] text-sm" for="diagnosa">Biaya</label>

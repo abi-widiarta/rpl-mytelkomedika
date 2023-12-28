@@ -18,7 +18,7 @@
               </a>
               <div class="flex flex-1 items-stretch px-2.5 pt-3 pb-10 overflow-hidden ">
                   <div class="w-auto">
-                      <img class="items-center object-cover h-56 mx-auto mb-4 rounded-lg w-44" src="{{ $doctor->gender == 'L' ? '/uploads/img/stephenstrange.jpg' : '/uploads/img/poetri.jpg' }}" alt="doctor-1" />
+                      <img class="items-center object-cover h-56 mx-auto mb-4 rounded-lg w-44" src="{{ $doctor->image }}" alt="doctor-1" />
                       <div class="mx-8 ">
                         <div class="flex flex-col justify-start flex-1">
                           <h1 class="mb-4 text-lg font-semibold">{{ $doctor->name }}</h1>

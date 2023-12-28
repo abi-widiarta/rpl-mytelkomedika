@@ -17,6 +17,7 @@ class RegisterController extends Controller
         return "index register";
     }
 
+  
 
     public function storeAdmin(Request $request) {
         $validatedData = $request->validate([

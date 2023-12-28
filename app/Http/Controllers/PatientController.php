@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Doctor;
 use App\Models\Report;
 use App\Models\Review;
@@ -32,6 +33,73 @@ class PatientController extends AuthController
     }
 
     public function dashboard() {
+        $total_pasien = Patient::count();
+        $total_dokter = Doctor::count();
+
+        $waktu_sekarang = Carbon::now();
+        $waktu_sekarang_final = $waktu_sekarang->addHours(7);
+
+        $jam_mulai = "";
+        $jam_selesai = "";
+
+
+        $rentang_waktu = [
+            ["07:00:00", "09:00:00"],
+            ["10:00:00", "12:00:00"],
+            ["13:00:00", "15:00:00"],
+            ["16:00:00", "18:00:00"],
+            ["20:00:00", "22:00:00"],
+        ];
+
+        $representasi_rentang = 0; 
+
+        foreach ($rentang_waktu as $index => $rentang) {
+            $mulai = Carbon::createFromFormat('H:i:s', $rentang[0]);
+            $akhir = Carbon::createFromFormat('H:i:s', $rentang[1]);
+
+            if ($waktu_sekarang_final->between($mulai, $akhir)) {
+                $representasi_rentang = $index;
+                break;
+            }
+
+            if ($waktu_sekarang_final->lt($mulai) && $representasi_rentang === 0) {
+                $representasi_rentang = $index;
+            }
+        }
+
+        if ($representasi_rentang >= 0 && $representasi_rentang < count($rentang_waktu)) {
+            $jam_mulai = $rentang_waktu[$representasi_rentang][0];
+            $jam_selesai = $rentang_waktu[$representasi_rentang][1];
+        } else {
+            echo "Rentang waktu tidak valid";
+        }
+
+        $antrian_umum = Reservation::where('date', Carbon::now()->addHours(7)->format('Y-m-d'))
+                        ->where('status','approved')
+                        ->whereHas('doctor', function ($query) {
+                            $query->where('specialization', 'umum');
+                        })
+                        ->where('start_hour',$jam_mulai)
+                        ->where('end_hour',$jam_selesai)
+                        ->max('queue_number');
+        $antrian_mata = Reservation::where('date', Carbon::now()->addHours(7)->format('Y-m-d'))
+                        ->where('status','approved')
+                        ->whereHas('doctor', function ($query) {
+                            $query->where('specialization', 'mata');
+                        })
+                        ->where('start_hour',$jam_mulai)
+                        ->where('end_hour',$jam_selesai)
+                        ->max('queue_number');
+        $antrian_gigi = Reservation::where('date', Carbon::now()->addHours(7)->format('Y-m-d'))
+                        ->where('status','approved')
+                        ->whereHas('doctor', function ($query) {
+                            $query->where('specialization', 'gigi');
+                        })
+                        ->where('start_hour',$jam_mulai)
+                        ->where('end_hour',$jam_selesai)
+                        ->max('queue_number');
+
+
         $reservations = Reservation::where('patient_id', Auth::user()->id)->where('status', 'approved');
     
         $daftar_reservasi = $reservations->paginate(3);
@@ -40,7 +108,17 @@ class PatientController extends AuthController
         ->take(3)
         ->get();
 
-        return view('client.dashboard', ['daftar_reservasi' => $daftar_reservasi,'recommended_doctors' => $recommended_doctors]);
+        return view('client.dashboard', 
+        [
+            'daftar_reservasi' => $daftar_reservasi,
+            'recommended_doctors' => $recommended_doctors,
+            "tanggal_hari_ini" => Carbon::now()->addHours(9)->format('d-m-Y'),
+            "jam_mulai_hari_ini" => $jam_mulai,
+            "jam_selesai_hari_ini" => $jam_selesai,
+            "antrian_umum" => $antrian_umum == null ? '-' : $antrian_umum,
+            "antrian_mata" => $antrian_mata == null ? '-' : $antrian_mata,
+            "antrian_gigi" => $antrian_gigi == null ? '-' : $antrian_gigi,
+        ]);
     }
 
     public function showDoctors(Request $request) {
@@ -62,14 +140,10 @@ class PatientController extends AuthController
         return view('client.make_reservation',["doctors" => $doctors, "ratings" => $ratings]);
     }
 
-    public function create() {
-        return view('admin.patient_data_add');
-    }
-
     public function destroy(Request $request) {
         Patient::where('id', $request->id)->delete();
 
-        return redirect('/admin/data-pasien')->with('success', 'Data has been deleted successfully!');
+        return redirect('/admin/data-pasien')->with('success', 'Data berhasil dihapus!');
     }
 
     public function edit($username) {
@@ -91,16 +165,30 @@ class PatientController extends AuthController
             $request->validate([
                 'no_hp' => 'required|min:11|max:13',
                 'alamat' => 'required|max:256',
+                'jenis_kelamin' => 'required',
+                'tanggal_lahir' => 'required',
+                'password' => 'nullable|max:15|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/'
             ]);
+
+            if ($request->password == null) {
+                $patient->update([
+                    "phone" => $request->no_hp,
+                    "gender" => $request->jenis_kelamin,
+                    "birthdate" => $request->tanggal_lahir,
+                    "address" => $request->alamat
+                ]);
+            } else {
+                $patient->update([
+                    "phone" => $request->no_hp,
+                    "gender" => $request->jenis_kelamin,
+                    "birthdate" => $request->tanggal_lahir,
+                    "address" => $request->alamat,
+                    "password" => bcrypt($request->password) 
+                ]);
+            }
     
             $patient = Patient::findOrFail($request->id);
     
-            $patient->update([
-                "phone" => $request->no_hp,
-                "gender" => $request->jenis_kelamin,
-                "birthdate" => $request->tanggal_lahir,
-                "address" => $request->alamat
-            ]);
     
             return back()->with('success','Data berhasil diupdate!');
         } catch (ValidationException $e) {
@@ -117,8 +205,10 @@ class PatientController extends AuthController
     public function profileUpdate(Request $request) {
         try {
             $request->validate([
-                'phone' => 'required|min:11|max:13',
-                'address' => 'required|max:256',
+                'phone' => 'required|numeric|digits_between:11,13',
+                'address' => 'required|string|max:256',
+                'birthdate' => 'required|date',
+                'gender' => 'required',
             ]);
     
            Patient::findOrFail($request->id)->update([
@@ -170,23 +260,6 @@ class PatientController extends AuthController
             return redirect()->back()->withToastError('Laporan Belum Tersedia');
         }
 
-        // // Pisahkan input menjadi baris-baris
-        // $lines = explode("\n", $report->medications);
-
-        // // Inisialisasi dua array
-        // $array1 = [];
-        // $array2 = [];
-
-        // // Proses setiap baris
-        // foreach ($lines as $line) {
-        //     // Pisahkan setiap baris menjadi array berdasarkan tanda "-"
-        //     $parts = explode(" - ", $line);
-
-        //     // Tambahkan ke array yang sesuai
-        //     $array1[] = $parts[0];
-        //     $array2[] = $parts[1];
-        // }
-
         return view('client.reservation_result_detail', ["report" => $report]);
     }
 
@@ -214,7 +287,7 @@ class PatientController extends AuthController
         
         $request->validate([
             'comment'=> 'required',
-            'rating' => 'required',
+            'rating' => 'required|max:256',
         ],[
             'comment.required' => 'Harap isi comment',
             'rating.required' => 'Harap isi rating',

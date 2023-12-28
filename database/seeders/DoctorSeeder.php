@@ -27,7 +27,7 @@ class DoctorSeeder extends Seeder
                 "gender" => "L",
                 "birthdate" => "1985-05-15",
                 "address" => "Jl. Cipto Mangunkusumo",
-                "image" => "/uploads/img/doctor-1.jpg",
+                "image" => "/uploads/img/budi_santoso.png",
             ],
             [
                 "name" => "Dr. Dian Permata",
@@ -41,7 +41,7 @@ class DoctorSeeder extends Seeder
                 "gender" => "L",
                 "birthdate" => "1982-08-20",
                 "address" => "Jl. Diponegoro",
-                "image" => "/uploads/img/doctor-2.jpg",
+                "image" => "/uploads/img/dian_permata.png",
             ],
             [
                 "name" => "Dr. Eka Wijaya",
@@ -55,7 +55,7 @@ class DoctorSeeder extends Seeder
                 "gender" => "P",
                 "birthdate" => "1980-03-10",
                 "address" => "Jl. Kusuma Negara",
-                "image" => "/uploads/img/doctor-3.jpg",
+                "image" => "/uploads/img/eka_wijaya.png",
             ],
             // ... (tambahkan 7 data lainnya)
             [
@@ -70,7 +70,7 @@ class DoctorSeeder extends Seeder
                 "gender" => "P",
                 "birthdate" => "1987-11-25",
                 "address" => "Jl. Merdeka",
-                "image" => "/uploads/img/doctor-4.jpg",
+                "image" => "/uploads/img/fika_maulana.png",
             ],
             [
                 "name" => "Dr. Gita Pratama",
@@ -84,7 +84,7 @@ class DoctorSeeder extends Seeder
                 "gender" => "L",
                 "birthdate" => "1983-09-18",
                 "address" => "Jl. Hasanuddin",
-                "image" => "/uploads/img/doctor-5.jpg",
+                "image" => "/uploads/img/gita_pratama.png",
             ],
             [
                 "name" => "Dr. Hana Susanti",
@@ -98,7 +98,7 @@ class DoctorSeeder extends Seeder
                 "gender" => "P",
                 "birthdate" => "1984-04-05",
                 "address" => "Jl. Pahlawan",
-                "image" => "/uploads/img/doctor-6.jpg",
+                "image" => "/uploads/img/hana_susanti.png",
             ],
             [
                 "name" => "Dr. Irfan Widodo",
@@ -112,7 +112,7 @@ class DoctorSeeder extends Seeder
                 "gender" => "L",
                 "birthdate" => "1981-06-30",
                 "address" => "Jl. Sudirman",
-                "image" => "/uploads/img/doctor-7.jpg",
+                "image" => "/uploads/img/irfan_widodo.png",
             ],
             [
                 "name" => "Dr. Joko Santoso",
@@ -126,7 +126,7 @@ class DoctorSeeder extends Seeder
                 "gender" => "L",
                 "birthdate" => "1986-12-15",
                 "address" => "Jl. Tambak Boyo",
-                "image" => "/uploads/img/doctor-8.jpg",
+                "image" => "/uploads/img/joko_santoso.png",
             ],
             [
                 "name" => "Dr. Kiki Nurul",
@@ -140,7 +140,7 @@ class DoctorSeeder extends Seeder
                 "gender" => "P",
                 "birthdate" => "1988-03-20",
                 "address" => "Jl. Pemuda",
-                "image" => "/uploads/img/doctor-9.jpg",
+                "image" => "/uploads/img/kiki_nurul.png",
             ],
             [
                 "name" => "Dr. Lina Anggraeni",
@@ -154,7 +154,7 @@ class DoctorSeeder extends Seeder
                 "gender" => "P",
                 "birthdate" => "1989-08-10",
                 "address" => "Jl. Kartini",
-                "image" => "/uploads/img/doctor-10.jpg",
+                "image" => "/uploads/img/lina_anggraeni.png",
             ],
             [
                 "name" => "Dr. Mira Susanti",
@@ -168,7 +168,7 @@ class DoctorSeeder extends Seeder
                 "gender" => "P",
                 "birthdate" => "1990-02-25",
                 "address" => "Jl. Veteran",
-                "image" => "/uploads/img/mira.jpg",
+                "image" => "/uploads/img/mira_susanti.png",
             ],
             [
                 "name" => "Dr. Nanda Putra",
@@ -182,7 +182,7 @@ class DoctorSeeder extends Seeder
                 "gender" => "L",
                 "birthdate" => "1991-07-10",
                 "address" => "Jl. Kalimantan",
-                "image" => "/uploads/img/nanda.jpg",
+                "image" => "/uploads/img/nanda_putra.png",
             ],
             [
                 "name" => "Dr. Oki Rahayu",
@@ -196,7 +196,7 @@ class DoctorSeeder extends Seeder
                 "gender" => "P",
                 "birthdate" => "1992-12-05",
                 "address" => "Jl. Dipati Ukur",
-                "image" => "/uploads/img/oki.jpg",
+                "image" => "/uploads/img/oki_rahayu.png",
             ],
             [
                 "name" => "Dr. Purnama Setiawan",
@@ -210,7 +210,7 @@ class DoctorSeeder extends Seeder
                 "gender" => "L",
                 "birthdate" => "1993-05-20",
                 "address" => "Jl. Hayam Wuruk",
-                "image" => "/uploads/img/purnama.jpg",
+                "image" => "/uploads/img/purnama_setiawan.png",
             ],
             [
                 "name" => "Dr. Qori Anwar",
@@ -224,7 +224,7 @@ class DoctorSeeder extends Seeder
                 "gender" => "L",
                 "birthdate" => "1994-10-15",
                 "address" => "Jl. Pahlawan Revolusi",
-                "image" => "/uploads/img/qori.jpg",
+                "image" => "/uploads/img/qori_anwar.png",
             ],
             [
                 "name" => "Dr. Rini Kusuma",
@@ -238,7 +238,7 @@ class DoctorSeeder extends Seeder
                 "gender" => "P",
                 "birthdate" => "1995-03-30",
                 "address" => "Jl. Gatot Subroto",
-                "image" => "/uploads/img/rini.jpg",
+                "image" => "/uploads/img/rini_kusuma.png",
             ],
             [
                 "name" => "Dr. Satria Wibowo",
@@ -252,7 +252,7 @@ class DoctorSeeder extends Seeder
                 "gender" => "L",
                 "birthdate" => "1996-08-25",
                 "address" => "Jl. Sudirman",
-                "image" => "/uploads/img/satria.jpg",
+                "image" => "/uploads/img/satria_wibowo.png",
             ],
             [
                 "name" => "Dr. Tiara Putri",
@@ -266,7 +266,7 @@ class DoctorSeeder extends Seeder
                 "gender" => "P",
                 "birthdate" => "1997-01-10",
                 "address" => "Jl. Jakarta",
-                "image" => "/uploads/img/tiara.jpg",
+                "image" => "/uploads/img/tiara_putri.png",
             ],
             [
                 "name" => "Dr. Umar Abdullah",
@@ -280,7 +280,7 @@ class DoctorSeeder extends Seeder
                 "gender" => "L",
                 "birthdate" => "1998-06-15",
                 "address" => "Jl. Diponegoro",
-                "image" => "/uploads/img/umar.jpg",
+                "image" => "/uploads/img/umar_abdullah.png",
             ],
             [
                 "name" => "Dr. Vina Rosita",
@@ -294,7 +294,7 @@ class DoctorSeeder extends Seeder
                 "gender" => "P",
                 "birthdate" => "1999-11-20",
                 "address" => "Jl. Pajajaran",
-                "image" => "/uploads/img/vina.jpg",
+                "image" => "/uploads/img/vina_rosita.png",
             ],
         ];
 

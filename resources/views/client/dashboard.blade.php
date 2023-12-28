@@ -80,8 +80,8 @@
                         <div class="flex items-start justify-between pb-4 mb-4 border-b-2 border-slate-100">
                             <h3 class="text-lg font-semibold">Antrian Poli</h3>
                             <div class="text-end">
-                                <p class="text-xs font-medium text-gray-500">20-12-2023</p>
-                                <p class="text-xs font-medium text-gray-500">07.00 - 10.00</p>
+                                <p class="text-xs font-medium text-gray-500">{{ $tanggal_hari_ini }}</p>
+                                <p class="text-xs font-medium text-gray-500">{{  \Carbon\Carbon::parse($jam_mulai_hari_ini)->format('H:i') }} - {{  \Carbon\Carbon::parse($jam_selesai_hari_ini)->format('H:i') }}</p>
                             </div>
                         </div>
                         <div class="grid w-full grid-cols-3 gap-4">
@@ -89,21 +89,21 @@
                                 <p class="mb-3 ml-1 text-sm font-medium">Umum</p>
                                 <div class="flex flex-col items-start bg-[#FFE8E8] p-2 rounded-lg">
                                     <img class="w-6" src="/img/dashboard-admin-ticket-umum-icon.svg" alt="">
-                                    <p class="font-bold text-[#FF5050] text-base">No 7</p>
+                                    <p class="font-bold text-[#FF5050] text-base">{{ $antrian_umum == '-' ? '-' : 'No ' . $antrian_umum }}</p>
                                 </div>
                             </div>
                             <div>
                                 <p class="mb-3 ml-1 text-sm font-medium">Mata</p>
                                 <div class="flex flex-col items-start bg-[#E8F8FF] p-2 rounded-lg">
                                     <img class="w-6" src="/img/dashboard-admin-ticket-mata-icon.svg" alt="">
-                                    <p class="font-bold text-[#41B6FF] text-base">No 7</p>
+                                    <p class="font-bold text-[#41B6FF] text-base">{{ $antrian_mata == '-' ? '-' : 'No ' . $antrian_mata }}</p>
                                 </div>
                             </div>
                             <div>
                                 <p class="mb-3 ml-1 text-sm font-medium">Gigi</p>
                                 <div class="flex flex-col items-start bg-[#DCFCE7] p-2 rounded-lg">
                                     <img class="w-6" src="/img/dashboard-admin-ticket-gigi-icon.svg" alt="">
-                                    <p class="font-bold text-[#3CD755] text-base">No 7</p>
+                                    <p class="font-bold text-[#3CD755] text-base">{{ $antrian_gigi == '-' ? '-' : 'No ' . $antrian_gigi }}</p>
                                 </div>
                             </div>
                         </div>
@@ -124,10 +124,7 @@
                         <a href="/lakukan-reservasi/detail/{{ $doctor->username }}"
                             class="px-6 py-4 bg-white rounded-xl shadow-[0px_7px_50px_0px_rgba(198,203,232,0.25)] hover:-translate-y-1 hover:opacity-80 transition-all duration-150">
                             <div class="flex items-start justify-start space-x-4">
-                                <img class="object-cover rounded-lg h-28 w-28" src="/img/doctor-1.png" alt="">
-                                {{-- <div class="w-24 overflow-hidden border-[3px] rounded-full border-[#55FF70]/60 ">
-                                </div> --}}
-
+                                <img class="object-cover rounded-lg h-28 w-28" src="{{ $doctor->image }}" alt="">
                                 <div class="flex flex-col justify-between flex-1 h-full ">
                                     <div>
                                         <p class="mb-2 text-sm font-semibold">{{ $doctor->name }}</p>

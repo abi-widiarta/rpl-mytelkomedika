@@ -76,15 +76,10 @@
                             
                                     <td class="px-6 py-4">
                                         <div class="flex items-center justify-center space-x-2">
-                                            <a  
-                                                {{-- href="/admin/data-dokter/edit/{{ $doctor->username }}" --}}
-                                                class="grid w-8 bg-gray-400 rounded-md place-items-center aspect-square hover:bg-gray-500">
-                                                <img src="/img/edit-icon.png" alt="edit-icon" />
-                                            </a>
                                             <form class="doctor-delete-form" action="/admin/pembayaran/complete/{{ $payment->id }}" method="POST">
                                                 @csrf
-                                                <button type="submit" class="grid w-8 bg-red-500 rounded-md place-items-center aspect-square hover:bg-red-600">
-                                                    <img src="/img/delete-icon.png" alt="delete-icon" />
+                                                <button type="submit" class="grid w-8 bg-green-100 rounded-md place-items-center aspect-square ">
+                                                    <img class="{{ $payment->amount == 0 ? 'opacity-50' : ''}}" src="/img/antrian-complete.png" alt="delete-icon" />
                                                 </button>
                                             </form>
                                         </div>
@@ -109,7 +104,7 @@
                 
                 Swal.fire({
                 title: 'Warning',
-                text: "Are you sure want to delete this data?",
+                text: "Anda yakin akan menyelesaikan pembayaran ini?",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#ED1C24',

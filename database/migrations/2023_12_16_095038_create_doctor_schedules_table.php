@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('doctor_schedules', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('doctor_id')->constrained(); // Foreign key ke tabel dokter
-            $table->foreignId('schedule_time_id')->constrained(); // Foreign key ke tabel dokter
+            $table->foreignId('doctor_id')->constrained()->onDelete('cascade'); 
+            $table->foreignId('schedule_time_id')->constrained()->onDelete('cascade'); 
             $table->string('day');
             $table->integer('max_patient')->default(20);
             $table->date('end_date')->nullable();

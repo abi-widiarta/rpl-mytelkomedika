@@ -58,7 +58,7 @@ Route::middleware('guest')->group(function () {
         return view('auth.client_register');
     });
     
-    Route::post('/register', [RegisterController::class, 'store']);
+    Route::post('/register', [PatientController::class, 'store']);
     
     Route::get('/admin/register', function () {
         return view('auth.admin_register');
@@ -186,7 +186,7 @@ Route::middleware('auth:admin')->group(function () {
 Route::middleware('auth:doctor')->group(function () {
     Route::get('/dokter/dashboard', [DoctorController::class, 'dashboard']);
     
-    Route::get('/dokter/antrian-pemeriksaan', [DoctorController::class, 'showQueue']);
+    Route::get('/dokter/antrian-pemeriksaan', [DoctorController::class, 'showQueues']);
     
     Route::get('/dokter/data-review',[DoctorController::class, 'showReviews'] );
     

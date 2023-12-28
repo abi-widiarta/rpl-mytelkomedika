@@ -9,6 +9,16 @@ use Illuminate\Http\Request;
 class ReportController extends Controller
 {
     public function store(Request $request,$id) {
+
+        $request->validate([
+            'berat_badan' => 'required|numeric|max:500',
+            'tinggi_badan' => 'required|numeric|min:32|max:250',
+            'suhu_badan' => 'required|numeric|min:32|max:42',
+            'keluhan' => 'required|string',
+            'diagnosa' => 'required|string',
+            'anjuran' => 'required|string',
+            'obat' => 'required|string',
+        ]);
         
         $biaya = $request->biaya;
         $status = 0;
@@ -36,11 +46,10 @@ class ReportController extends Controller
             'status' => $status,
         ]);
         
-        return redirect('/admin/antrian-pemeriksaan/hasil-pemeriksaan/' . $id)->with('success', 'Data has been added successfully!');
+        return redirect('/admin/antrian-pemeriksaan/hasil-pemeriksaan/' . $id)->with('success', 'Data berhasil ditambah!');
     }
 
     public function update(Request $request,$id) {
-
         $report = Report::where('reservation_id',$id)->first();
         $payment = Payment::where('reservation_id',$id)->first();
 
@@ -51,6 +60,16 @@ class ReportController extends Controller
             $biaya = "0";
             $status = 1; 
         };
+
+        $request->validate([
+            'berat_badan' => 'required|numeric|max:500',
+            'tinggi_badan' => 'required|numeric|min:32|max:250',
+            'suhu_badan' => 'required|numeric|min:32|max:42',
+            'keluhan' => 'required|string',
+            'diagnosa' => 'required|string',
+            'anjuran' => 'required|string',
+            'obat' => 'required|string',
+        ]);
 
         $report->update([
             'weight' => $request->berat_badan,
@@ -68,6 +87,6 @@ class ReportController extends Controller
             'status' => $status,
         ]);
         
-        return redirect('/admin/antrian-pemeriksaan/hasil-pemeriksaan/' . $id)->with('success', 'Data has been updated successfully!');
+        return redirect('/admin/antrian-pemeriksaan/hasil-pemeriksaan/' . $id)->with('success', 'Data berhasil diupdate!');
     }
 }

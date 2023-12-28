@@ -107,7 +107,6 @@ class AdminController extends AuthController
         $total_pasien = Patient::count();
         $total_dokter = Doctor::count();
 
-        // Mendapatkan waktu sekarang
         $waktu_sekarang = Carbon::now();
         $waktu_sekarang_final = $waktu_sekarang->addHours(7);
 
@@ -115,7 +114,6 @@ class AdminController extends AuthController
         $jam_selesai = "";
 
 
-        // Rentang waktu yang diberikan
         $rentang_waktu = [
             ["07:00:00", "09:00:00"],
             ["10:00:00", "12:00:00"],
@@ -124,35 +122,28 @@ class AdminController extends AuthController
             ["20:00:00", "22:00:00"],
         ];
 
-        // Cek di rentang waktu mana waktu sekarang final berada
-        $representasi_rentang = 0; // Inisialisasi dengan nilai default
+        $representasi_rentang = 0; 
 
         foreach ($rentang_waktu as $index => $rentang) {
             $mulai = Carbon::createFromFormat('H:i:s', $rentang[0]);
             $akhir = Carbon::createFromFormat('H:i:s', $rentang[1]);
 
-            // Periksa apakah waktu sekarang final berada dalam rentang waktu
             if ($waktu_sekarang_final->between($mulai, $akhir)) {
                 $representasi_rentang = $index;
                 break;
             }
 
-            // Periksa apakah waktu sekarang final lebih kecil dari waktu mulai rentang
-            // dan apakah rentang sekarang terdekat atau belum ditentukan
             if ($waktu_sekarang_final->lt($mulai) && $representasi_rentang === 0) {
                 $representasi_rentang = $index;
             }
         }
 
-        // Mendapatkan waktu mulai dan waktu selesai dari rentang waktu terkait
         if ($representasi_rentang >= 0 && $representasi_rentang < count($rentang_waktu)) {
             $jam_mulai = $rentang_waktu[$representasi_rentang][0];
             $jam_selesai = $rentang_waktu[$representasi_rentang][1];
         } else {
             echo "Rentang waktu tidak valid";
         }
-
-        // dd($waktu_sekarang_final->format('H:i:s'),$representasi_rentang);
 
         $total_pembayaran = Payment::where('amount','!=',0)->count();
         $antrian_umum = Reservation::where('date', Carbon::now()->addHours(7)->format('Y-m-d'))
@@ -181,7 +172,7 @@ class AdminController extends AuthController
                         ->max('queue_number');
 
         $menunggu_laporan = Reservation::with(['patient','doctor'])->where('status','completed')->doesntHave('report')->get();
-        $menunggu_pembayaran = Payment::with(['patient','doctor'])->where('amount','!=','0')->where('status',0)->get();
+        $menunggu_pembayaran = Payment::where('amount','!=','0')->where('status',0)->get();
         
         return view('admin.dashboard', 
         [

@@ -82,12 +82,12 @@
         
             Swal.fire({
             title: 'Warning',
-            text: "Are you sure want to logout?",
+            text: "Anda yakin akan logout?",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#ED1C24',
             cancelButtonColor: '#C5C5C5',
-            confirmButtonText: 'Yes'
+            confirmButtonText: 'Ya'
             }).then((result) => {
                 if (result.isConfirmed) {
                     formLogout.submit();

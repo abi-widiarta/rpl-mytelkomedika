@@ -47,7 +47,7 @@
     <section class="flex items-center bg-white">
         <div class="flex flex-col max-w-screen-xl px-4 py-8 mx-auto mt-[5rem] mb-6 md:flex-row md:items-center md:justify-center">
             <div class="w-[55%] flex justify-start">
-                <img class="w-[95%]" src="/img/login-img.png" alt="hero" />
+                <img class="w-[95%]" src="/img/auth.jpg" alt="hero" />
             </div>
             <div class=" w-[45%] flex justify-center items-center">
                 <form onsubmit="toggleDisable()" action="/register" method="POST" class="w-[75%]">

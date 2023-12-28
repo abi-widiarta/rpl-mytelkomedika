@@ -172,18 +172,19 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($menunggu_pembayaran as $pembayaran)
+                                    {{-- @dd($menunggu_pembayaran) --}}
                                         <tr class="bg-white border-b">
                                             <td scope="row" class="py-4 pl-4 pr-6">
                                                 {{ $loop->iteration }}
                                             </td>
                                             <td scope="row" class="py-4 pl-2 pr-6">
-                                                {{ $laporan->patient->name }}
+                                                {{ $pembayaran->reservation->patient->name }}
                                             </td>
                                             <td class="px-6 py-4">
-                                                {{  Str::ucfirst($laporan->doctor->specialization) }}
+                                                {{  Str::ucfirst($pembayaran->reservation->doctor->specialization) }}
                                             </td>
                                             <td class="px-6 py-4 ">
-                                                {{ $laporan->tanggal }}
+                                                {{ $pembayaran->reservation->tanggal }}
                                             </td>
                                         </tr>
                                     @endforeach
