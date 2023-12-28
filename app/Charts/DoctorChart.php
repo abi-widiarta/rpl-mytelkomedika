@@ -17,9 +17,9 @@ class DoctorChart
     public function build(): \ArielMejiaDev\LarapexCharts\DonutChart
     {   
 
-        $poli_umum = Doctor::where('spesialisasi','umum')->count();
-        $poli_mata = Doctor::where('spesialisasi','mata')->count();
-        $poli_gigi = Doctor::where('spesialisasi','gigi')->count();
+        $poli_umum = Doctor::where('specialization','umum')->count();
+        $poli_mata = Doctor::where('specialization','mata')->count();
+        $poli_gigi = Doctor::where('specialization','gigi')->count();
 
         return $this->chart->donutChart()
             // ->setTitle('Top 3 scorers of the team.')

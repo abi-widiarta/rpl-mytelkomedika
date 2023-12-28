@@ -17,17 +17,17 @@ return new class extends Migration
             $table->string('email',100)->unique();
             $table->string('username',30)->unique();
             $table->string('password');
-            $table->string('spesialisasi',25);
+            $table->string('specialization',25);
             $table->boolean('status')->default(true);
-            $table->string('no_str',100)->unique();
-            $table->string('no_hp',13);
-            $table->char('jenis_kelamin',1);
-            $table->date('tanggal_lahir');
-            $table->string('alamat',100);
+            $table->string('registration_number',100)->unique();
+            $table->string('phone',13);
+            $table->char('gender',1);
+            $table->date('birthdate');
+            $table->string('address',100);
             $table->string('image');
             $table->float('rating')->default(0.0);
-            $table->integer('total_pasien')->default(0);
-            $table->integer('total_review')->default(0);
+            $table->integer('patient_total')->default(0);
+            $table->integer('review_total')->default(0);
             $table->timestamps();
         });
     }

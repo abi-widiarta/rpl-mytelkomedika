@@ -14,14 +14,14 @@ return new class extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('reservation_id');
-            $table->integer('berat_badan')->length(3);
-            $table->integer('tinggi_badan')->length(3);
-            $table->float('suhu_badan');
-            $table->text('keluhan');
-            $table->text('diagnosa');
-            $table->text('anjuran');
-            $table->text('obat');
-            $table->tinyInteger('surat_dokter');
+            $table->integer('weight')->length(3);
+            $table->integer('height')->length(3);
+            $table->float('temperature');
+            $table->text('initial_complaint');
+            $table->text('diagnosis');
+            $table->text('recommendations');
+            $table->text('medications');
+            $table->boolean('sick_note');
             $table->timestamps();
 
             $table->foreign('reservation_id')->references('id')->on('reservations')->onDelete('cascade');

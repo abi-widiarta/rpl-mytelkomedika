@@ -11,7 +11,12 @@ class Reservation extends Model
     use HasFactory;
 
     protected $fillable = [
-        "status",
+        'date',
+        'start_hour',
+        'end_hour',
+        'status',
+        'initial_complaint',
+        'queue_number',
     ];
 
     public function patient()

@@ -12,7 +12,7 @@
               <ul class="space-y-1">
                 <li><p class="mb-2 ml-2 text-sm font-semibold text-[#151C48]/80">Main menu</p></li>
                   <li>
-                      <a class="{{ Request::is('dashboard*') ? 'bg-gradient-to-r from-[#ED1C24]/90 via-[#ED1C24]/90 to-[#ED1C24]/50 text-white' : 'text-[#151C48] hover:bg-gray-400/10' }} flex justify-start items-center rounded-xl space-x-3 py-4 px-4 transition duration-150 hover:bg-gray-100 hover:transition"
+                      <a class="{{ Request::is('dashboard*') ? 'bg-gradient-to-r from-[#ED1C24]/90 via-[#ED1C24]/95 to-[#ED1C24]/60 shadow-[0px_10px_20px_-8px_#ee1c2536] text-white' : 'text-[#151C48] hover:bg-gray-400/10' }} flex justify-start items-center rounded-xl space-x-3 py-4 px-4 transition duration-150 hover:bg-gray-100 hover:transition "
                           href="/dashboard">
                           <img class="{{ Request::is('dashboard*') ? 'invert' : ''}} w-5 aspect-square z-10" src="/img/dashboard-icon.png" alt="logo" />
                           <p class="z-10 text-sm" class="font-medium">
@@ -21,7 +21,7 @@
                       </a>
                   </li>
                   <li>
-                      <a class="{{ Request::is('lakukan-reservasi*') ? 'bg-gradient-to-r from-[#ED1C24]/90 via-[#ED1C24]/90 to-[#ED1C24]/50 text-white' : 'text-[#151C48] hover:bg-gray-400/10' }} flex items-center justify-start px-4 py-4 space-x-3 transition duration-150 rounded-xl hover:bg-gray-100 hover:transition"
+                      <a class="{{ Request::is('lakukan-reservasi*') ? 'bg-gradient-to-r from-[#ED1C24]/90 via-[#ED1C24]/95 to-[#ED1C24]/60 shadow-[0px_10px_20px_-8px_#ee1c2536] text-white' : 'text-[#151C48] hover:bg-gray-400/10' }} flex items-center justify-start px-4 py-4 space-x-3 transition duration-150 rounded-xl hover:bg-gray-100 hover:transition "
                           href="/lakukan-reservasi">
                           <img class="{{ Request::is('lakukan-reservasi*') ? 'invert' : ''}} w-5 aspect-square z-10" src="/img/lakukan-reservasi-icon.png" alt="logo" />
                           <p class="z-10 text-sm" class="font-medium">
@@ -30,7 +30,7 @@
                       </a>
                   </li>
                   <li>
-                      <a class="{{ Request::is('reservasi-saya*') ? 'bg-gradient-to-r from-[#ED1C24]/90 via-[#ED1C24]/90 to-[#ED1C24]/50 text-white' : 'text-[#151C48] hover:bg-gray-400/10' }} flex items-center justify-start px-4 py-4 space-x-3 transition duration-150 rounded-xl hover:bg-gray-100 hover:transition"
+                      <a class="{{ Request::is('reservasi-saya*') ? 'bg-gradient-to-r from-[#ED1C24]/90 via-[#ED1C24]/95 to-[#ED1C24]/60 shadow-[0px_10px_20px_-8px_#ee1c2536] text-white' : 'text-[#151C48] hover:bg-gray-400/10' }} flex items-center justify-start px-4 py-4 space-x-3 transition duration-150 rounded-xl hover:bg-gray-100 hover:transition "
                           href="/reservasi-saya">
                           <img class="{{ Request::is('reservasi-saya*') ? 'invert' : ''}} w-5 aspect-square z-10" src="/img/reservasi-saya-icon.png" alt="logo" />
                           <p class="z-10 text-sm" class="font-medium">
@@ -39,7 +39,7 @@
                       </a>
                   </li>
                   <li>
-                      <a class="{{ Request::is('riwayat-pemeriksaan*') ? 'bg-gradient-to-r from-[#ED1C24]/90 via-[#ED1C24]/90 to-[#ED1C24]/50 text-white' : 'text-[#151C48] hover:bg-gray-400/10' }} flex items-center justify-start px-4 py-4 space-x-3 transition duration-150 rounded-xl hover:bg-gray-100 hover:transition"
+                      <a class="{{ Request::is('riwayat-pemeriksaan*') ? 'bg-gradient-to-r from-[#ED1C24]/90 via-[#ED1C24]/95 to-[#ED1C24]/60 shadow-[0px_10px_20px_-8px_#ee1c2536] text-white' : 'text-[#151C48] hover:bg-gray-400/10' }} flex items-center justify-start px-4 py-4 space-x-3 transition duration-150 rounded-xl hover:bg-gray-100 hover:transition "
                           href="/riwayat-pemeriksaan">
                           <img class="{{ Request::is('riwayat-pemeriksaan*') ? 'invert' : ''}} w-5 aspect-square z-10" src="/img/riwayat-pemeriksaan-icon.png" alt="logo" />
                           <p class="z-10 text-sm" class="font-medium">
@@ -49,7 +49,7 @@
                   </li>
                   <li><p class="mt-6 mb-2 ml-2 text-sm font-semibold text-[#151C48]/80">Account</p></li>
                   <li>
-                      <a class="{{ Request::is('profile*') ? 'bg-gradient-to-r from-[#ED1C24]/90 via-[#ED1C24]/90 to-[#ED1C24]/50 text-white' : 'text-[#151C48] hover:bg-gray-400/10' }} flex items-center justify-start px-4 py-4 space-x-3 transition duration-150 rounded-xl hover:bg-gray-100 hover:transition"
+                      <a class="{{ Request::is('profile*') ? 'bg-gradient-to-r from-[#ED1C24]/90 via-[#ED1C24]/95 to-[#ED1C24]/60 shadow-[0px_10px_20px_-8px_#ee1c2536] text-white' : 'text-[#151C48] hover:bg-gray-400/10' }}  flex items-center justify-start px-4 py-4 space-x-3 transition duration-150 rounded-xl hover:bg-gray-100 hover:transition "
                           href="/profile">
                           <img class="{{ Request::is('profile*') ? 'invert' : ''}} w-5 aspect-square z-10" src="/img/profile-icon.png" alt="logo" />
                           <p class="z-10 text-sm" class="font-medium">
@@ -82,12 +82,12 @@
         
             Swal.fire({
             title: 'Warning',
-            text: "Are you sure want to logout?",
+            text: "Anda yakin akan logout?",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#ED1C24',
             cancelButtonColor: '#C5C5C5',
-            confirmButtonText: 'Yes'
+            confirmButtonText: 'Ya'
             }).then((result) => {
                 if (result.isConfirmed) {
                     formLogout.submit();

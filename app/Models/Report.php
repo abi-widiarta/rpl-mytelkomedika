@@ -13,14 +13,14 @@ class Report extends Model
 
     protected $fillable = [
         'reservation_id',
-        'berat_badan',
-        'tinggi_badan',
-        'suhu_badan',
-        'keluhan',
-        'diagnosa',
-        'anjuran',
-        'obat',
-        'surat_dokter',
+        'weight',
+        'height',
+        'temperature',
+        'initial_complaint',
+        'diagnosis',
+        'recommendations',
+        'medications',
+        'sick_note',
     ]; 
 
     public function reservation(): BelongsTo

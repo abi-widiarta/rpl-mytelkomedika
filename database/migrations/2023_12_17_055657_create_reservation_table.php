@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('patient_id')->constrained()->onDelete('cascade');
             $table->foreignId('doctor_id')->constrained()->onDelete('cascade');
-            $table->date('tanggal');
-            $table->time('jam_mulai');
-            $table->time('jam_selesai');
+            $table->date('date');
+            $table->time('start_hour');
+            $table->time('end_hour');
             $table->string('status')->default('approved');
-            $table->string('keluhan_awal')->default('');
-            $table->integer('nomor_antrian')->nullable();
+            $table->string('initial_complaint')->default('');
+            $table->integer('queue_number')->nullable();
             $table->timestamps();
         });
     }

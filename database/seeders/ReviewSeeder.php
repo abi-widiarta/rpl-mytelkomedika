@@ -16,12 +16,13 @@ class ReviewSeeder extends Seeder
     public function run(): void
     {
         $rand = [24, 20, 28, 19, 27, 23, 22, 29, 21, 25, 30, 26, 18, 20, 29, 27, 19, 23];
+        $initial_report_id =1;
 
         for ($i=1; $i <= 18 ; $i++) { 
             for ($j = 1; $j <= $rand[$i - 1] ; $j++) {
                 Review::create([
                     'doctor_id' => $i,
-                    'report_id' => $j,
+                    'report_id' => $initial_report_id,
                     'comment' => 'Dokternya sangat ramah, dan juga informatif',
                     'rating' => rand(4, 5),
                 ]);
@@ -29,10 +30,12 @@ class ReviewSeeder extends Seeder
                 Doctor::find($i)->update(
                     [
                         'rating' => number_format(Review::where('doctor_id', $i)->avg('rating'), 1),
-                        'total_pasien' => Reservation::where('doctor_id', $i)->where('status', 'completed')->count(),
-                        'total_review' => Review::where('doctor_id', $i)->count()
+                        'patient_total' => Reservation::where('doctor_id', $i)->where('status', 'completed')->count(),
+                        'review_total' => Review::where('doctor_id', $i)->count()
                     ]
                 );
+
+                $initial_report_id = $initial_report_id + 1;
             }
         }
 

@@ -16,12 +16,13 @@ return new class extends Migration
             $table->string('username',15);
             $table->string('name',50);
             $table->string('email',50)->unique();
-            $table->string('password')->update();
-            $table->string('nim',10);
-            $table->string('no_hp',13);
-            $table->string('alamat',50);
-            $table->char('jenis_kelamin',1);
-            $table->date('tanggal_lahir');
+            $table->string('password');
+            $table->string('student_id',10);
+            $table->string('phone',13)->nullable();
+            $table->string('address',50)->nullable();
+            $table->char('gender',1)->nullable();
+            $table->date('birthdate')->nullable();
+            $table->timestamp('email_verified_at')->nullable();
         });
     }
 

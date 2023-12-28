@@ -22,48 +22,48 @@ class DoctorScheduleSeeder extends Seeder
             [
                 "doctor_id" => 1,
                 "schedule_time_id" => 1,
-                "hari" => "senin",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "senin",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
             [
                 "doctor_id" => 1,
                 "schedule_time_id" => 2,
-                "hari" => "senin",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "senin",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             [
                 "doctor_id" => 1,
                 "schedule_time_id" => 1,
-                "hari" => "rabu",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "rabu",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             [
                 "doctor_id" => 1,
                 "schedule_time_id" => 2,
-                "hari" => "rabu",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "rabu",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             [
                 "doctor_id" => 1,
                 "schedule_time_id" => 1,
-                "hari" => "jumat",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "jumat",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             [
                 "doctor_id" => 1,
                 "schedule_time_id" => 2,
-                "hari" => "jumat",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "jumat",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             // POLI UMUM
@@ -72,49 +72,49 @@ class DoctorScheduleSeeder extends Seeder
             [
                 "doctor_id" => 2,
                 "schedule_time_id" => 4,
-                "hari" => "senin",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "senin",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             [
                 "doctor_id" => 2,
                 "schedule_time_id" => 5,
-                "hari" => "senin",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "senin",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             [
                 "doctor_id" => 2,
                 "schedule_time_id" => 4,
-                "hari" => "rabu",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "rabu",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             [
                 "doctor_id" => 2,
                 "schedule_time_id" => 5,
-                "hari" => "rabu",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "rabu",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             [
                 "doctor_id" => 2,
                 "schedule_time_id" => 4,
-                "hari" => "jumat",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "jumat",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
             
             [
                 "doctor_id" => 2,
                 "schedule_time_id" => 5,
-                "hari" => "jumat",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "jumat",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             // POLI UMUM
@@ -123,23 +123,23 @@ class DoctorScheduleSeeder extends Seeder
             [
                 "doctor_id" => 3,
                 "schedule_time_id" => 3,
-                "hari" => "senin",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "senin",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
             [
                 "doctor_id" => 3,
                 "schedule_time_id" => 3,
-                "hari" => "rabu",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "rabu",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
             [
                 "doctor_id" => 3,
                 "schedule_time_id" => 3,
-                "hari" => "jumat",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "jumat",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             // POLI UMUM
@@ -148,32 +148,32 @@ class DoctorScheduleSeeder extends Seeder
             [
                 "doctor_id" => 4,
                 "schedule_time_id" => 1,
-                "hari" => "selasa",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "selasa",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
             [
                 "doctor_id" => 4,
                 "schedule_time_id" => 2,
-                "hari" => "selasa",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "selasa",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             [
                 "doctor_id" => 4,
                 "schedule_time_id" => 1,
-                "hari" => "kamis",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "kamis",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
       
             [
                 "doctor_id" => 4,
                 "schedule_time_id" => 2,
-                "hari" => "kamis",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "kamis",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             // POLI UMUM
@@ -182,33 +182,33 @@ class DoctorScheduleSeeder extends Seeder
             [
                 "doctor_id" => 5,
                 "schedule_time_id" => 4,
-                "hari" => "selasa",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "selasa",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
       
             [
                 "doctor_id" => 5,
                 "schedule_time_id" => 5,
-                "hari" => "selasa",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "selasa",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             [
                 "doctor_id" => 5,
                 "schedule_time_id" => 4,
-                "hari" => "kamis",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "kamis",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
       
             [
                 "doctor_id" => 5,
                 "schedule_time_id" => 5,
-                "hari" => "kamis",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "kamis",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             // POLI UMUM
@@ -217,16 +217,16 @@ class DoctorScheduleSeeder extends Seeder
             [
                 "doctor_id" => 6,
                 "schedule_time_id" => 3,
-                "hari" => "selasa",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "selasa",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
             [
                 "doctor_id" => 6,
                 "schedule_time_id" => 3,
-                "hari" => "kamis",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "kamis",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
 
             // POLI MATA
@@ -235,48 +235,48 @@ class DoctorScheduleSeeder extends Seeder
             [
                 "doctor_id" => 7,
                 "schedule_time_id" => 1,
-                "hari" => "senin",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "senin",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
             [
                 "doctor_id" => 7,
                 "schedule_time_id" => 2,
-                "hari" => "senin",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "senin",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             [
                 "doctor_id" => 7,
                 "schedule_time_id" => 1,
-                "hari" => "rabu",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "rabu",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             [
                 "doctor_id" => 7,
                 "schedule_time_id" => 2,
-                "hari" => "rabu",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "rabu",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             [
                 "doctor_id" => 7,
                 "schedule_time_id" => 1,
-                "hari" => "jumat",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "jumat",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             [
                 "doctor_id" => 7,
                 "schedule_time_id" => 2,
-                "hari" => "jumat",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "jumat",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
 
             // POLI MATA
@@ -285,49 +285,49 @@ class DoctorScheduleSeeder extends Seeder
             [
                 "doctor_id" => 8,
                 "schedule_time_id" => 4,
-                "hari" => "senin",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "senin",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             [
                 "doctor_id" => 8,
                 "schedule_time_id" => 5,
-                "hari" => "senin",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "senin",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             [
                 "doctor_id" => 8,
                 "schedule_time_id" => 4,
-                "hari" => "rabu",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "rabu",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             [
                 "doctor_id" => 8,
                 "schedule_time_id" => 5,
-                "hari" => "rabu",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "rabu",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             [
                 "doctor_id" => 8,
                 "schedule_time_id" => 4,
-                "hari" => "jumat",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "jumat",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
             
             [
                 "doctor_id" => 8,
                 "schedule_time_id" => 5,
-                "hari" => "jumat",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "jumat",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
 
             // POLI MATA
@@ -336,23 +336,23 @@ class DoctorScheduleSeeder extends Seeder
             [
                 "doctor_id" => 9,
                 "schedule_time_id" => 3,
-                "hari" => "senin",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "senin",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
             [
                 "doctor_id" => 9,
                 "schedule_time_id" => 3,
-                "hari" => "rabu",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "rabu",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
             [
                 "doctor_id" => 9,
                 "schedule_time_id" => 3,
-                "hari" => "jumat",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "jumat",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
 
             // POLI MATA
@@ -361,32 +361,32 @@ class DoctorScheduleSeeder extends Seeder
             [
                 "doctor_id" => 10,
                 "schedule_time_id" => 1,
-                "hari" => "selasa",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "selasa",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
             [
                 "doctor_id" => 10,
                 "schedule_time_id" => 2,
-                "hari" => "selasa",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "selasa",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             [
                 "doctor_id" => 10,
                 "schedule_time_id" => 1,
-                "hari" => "kamis",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "kamis",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
       
             [
                 "doctor_id" => 10,
                 "schedule_time_id" => 2,
-                "hari" => "kamis",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "kamis",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             // POLI MATA
@@ -395,33 +395,33 @@ class DoctorScheduleSeeder extends Seeder
             [
                 "doctor_id" => 11,
                 "schedule_time_id" => 4,
-                "hari" => "selasa",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "selasa",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
       
             [
                 "doctor_id" => 11,
                 "schedule_time_id" => 5,
-                "hari" => "selasa",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "selasa",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             [
                 "doctor_id" => 11,
                 "schedule_time_id" => 4,
-                "hari" => "kamis",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "kamis",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
       
             [
                 "doctor_id" => 11,
                 "schedule_time_id" => 5,
-                "hari" => "kamis",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "kamis",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             // POLI MATA
@@ -430,16 +430,16 @@ class DoctorScheduleSeeder extends Seeder
             [
                 "doctor_id" => 12,
                 "schedule_time_id" => 3,
-                "hari" => "selasa",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "selasa",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
             [
                 "doctor_id" => 12,
                 "schedule_time_id" => 3,
-                "hari" => "kamis",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "kamis",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
 
             // POLI GIGI
@@ -448,48 +448,48 @@ class DoctorScheduleSeeder extends Seeder
             [
                 "doctor_id" => 13,
                 "schedule_time_id" => 1,
-                "hari" => "senin",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "senin",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
             [
                 "doctor_id" => 13,
                 "schedule_time_id" => 2,
-                "hari" => "senin",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "senin",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             [
                 "doctor_id" => 13,
                 "schedule_time_id" => 1,
-                "hari" => "rabu",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "rabu",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             [
                 "doctor_id" => 13,
                 "schedule_time_id" => 2,
-                "hari" => "rabu",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "rabu",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             [
                 "doctor_id" => 13,
                 "schedule_time_id" => 1,
-                "hari" => "jumat",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "jumat",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             [
                 "doctor_id" => 13,
                 "schedule_time_id" => 2,
-                "hari" => "jumat",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "jumat",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
 
             // POLI GIGI
@@ -498,49 +498,49 @@ class DoctorScheduleSeeder extends Seeder
             [
                 "doctor_id" => 14,
                 "schedule_time_id" => 4,
-                "hari" => "senin",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "senin",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             [
                 "doctor_id" => 14,
                 "schedule_time_id" => 5,
-                "hari" => "senin",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "senin",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             [
                 "doctor_id" => 14,
                 "schedule_time_id" => 4,
-                "hari" => "rabu",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "rabu",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             [
                 "doctor_id" => 14,
                 "schedule_time_id" => 5,
-                "hari" => "rabu",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "rabu",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             [
                 "doctor_id" => 14,
                 "schedule_time_id" => 4,
-                "hari" => "jumat",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "jumat",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
             
             [
                 "doctor_id" => 14,
                 "schedule_time_id" => 5,
-                "hari" => "jumat",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "jumat",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
 
             // POLI GIGI
@@ -549,23 +549,23 @@ class DoctorScheduleSeeder extends Seeder
             [
                 "doctor_id" => 15,
                 "schedule_time_id" => 3,
-                "hari" => "senin",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "senin",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
             [
                 "doctor_id" => 15,
                 "schedule_time_id" => 3,
-                "hari" => "rabu",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "rabu",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
             [
                 "doctor_id" => 15,
                 "schedule_time_id" => 3,
-                "hari" => "jumat",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "jumat",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
 
             // POLI GIGI
@@ -574,32 +574,32 @@ class DoctorScheduleSeeder extends Seeder
             [
                 "doctor_id" => 16,
                 "schedule_time_id" => 1,
-                "hari" => "selasa",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "selasa",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
             [
                 "doctor_id" => 16,
                 "schedule_time_id" => 2,
-                "hari" => "selasa",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "selasa",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             [
                 "doctor_id" => 16,
                 "schedule_time_id" => 1,
-                "hari" => "kamis",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "kamis",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
       
             [
                 "doctor_id" => 16,
                 "schedule_time_id" => 2,
-                "hari" => "kamis",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "kamis",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             // POLI GIGI
@@ -608,33 +608,33 @@ class DoctorScheduleSeeder extends Seeder
             [
                 "doctor_id" => 17,
                 "schedule_time_id" => 4,
-                "hari" => "selasa",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "selasa",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
       
             [
                 "doctor_id" => 17,
                 "schedule_time_id" => 5,
-                "hari" => "selasa",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "selasa",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             [
                 "doctor_id" => 17,
                 "schedule_time_id" => 4,
-                "hari" => "kamis",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "kamis",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
       
             [
                 "doctor_id" => 17,
                 "schedule_time_id" => 5,
-                "hari" => "kamis",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "kamis",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
     
             // POLI GIGI
@@ -643,16 +643,16 @@ class DoctorScheduleSeeder extends Seeder
             [
                 "doctor_id" => 18,
                 "schedule_time_id" => 3,
-                "hari" => "selasa",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "selasa",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
             [
                 "doctor_id" => 18,
                 "schedule_time_id" => 3,
-                "hari" => "kamis",
-                "kapasitas_pasien" => 30,
-                "tanggal_berlaku_sampai" => "2024-01-01",
+                "day" => "kamis",
+                "max_patient" => 30,
+                "end_date" => "2024-02-01",
             ],
 
         ];
@@ -661,9 +661,9 @@ class DoctorScheduleSeeder extends Seeder
             DoctorSchedule::create([
                 "doctor_id" => $data['doctor_id'],
                 "schedule_time_id" => $data['schedule_time_id'],
-                "hari" => $data['hari'],
-                "kapasitas_pasien" => $data['kapasitas_pasien'],
-                "tanggal_berlaku_sampai" => $data['tanggal_berlaku_sampai'],
+                "day" => $data['day'],
+                "max_patient" => $data['max_patient'],
+                "end_date" => $data['end_date'],
             ]);
         }
         // Doctor GIGI
